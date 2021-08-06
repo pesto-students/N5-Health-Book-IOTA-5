@@ -1,0 +1,512 @@
+/* header */
+
+.header_main {
+  --themeColor: #effff6;
+  --color: #4a8afe;
+  --headerHeight: 56px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  height: var(--headerHeight);
+  padding: 0 10px;
+  margin: 0;
+}
+
+.header_fix {
+  background: none;
+}
+
+.header_scroll {
+  background: white;
+}
+
+.header_left {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+}
+
+.header_right {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+}
+
+.header_links {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  color: #1c2c40;
+  margin: 0 8px;
+}
+.header_links:hover {
+  color: var(--color);
+}
+
+.header_menu_icon {
+  display: none;
+  color: var(--color);
+  font-weight: 600;
+  font-size: 24px;
+  padding: 10px;
+}
+
+.header_search {
+  margin-left: 24px;
+  --height: 40px;
+  --borderRad: 6px;
+  height: var(--height);
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  border: 1px solid #c0ccda;
+  border-radius: var(--borderRad);
+}
+
+.header_search i {
+  font-size: 20px;
+  color: #777;
+}
+
+.header_search input {
+  flex: 1;
+  height: 40px;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  padding: 10px;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  color: #1c2c40;
+}
+
+.btn__login {
+  border: 1px solid var(--color);
+  color: var(--color);
+  background-color: transparent;
+  border-radius: 6px;
+  box-sizing: border-box;
+  width: 73px;
+  height: 36px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  transition: all 0.2s;
+  margin: 0 8px;
+}
+
+.btn__signup {
+  border: none;
+  color: white;
+  background-color: var(--color);
+  border-radius: 6px;
+  box-sizing: border-box;
+  width: 82px;
+  height: 36px;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  transition: all 0.2s;
+  margin: 0 8px;
+}
+
+.btn__login:hover,
+.btn__signup:hover {
+  transform: scale(1.05);
+}
+
+.NavBar {
+  display: flex;
+  height: 44px;
+  background-color: white;
+}
+
+@media screen and (max-width: 840px) {
+  .header_main {
+    position: relative;
+    justify-content: space-between;
+  }
+  .header_menu_icon {
+    display: block;
+    top: 0;
+    right: 0;
+    margin-bottom: 0px;
+  }
+
+  .header_right {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100vh - var(--headerHeight));
+    position: absolute;
+    top: var(--headerHeight);
+    left: -200%;
+    opacity: 1;
+    transition: all 1s ease;
+    padding: 0;
+    margin: 0;
+  }
+
+  .header_right.headerFix_active {
+    background: var(--themeColor);
+    left: 0;
+    opacity: 1;
+    transition: all 0.5s ease;
+    z-index: 1;
+  }
+
+  .header_right.header_active {
+    background-color: white;
+    left: 0;
+    opacity: 1;
+    transition: all 0.5s ease;
+    z-index: 1;
+  }
+
+  .header_links {
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    margin: auto;
+    display: table;
+  }
+
+  .hover:hover {
+    background-color: aliceblue;
+    border-radius: 0;
+  }
+
+  .btn__login,
+  .btn__signup {
+    margin-top: 20px;
+  }
+  .NavBar {
+    display: none;
+  }
+}
+
+/* search result section */
+
+.searchLeft_heading {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  text-transform: uppercase;
+  color: #8391a7;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 16px 0px;
+}
+
+.searchLeft_label {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  color: #3c4858;
+  margin: 0px 8px;
+}
+
+.searchLeft_showMore {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  color: #007aff;
+}
+
+/* logged in header */
+
+.message_icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+}
+
+.avatar_round {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+}
+
+.header_links2 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  color: #5a6679;
+  margin: 0px 10px;
+}
+
+.active {
+  padding-bottom: 10px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  border-bottom: 2px solid #058286;
+  color: #058286;
+}
+
+/* my profile */
+
+.myProfile_card {
+  background-color: white;
+  border: 1px solid lightgray;
+  padding: 24px 12px;
+  border-radius: 6px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.myProfile_card h6 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  text-transform: uppercase;
+  color: #5a6679;
+}
+
+.myProfile_card p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  color: #1c2c40;
+  margin: 0;
+}
+
+.myProfile_card button {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+/* my orders */
+
+.myOrder_card {
+  background: #ffffff;
+  border: 1px solid #e5e9f2;
+  box-sizing: border-box;
+  border-radius: 8px;
+  margin: 16px 0px;
+  padding: 20px 20px;
+}
+
+.myOrder_card h3 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  color: #1c2c40;
+  margin: 0px 8px;
+}
+
+.myOrder_stats {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  border-bottom: 1px solid #e5e9f2;
+  padding: 16px 0;
+}
+
+.myOrder_stat {
+  border-right: 1px solid #e5e9f2;
+}
+
+.priceMoney {
+  padding-right: 16px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  color: #1c2c40;
+  margin: 0;
+}
+
+.myOrder_stats h5,
+.myOrder_review h5 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  text-transform: uppercase;
+  color: #5a6679;
+  margin-bottom: 4px;
+}
+
+.myOrder_review {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  padding-top: 16px;
+}
+
+.myOrder_stats p,
+.myOrder_review p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  color: #1c2c40;
+  order: 1;
+  flex-grow: 0;
+  margin: 0;
+}
+
+.myOrder_review_star {
+  width: 42px;
+  height: 24px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  margin: 4px 0px;
+  color: white;
+  background: #05a660;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.myOrderMyProfile {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 32px;
+  color: #1c2c40;
+}
+
+.modal-title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  color: #1c2c40;
+}
+
+.modal-body > input {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  color: #1c2c40;
+}
+
+.modal-body > label {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  color: #3c4858;
+}
+
+/* authentication */
+
+.authRight {
+  max-width: 480px;
+  margin: auto;
+}
+
+@media screen and (max-width: 580px) {
+  .authLeft {
+    display: none;
+  }
+
+  .authRight {
+    width: auto;
+    padding-top: 40px;
+  }
+}
+
+.auth_title {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 32px;
+  line-height: 42px;
+  color: #1c2c40;
+  margin: 24px 0px;
+}
+
+.auth_terms{
+  color: #007aff;
+}
+
+.auth_terms:hover{
+  color: blue;
+}
+
+
+.bi-facebook{
+  font-size: 21px;
+}
+
+.btn_auth{
+  width: 230px;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content:space-evenly;
+  margin: 10px 0;
+}
+
+
+/* modal */
+.modal_wrapper{
+  /* position: absolute; */
+  background: white;
+  width: 80%;
+  max-width: 600px;
+  margin-left:auto;
+  margin-right:auto;
+  transition: all 0.5s;
+  border-radius: 6px;
+}
+
+/* @media screen and (max-width:) {
+  
+} */
+
+.modal_drop{
+  background:rgba(65, 61, 61, 0.692);
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 1.3s;
+}
+
+
+.thereisnoone{
+  /* display: none;
+  position: fixed; */
+  background-color: rgba(65, 61, 61, 0.692);
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+}

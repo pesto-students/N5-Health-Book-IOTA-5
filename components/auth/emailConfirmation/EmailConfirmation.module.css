@@ -1,0 +1,42 @@
+.EmailConfirmation {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px;
+  margin: 10px;
+  width: 512px;
+  height: 365px;
+  background: #ffffff;
+  border: 1px solid #e5e9f2;
+  box-sizing: border-box;
+  border-radius: 8px;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.EmailConfirmation h5 {
+  max-width: 448px;
+  font-size: 16px;
+  line-height: 28px;
+  color: #1c2c40;
+  border-bottom: 1px solid #e5e9f2 ;
+  padding: 32px 8px;
+
+}
+
+.EmailConfirmation h6{
+    /* width: 219px; */
+/* height: 28px; */
+font-size: 16px;
+line-height: 28px;
+margin: 0px 8px;
+
+}
+
+.EmailConfirmation h6 a{
+    font-size: 16px;
+line-height: 24px;
+color: #058286;
+margin: 0px 8px;
+}

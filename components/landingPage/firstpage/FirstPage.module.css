@@ -1,0 +1,129 @@
+.home {
+  --themeColor: #e5ecf5;
+  --color: #e5ecf5;
+  --font: Museo Sans;
+  min-height: 100vh;
+  /* height: auto !important; */
+  background-color: var(--themeColor) !important ;
+  padding-bottom: 40px;
+}
+
+@media screen and (max-width: 991px) {
+  .left {
+    /* padding-top: 110px; */
+    margin-top: 110px;
+  }
+}
+
+.heading_h1 {
+  max-width: 320px !important;
+  font-size: 56px;
+  line-height: 70px;
+  font-weight: 900 ;
+  font-style: normal;
+  color: #1c2c40;
+  letter-spacing: -1px;
+  margin: 50px auto;
+}
+
+.box {
+  --height: 52px;
+  --borderRad: 6px;
+  width: 95%;
+  height: var(--height);
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  /* padding: 10px 0px 10px 10px; */
+  border: 2px solid rgb(5, 130, 134) !important;
+  border-radius: var(--borderRad);
+}
+
+.box > i {
+  font-size: 20px;
+  color: #777;
+}
+
+.box > input {
+  flex: 1;
+  height: 40px;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  padding: 10px;
+}
+
+.box > button {
+  width: 116px;
+  height: var(--height);
+  right: 0;
+  color: white;
+  background-color: var(--color);
+  border: none;
+  border-top-right-radius: var(--borderRad);
+  border-bottom-right-radius: var(--borderRad);
+}
+
+.box > button:hover {
+  box-shadow: 0 4px 5px 0 rgba(5, 130, 134, 0.24);
+}
+
+.option {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: row;
+}
+
+.option > button {
+  display: flex;
+justify-content: center;
+align-items: center;
+  height: 28px;
+  color: var(--color);
+  background-color: var(--themeColor);
+  border: 1px solid var(--color);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0px 4px;
+  transition: all 0.2s;
+}
+
+.option > button:hover{
+  /* transform: scale(1.2); */
+  box-shadow: 2px 2px 2px 0px #888888;
+}
+
+.options__color {
+  height: 32px !important;
+  left: 8px !important;
+  font-family: var(--font) !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+  flex: none !important;
+  order: 0;
+  flex-grow: 0;
+  margin: 28px 10px !important;
+  color: var(--color) !important;
+}
+
+/* .img__img{
+    background: url(/FlowCreative.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 90%;
+    height: 90%;
+    margin-bottom: 40px;
+  } */
+
+.img__responsive {
+  width: 100%;
+  /* max-width: 450px; */
+  height: auto;
+}
