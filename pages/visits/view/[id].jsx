@@ -3,7 +3,7 @@ import moment from "moment";
 import {firebaseService} from '../../../services/firebase-db-service';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
-const ViewVisit = ({visit}) => { 
+const ViewVisit = (visit) => { 
    console.log(visit);
     
   
@@ -194,12 +194,12 @@ const ViewVisit = ({visit}) => {
   
   
   ViewVisit.layout = "auth";
-  export async function getServerSideProps({ params }) {
+  export async function getServerSideProps ({ params }) {
     debugger;
     var fb = new firebaseService("Visits");
     let visit = {};
     if(params.id){
-    fb.getById(params.id).then((res)=>{
+    await fb.getById(params.id).then((res)=>{
        visit = res;
        console.log(visit);
     });
