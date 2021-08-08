@@ -7,6 +7,8 @@ import { signin,authenticate,isAuth,loginWithGoogle,loginWithFacebook } from '..
 import Router from 'next/router';
 import {signInWithEmailAndPassword} from '../../../services/firebase-auth-service';
 
+
+
 export async function getStaticProps() {
 
     // ...
@@ -42,42 +44,36 @@ function Login() {
     const handleSubmit = (event) => {
         event.preventDefault();
         setValues({ ...values, loading: true, error: false });
-        const user = { eMail, password, signUpVia: "Email", websiteId:"1" };
+        const user = { eMail, password, signUpVia: "Email" };
         signInWithEmailAndPassword(user.eMail, user.password).then((response)=>{
-            debugger;
-            authenticate({token : response.user.uid, user: response.user},() => {
-                console.log(isAuth(),"iS Auth")
+            // console.log(response)
+            // ;
+            
+            authenticate({user: response.user,loginVia:"Email"},() => {
+                // console.log(isAuth(),"iS Auth")
                 if (isAuth()) {
                     console.log("IS AUTH")
-                    Router.push(`/ProviderSearch`);
+                    Router.push(`/dashboard`);
                 }
             });
             
         }).catch((error)=>{
-            setValues({ ...values, error: error.message, loading: false });
+            console.log(error)
+            let message
+            if(error.code && error.code =='auth/user-not-found'){
+                message ='User dose not exist'
+            }else if(error.code && error.code =='auth/wrong-password'){
+                message ='Invalid credintials'
+            }
+            setValues({ ...values, error: message ? message :error.message, loading: false });
         });
-        // signin(user).then(data => {
-        //     if (data.error) {
-        //         setValues({ ...values, error: data.error, loading: false });
-        //     } else {
-        //         setValues({ loading: false });
-        //         console.log(data,"Error")
-        //         if(!data.success){
-        //             setValues({ error: data.message });
-        //         }
-        //         authenticate(data, () => {
-        //             if (isAuth()) {
-        //                 Router.push(`/ProviderSearch`);
-        //             }
-        //         });
-        //     }
-        // });
+
 
     }
 
     const responseGoogle = (response) => {
-        debugger;
-        // console.log(response);
+        console.log(response);
+        // ;
         
         const tokenId = response.tokenId;       
 
@@ -85,54 +81,37 @@ function Login() {
             const oAuthId = response.googleId;
             let eMail =response.profileObj.email
             const user = { oAuthId,eMail ,signUpVia: "Google"};
-            authenticate({token : tokenId, user: user},() => {
+            authenticate({user: user,loginVia:"Google"},() => {
                 console.log(isAuth(),"iS Auth")
                 if (isAuth()) {
                     console.log("IS AUTH")
-                    Router.push(`/ProviderSearch`);
+                    Router.push(`/dashboard`);
                 }
             });
             
-            } else {
-                
-                    setValues({ error: "Error on Google Login." });
-                              
+            } else {                
+                    setValues({ error: "Error on Google Login." });                              
             }
         }
 
-        // loginWithGoogle(user).then(data => {
-        //     if (data.error) {
-        //         console.log(data.error);
-        //     } else {
-        //         if(!data.success){
-        //             setValues({ error: data.message });
-        //         }
-        //         authenticate(data, () => {
-        //             console.log(isAuth(),"iS Auth")
-        //             if (isAuth()) {
-        //                 console.log("IS AUTH")
-        //                 Router.push(`/ProviderSearch`);
-        //             }
-        //         });
-        //     }
-        // });
+
     
 
     const responseFacebook = (response) => {
-        debugger;
         console.log(response);
-        const tokenId = response.accessToken;
+        // ;
+        // const tokenId = response.accessToken;
         
 
         if (tokenId) {
         const oAuthId = response.userID;
         let eMail = response.email
         const user = { oAuthId,eMail ,signUpVia: "Facebook",expTime: response.data_access_expiration_time};
-            authenticate({token : tokenId, user: user},() => {
+            authenticate({user: user,loginVia:"Facebook"},() => {
                 console.log(isAuth(),"iS Auth")
                 if (isAuth()) {
                     console.log("IS AUTH")
-                    Router.push(`/ProviderSearch`);
+                    Router.push(`/dashboard`);
                 }
             });
             
@@ -141,22 +120,6 @@ function Login() {
             }
         }
 
-        // loginWithFacebook(user).then(data => {
-        //     if (data.error) {
-        //         console.log(data.error);
-        //     } else {
-        //         if(!data.success){
-        //             setValues({ error: data.message });
-        //         }
-        //         authenticate(data, () => {
-        //             console.log(isAuth(),"iS Auth")
-        //             if (isAuth()) {
-        //                 console.log("IS AUTH")
-        //                 Router.push(`/ProviderSearch`);
-        //             }
-        //         });
-        //     }
-        // });
     
 
     const Loader = () => {
