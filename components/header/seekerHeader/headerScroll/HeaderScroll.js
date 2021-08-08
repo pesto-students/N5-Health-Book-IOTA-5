@@ -37,7 +37,6 @@ function HeaderScroll() {
 
             {logged && (
                 <ul className={clicked ? 'header_right header_active' : 'header_right'}>
-                    <li className="header_links2"><Link href="/chat" ><button className="message_icon"><img src="/images/messages.png" /></button></Link></li>
                     <li className="header_links2"><p className="m-0">{logged.name}</p></li>
                     {/* <li className="header_links2"><i className="bi bi-chevron-down"></i></li> */}
                     <li><Link href="/auth/signup" ><button className="btn__signup" onClick={handleLogout}>Logout</button></Link></li>

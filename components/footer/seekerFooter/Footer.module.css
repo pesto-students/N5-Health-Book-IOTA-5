@@ -21,8 +21,8 @@
   }
   
   .footer img {
-    width: 101px;
-    height: 28px;
+    width: auto;
+    height: 25px;
     padding: 0;
     margin-bottom: 40px;
   }

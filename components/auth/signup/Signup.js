@@ -11,6 +11,11 @@ import {createUserWithEmailAndPassword} from '../../../services/firebase-auth-se
 
 function Signup() {
 
+    useEffect(() => {
+        isAuth() && Router.push(`/`);
+    }, []);
+
+
     const [values, setValues] = useState({
         fullName: '',
         eMail: '',
@@ -26,6 +31,31 @@ function Signup() {
     useEffect(() => {
         console.log(values,"values")
     }, []);
+
+    const [success,setSuccess]=useState(false)
+    
+    const [timerdata,setTimer]=useState(10)
+    const calculateTimeLeft = () => { 
+        if(!success) return 0        
+        return timerdata
+    };
+    
+    const callSuccess=()=>{       
+        setSuccess(true)     
+    } 
+ 
+
+    useEffect(() => {
+        if(success){
+            if(!timerdata){
+                Router.push('/auth/login')
+            }
+            setTimeout(() => {
+                setTimer(calculateTimeLeft()-1)
+              }, 1000);
+        }
+      });
+    
 
     const handleChange =  (event) => {     
         console.log(event.target.value,event.target.name)   
@@ -52,26 +82,14 @@ function Signup() {
     };
     let { fullName,eMail, password,mobileNum,checkBox, error, loading, message, showForm } = values;
     const handleSubmit = (event) => {
-        debugger;
-        event.preventDefault()
-
-        // let data=[]
-
-        // try {
-        //    (async ()=>{
-        //     data= await axios('http://localhost')
-
-        //     data.data[0].feeddocs.map((item,index)=>{
-        //         console.log(item.title)
-        //     })
-
-        //    })()
-        // } catch (error) {
-        //     console.log(error)
-        // }
-        // console.log(data)
-        // return null
         
+        event.preventDefault()
+        if(fullName ==''){
+            
+        }
+        if(!fullName || !eMail||!password||checkBox){
+            setValues({ ...values, error: "Error", loading: false });
+        }
         setValues({...values,loading: true, error: false });
         const user = { uid: null, name:fullName,eMail,hashedPassword:password,signUpVia: "Email",pptcAccepted:checkBox,isActive:true,roleId:1 };
         console.log(user,"user");
@@ -79,24 +97,14 @@ function Signup() {
             createUserWithEmailAndPassword(user.eMail,user.hashedPassword).then((response) => {                
                 var fbService = new firebaseService("Users");
                 user.uid = response.user.uid;
-                fbService.create(user);
-                Router.push(`/auth/login`);
+                let signUp=fbService.create(user)
+                // console.log(signUp,"signUp....fb")
+                callSuccess()
                })
                .catch((error) => {                 
                    setValues({ ...values, error: error.message, loading: false });
                });
 
-        // signup(user).then(data => {
-        //     if (data.error) {
-        //         setValues({ ...values, error: data.error, loading: false });
-        //     } else {
-        //         setValues({ loading: false });
-        //         if(data.success==true){
-        //             alert("Signup Success ... Redirecting to Login")
-        //         }             
-        //         Router.push(`/auth/login`);
-        //     }
-        // });
 
     }
     
@@ -108,18 +116,38 @@ function Signup() {
         let name=response.profileObj.name
         
         const user = { name,oAuthId,eMail ,signUpVia:"Google",pptcAccepted:checkBox,isActive:true,roleId:1};
-
-        signupWithGoogle(user).then(data => {
-            if (data.error) {
-                console.log(data.error);
-            } else {
-                Router.push(`/auth/login`);
+        console.log(user,"user")
+        // debugger
+        function makePasswd() {
+            var passwd = '';
+            var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            for (i=1;i<8;i++) {
+              var c = Math.floor(Math.random()*chars.length + 1);
+              passwd += chars.charAt(c)
             }
-        });
+          
+            return passwd;
+          
+          }
+
+        createUserWithEmailAndPassword(user.eMail,makePasswd()).then((response) => {                
+            var fbService = new firebaseService("Users");
+            user.uid = response.user.uid;
+            let signUp=fbService.create(user)
+            console.log(signUp,"signUpsignUpsignUpsignUpsignUp")
+            // Router.push(`/auth/login`);
+            callSuccess()
+           })
+           .catch((error) => {                 
+               setValues({ ...values, error: error.message, loading: false });
+           });
     }
 
     const clearError =()=>{
         setValues({ error: '' });
+    }
+    const Loader = () => {
+        return (<span className="loader"></span>)
     }
 
 
@@ -150,38 +178,40 @@ function Signup() {
                     <div className="container h-100">
                         <p className="text-end p-4 " style={{'position':'absolute', 'top':'0', 'right':'0'}}>Already an account? <Link href="/auth/login">Log in</Link></p>
                         <div className="">
-                            <div className="authRight">
+                            <div  className={`authRight ${success ? "hideAll": ""}`}>
+                                
+
                                 <h1 className="auth_title">Create Account</h1>
                                 <form onSubmit={handleSubmit}>
                                     <div className="mb-3">
                                         <label htmlFor="fullName" className="form-label searchLeft_label m-0">Full Name</label>
-                                        <input type="text" className="bg-transparent form-control" name="fullName" value={fullName}
+                                        <input type="text" className="bg-transparent form-control" name="fullName" required value={fullName}
                                             onChange={handleChange}  />
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="email" className="form-label searchLeft_label m-0">Email address</label>
-                                        <input type="email" className="bg-transparent form-control" name="eMail" value={values.eMail}
+                                        <input type="email" className="bg-transparent form-control" name="eMail" required value={values.eMail}
                                             onChange={handleChange}  aria-describedby="emailHelp" />
                                             <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="mobileNum" className="form-label searchLeft_label m-0">Mobile Number</label>
-                                        <input type="num" className="bg-transparent form-control" name="mobileNum" value={values.mobileNum}
+                                        <input type="num" className="bg-transparent form-control" required name="mobileNum" value={values.mobileNum}
                                             onChange={handleChange}  />
                                     </div>
                                     <div className="mb-3">
                                         <div className="d-flex justify-content-between">
                                             <label htmlFor="password" className="form-label searchLeft_label m-0">Password</label>
                                         </div>
-                                        <input type="password" className="bg-transparent form-control" name="password" value={values.password}
+                                        <input type="password" className="bg-transparent form-control" required name="password" value={values.password}
                                             onChange={handleChange}  />
                                     </div>
                                     <div className="mb-3 form-check">
                                         <input 
-                                            onClick={handleCheckBox} type="checkbox" className="form-check-input" name="checkBox"  checked={values.checkBox?"true":'' } />
+                                            onClick={handleCheckBox} type="checkbox" required className="form-check-input" name="checkBox"  checked={values.checkBox ? "true":'' } />
                                         <label className="form-check-label searchLeft_label m-0" htmlFor="checkBox">I agree to the <a className="auth_terms" href="/terms-of-service">Terms of Service</a> and <a className="auth_terms" href="privacy-policy">Privacy Policy</a></label>
                                     </div>
-                                    <button type="submit" className="btn_theme btn_medium" style={{ 'width': '100%', 'height':'44px' , 'margin': '10px 0px' }}>Submit</button>
+                                    <button type="submit" className="btn_theme btn_medium" style={{ 'width': '100%', 'height':'44px' , 'margin': '10px 0px' }}>Submit {loading ? <Loader /> : null}</button>
                                 </form>
                                 <p className="text-center" >OR</p>
                                 <div className="d-flex justify-content-between ">
@@ -221,7 +251,7 @@ function Signup() {
 
 
                                         {/* <button className="btn_theme_outline btn_medium " style={{ 'width': '48%', 'height': '44px', 'margin': '10px 0px' }}> Log in with Facebook</button> */}
-                                    </div>
+                                </div>
                                     {error &&<div className="d-flex justify-content-between ">
                                         <div className="alert-Box flex-container">
                                         <div><i className="icon-error fa fa-exclamation-circle"></i></div>
@@ -230,6 +260,16 @@ function Signup() {
                                         </div>
 
                                     </div>}
+                            </div>
+                            <div  className={`authRight ${success ? "": "hideAll"}`}>
+                                
+
+                                <h1 className="auth_title">Congrats... your account has been successfully created.</h1>
+
+                                <img src={'/success.png'} width={400} />
+                                <p> You will be redirected to login page in {timerdata} sec.</p>                              
+                                
+                                   
                             </div>
                         </div>
                     </div>

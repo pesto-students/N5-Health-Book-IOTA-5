@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch';
 // import { API } from '../config';
 import cookie from 'js-cookie';
 const API= process.env.API
+import { firebaseService } from '../services/firebase-db-service'
 
 export const signup = user => {
     return fetch(`${API}/api/user/signup`, {
@@ -20,7 +21,7 @@ export const signup = user => {
 
 export const signin = user => {
     console.log(process.env.API)
-    return fetch(`${API}/api/auth/login`, {
+    return fetch(`${API}/api/auth/getUserByUid`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -119,7 +120,26 @@ export const removeLocalStorage = key => {
 };
 // autheticate user by pass data to cookie and localstorage
 export const authenticate = (data, next) => {
-    setLocalStorage('token', data.token);
+
+    var fb = new firebaseService("Users");
+    console.log(data,"data.uid.......")
+    let {user}=data
+    if(data && data.loginVia=="Email"){
+        fb.getUserByUId(data.user.uid).then(res=>{
+            console.log(res[0].data.rollId,"user role ID")
+            user.rollId=res[0].data.rollId
+        })
+    }
+
+    if(data &&data.loginVia && data.loginVia=="Google" ||data.loginVia=="Google"){
+        fb.getUserByEmail(data.user.eMail).then(res=>{
+            console.log(res[0].data.roleId,"RESFROM FB")
+            user.rollId=res[0].data.rollId
+        })
+    } 
+
+
+    setLocalStorage('token', "dadsdasdas");
     setLocalStorage('user', data.user);
     next();
 };
