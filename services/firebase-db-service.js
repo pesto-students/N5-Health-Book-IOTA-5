@@ -71,7 +71,6 @@ export class firebaseService {
 getUserByUId = (uid) => new Promise((resolve,reject)=>{
   dbRef.child(this.name).once('value', snapshot => {  
     if (snapshot.val() != null) {  
-      ;
       let items = snapshot.val();
       
       let newState = [];

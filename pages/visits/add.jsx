@@ -9,7 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 class AddVisit extends React.Component {
   constructor(props){
     super(props);
-    this.state = {visitNo: ""};
+    this.state = {visitNo: "", doctorUid:"",patientUid:""};
   }
   static async getInitialProps(ctx) {
 
@@ -17,7 +17,7 @@ class AddVisit extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({visitNo: this.getRandomNo()})
+    this.setState({visitNo: this.getRandomNo()});    
    }
 
   getRandomNo = () =>{
@@ -48,10 +48,12 @@ class AddVisit extends React.Component {
   });
 
   submitForm = (values) => {
+    debugger;
+   // let dvalues = {firstName:"Prachi",lastName:"Patel",mobile:"7854126598", email:"prachip@gmail.com",degree:"M.B.B.S", password:"123456"}
     var fb = new firebaseService("Visits");
-    values.dob = values.dob.toString();
-    fb.create(values);
-    console.log(values);
+    values.visitTime = values.visitTime.toString();
+    fb.create(values);  
+    // console.log(values);
     };
   
 
@@ -76,6 +78,7 @@ class AddVisit extends React.Component {
           setFieldValue
         } = formik;
         return (
+          <div className="container"> 
       <div>
         <h1 style={{ color: '#2362AD' }}>Visit</h1>
 
@@ -209,8 +212,8 @@ class AddVisit extends React.Component {
           <div class="col-md-12 text-center">
             <button type="submit" style={{ width: '300px' }} class="btn btn-primary btn-block">Add</button>
           </div>
-          <p>{JSON.stringify(errors)}</p>
         </Form>
+      </div>
       </div>
         );
       }}
