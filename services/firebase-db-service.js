@@ -68,6 +68,29 @@ export class firebaseService {
   })  
 });
 
+getUserByUId = (uid) => new Promise((resolve,reject)=>{
+  dbRef.child(this.name).once('value', snapshot => {  
+    if (snapshot.val() != null) {  
+      debugger;
+      let items = snapshot.val();
+      
+      let newState = [];
+      for (let item in items) {
+        if(items[item].uid == uid){
+        newState.push({
+          id:item,
+          data:items[item]
+        });
+      }
+      }
+    resolve(newState);
+        
+    }  else{
+      resolve([]);
+    }
+})  
+});
+
     
 
   create = (entity)=>{
