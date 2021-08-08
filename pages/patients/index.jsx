@@ -84,14 +84,14 @@ Visited Dr. {value.data.doctor}
 </Typography>
   <Typography className="vertical-timeline-element-subtitle" variant="h5" component="h2">
   Complaint: {value.data.complaint}
-          </Typography>
+  </Typography>
   
   <Typography variant="h5" component="p">
   Note: {value.data.note}
   </Typography> 
   
   <Typography gutterBottom>
-  <Link href="/visits/add"><a>Go to visit</a></Link>
+  <Link href={`/visits/view/${value.id}`}><a>Go to visit</a></Link>
   </Typography>
   <Typography  gutterBottom variant="subtitle2" component="h2">
     {moment(value.data.visitTime).format("DD.MMM.yyyy hh:mm a")}

@@ -1,34 +1,24 @@
 import React from 'react';
 import moment from "moment";
+import {firebaseService} from '../../../services/firebase-db-service';
+import { Formik, Form, Field, ErrorMessage } from "formik";
 
-
-class ViewVisit extends React.Component {
-    constructor(props){
-      super(props);
-    }
-
-    static async getInitialProps(ctx) {
-  
-      return { stars: "" }
-    }
-  
-    componentDidMount() {
-       
-     } 
+const ViewVisit = ({visit}) => { 
+   console.log(visit);
     
   
-    initialValues = {
-      visitNo: this.props.visitNo,
-      doctor: this.props.doctor,
-      patient: this.props.patient,
-      visitTime: moment(this.props.visitTime).format("dd/MM/yyyy hh:mm a"),
-      complaint:this.props.complaint,
-      allergies:this.props.allergies,
-      medications:this.props.medications,
-      temperature:this.props.temperature,
-      note:this.props.note,
-      reports:this.props.reports,
-      weight: this.props.weight
+     const initialValues = {
+      visitNo: "",
+      doctor: "",
+      patient: "",
+      visitTime: new Date(),
+      complaint:"",
+      allergies:"",
+      medications:"",
+      temperature:"",
+      note:"",
+      reports:"",
+      weight: ""
     };
   
     // VisitSchema = Yup.object().shape({
@@ -50,11 +40,11 @@ class ViewVisit extends React.Component {
     //   };
     
   
-    render() {
-       const{visitNo} = this.state;
+    
       return (
         <Formik
-        initialValues={this.initialValues}
+        enableReinitialize={true} 
+        initialValues={initialValues}
         >
   {(formik) => {
           const {
@@ -71,7 +61,7 @@ class ViewVisit extends React.Component {
           return (
             <div className="container"> 
         <div>
-          <h1 style={{ color: '#2362AD' }}>Visit</h1>
+          <h1 style={{ color: '#2362AD' }}>Visit {visit.doctor}</h1>
   
           <Form class="row g-3">
           <div class="row g-3">
@@ -80,12 +70,11 @@ class ViewVisit extends React.Component {
               <label for="visitNo" class="form-label">Visit#</label>
                 <Field
                     type="text"
-                    name="visitNo"
-                    id="visitNo"
+                    name="visitTime"
+                    id="visitTime"
                     className="form-control"
                     disabled={true}
                   />
-                  <ErrorMessage name="visitNo" component="span" className="error" />
               </div>
           </div>
             <div class="row g-3">
@@ -97,7 +86,6 @@ class ViewVisit extends React.Component {
                     id="doctor"
                     className="form-control"
                   />
-                  <ErrorMessage name="doctor" component="span" className="error" />
               </div>
               <div class="col-md-6">
                 <label for="inputPassword4" class="form-label">Patient</label>
@@ -107,21 +95,18 @@ class ViewVisit extends React.Component {
                     id="patient"
                     className="form-control"
                   />
-                  <ErrorMessage name="patient" component="span" className="error" />
               </div>
             </div>
             <div class="row g-3">
               <div class="col-md-6">
                 <label for="inputEmail4" class="form-label">Date & Time</label>
                 <div className="customDatePickerWidth">
-                <DatePicker  
-                className="form-control"              
-                  selected={values.visitTime}
-                  onChange={dt => setFieldValue('visitTime', dt)}               
-                  showTimeSelect
-                  dateFormat="Pp"              
-                  style={{width:'100%'}}
-                />
+                <Field
+                    type="text"
+                    name="patient"
+                    id="patient"
+                    className="form-control"
+                  />
                 </div>
               </div>
               <div class="col-md-6">
@@ -132,7 +117,6 @@ class ViewVisit extends React.Component {
                     id="complaint"
                     className="form-control"
                   />
-                  <ErrorMessage name="complaint" component="span" className="error" />
               </div>
             </div>
             <div class="row g-3">
@@ -144,7 +128,6 @@ class ViewVisit extends React.Component {
                     id="allergies"
                     className="form-control"
                   />
-                  {/* <ErrorMessage name="allergies" component="span" className="error" /> */}
               </div>
               <div class="col-md-6">
                 <label for="inputPassword4" class="form-label">Temperature</label>
@@ -154,7 +137,6 @@ class ViewVisit extends React.Component {
                     id="temperature"
                     className="form-control"
                   />
-                  {/* <ErrorMessage name="temperature" component="span" className="error" /> */}
               </div>
             </div>
             <div class="row g-3">
@@ -166,16 +148,15 @@ class ViewVisit extends React.Component {
                     id="weight"
                     className="form-control"
                   />
-                  {/* <ErrorMessage name="weight" component="span" className="error" /> */}
               </div>
               <div class="col-md-6">
                 <label for="inputPassword4" class="form-label">Reports</label>
-                <Field as="select" name="reports" class="form-select">
-                  <option value="" selected>Choose...</option>
-                  <option value="Blood Report">Blood Report</option>
-                  <option value="Himoglobin Report">Himoglobin Report</option>
-                  <option value="RTPCR">RTPCR</option>                
-                </Field>
+                <Field
+                    type="number"
+                    name="reports"
+                    id="reports"
+                    className="form-control"
+                  />
               </div>
             </div>
             <div class="row g-3">
@@ -187,7 +168,6 @@ class ViewVisit extends React.Component {
                     id="medications"
                     className="form-control"
                   />
-                  <ErrorMessage name="medications" component="span" className="error" />
               </div>
               <div class="col-md-6">
                 <label for="inputPassword4" class="form-label">Note</label>
@@ -197,7 +177,6 @@ class ViewVisit extends React.Component {
                     id="note"
                     className="form-control"
                   />
-                  <ErrorMessage name="note" component="span" className="error" />
               </div>
             </div>
             <div class="col-md-12 text-center">
@@ -210,11 +189,38 @@ class ViewVisit extends React.Component {
         }}
         </Formik>
       );
-    }
   }
   
   
   
   ViewVisit.layout = "auth";
+  export async function getServerSideProps({ params }) {
+    debugger;
+    var fb = new firebaseService("Visits");
+    let visit = {};
+    if(params.id){
+    fb.getById(params.id).then((res)=>{
+       visit = res;
+       console.log(visit);
+    });
+    }
+    return { props: {visit}}
+  }
+//   export async function getServerSideProps({ params }) {
+   
+//     var fb = new firebaseService("Visits");
+//     const visits = {};
+//     if(params.id){
+//     fb.getById(params.id).then((res)=>{
+     
+//         visits = res;
+//         console.log(visits);
+//     });
+//     }
+    
+//     return {
+//        props: {visits }
+//     }
+// }
   
   export default ViewVisit;
