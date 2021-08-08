@@ -130,7 +130,7 @@
 
 .NavBar {
   display: flex;
-  height: 44px;
+  /* height: 44px; */
   background-color: white;
 }
 
