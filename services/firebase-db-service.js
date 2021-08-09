@@ -90,6 +90,54 @@ getUserByUId = (uid) => new Promise((resolve,reject)=>{
 })  
 });
 
+getPatientVisitsByUId = (uid) => new Promise((resolve,reject)=>{
+  dbRef.child(this.name).once('value', snapshot => {  
+    if (snapshot.val() != null) {  
+      let items = snapshot.val();
+      
+      let newState = [];
+      for (let item in items) {        
+        if(items[item].patientUid == uid){
+        newState.push({
+          id:item,
+          data:items[item]
+        });
+      }
+      }
+    resolve(newState);
+        
+    }  else{
+      resolve([]);
+    }
+})  
+});
+
+
+getPatientComplaints = (uid) => new Promise((resolve,reject)=>{
+  dbRef.child(this.name).once('value', snapshot => {  
+    if (snapshot.val() != null) {  
+     
+      let items = snapshot.val();
+      
+      let newState = [];
+for (let item in items) {
+        if(items[item].patientUid == uid){
+        newState.push(     
+          items[item].complaint
+        );
+      }
+      }
+      const complaints = [...new Set(newState.map(item=>item))]
+      
+    resolve(complaints);
+        
+    }  else{
+      resolve([]);
+    }
+})  
+});
+
+
 getUserByEmail = (eMail) => new Promise((resolve,reject)=>{
   dbRef.child(this.name).once('value', snapshot => {  
     if (snapshot.val() != null) {  
