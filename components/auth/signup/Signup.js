@@ -118,17 +118,7 @@ function Signup() {
         const user = { name,oAuthId,eMail ,signUpVia:"Google",pptcAccepted:checkBox,isActive:true,roleId:1};
         console.log(user,"user")
         // debugger
-        function makePasswd() {
-            var passwd = '';
-            var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            for (i=1;i<8;i++) {
-              var c = Math.floor(Math.random()*chars.length + 1);
-              passwd += chars.charAt(c)
-            }
-          
-            return passwd;
-          
-          }
+    
 
         createUserWithEmailAndPassword(user.eMail,makePasswd()).then((response) => {                
             var fbService = new firebaseService("Users");
@@ -142,6 +132,17 @@ function Signup() {
                setValues({ ...values, error: error.message, loading: false });
            });
     }
+    function makePasswd() {
+        var passwd = '';
+        var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        for (i=1;i<8;i++) {
+          var c = Math.floor(Math.random()*chars.length + 1);
+          passwd += chars.charAt(c)
+        }
+      
+        return passwd;
+      
+      }
 
     const clearError =()=>{
         setValues({ error: '' });
@@ -154,18 +155,22 @@ function Signup() {
     const responseFacebook = (response) => {
         console.log(response,"FACEBOOK");
         const oAuthId = response.userID;
-        let eMail =response.profileObj.email
+        let eMail =response.email
         let name=response.name
         
         const user = { name,oAuthId,eMail ,signUpVia:"Google",pptcAccepted:checkBox,isActive:true,roleId:1};
 
-        signupWithGoogle(user).then(data => {
-            if (data.error) {
-                console.log(data.error);
-            } else {
-                Router.push(`/auth/login`);
-            }
-        });
+        createUserWithEmailAndPassword(user.eMail,makePasswd()).then((response) => {                
+            var fbService = new firebaseService("Users");
+            user.uid = response.user.uid;
+            let signUp=fbService.create(user)
+            console.log(signUp,"signUpsignUpsignUpsignUpsignUp")
+            // Router.push(`/auth/login`);
+            callSuccess()
+           })
+           .catch((error) => {                 
+               setValues({ ...values, error: error.message, loading: false });
+           });
     }
 
     return (
@@ -239,7 +244,7 @@ function Signup() {
 
                                         <FacebookLogin
                                         style={{'color':'red !important'}}
-                                            appId="199085082077964"
+                                            appId={process.env.FB_APP_ID}
                                             autoLoad={false}
                                             fields="name,email,picture"
                                             callback={responseFacebook}
