@@ -125,23 +125,28 @@ export const authenticate = (data, next) => {
     console.log(data,"data.uid.......")
     let {user}=data
     if(data && data.loginVia=="Email"){
-        fb.getUserByUId(data.user.uid).then(res=>{
-            console.log(res[0].data.rollId,"user role ID")
+        fb.getUserByUId(user.uid).then(res=>{
+            console.log(res[0],"user role ID")
             user.rollId=res[0].data.rollId
         })
     }
 
     if(data &&data.loginVia && data.loginVia=="Google" ||data.loginVia=="Google"){
-        fb.getUserByEmail(data.user.eMail).then(res=>{
-            console.log(res[0].data.roleId,"RESFROM FB")
+        fb.getUserByEmail(user.eMail).then(res=>{
+            console.log(res[0].data,"RESFROM FB|| GG")
             user.rollId=res[0].data.rollId
         })
     } 
 
 
     setLocalStorage('token', "dadsdasdas");
-    setLocalStorage('user', data.user);
+    setLocalStorage('user', user);
     next();
+};
+
+export const setTOPT = (email) => {
+    var fb = new firebaseService("Users");
+
 };
 
 export const isAuth = () => {
