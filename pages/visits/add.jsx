@@ -4,25 +4,66 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import {firebaseService} from '../../services/firebase-db-service';
 import "react-datepicker/dist/react-datepicker.css";
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import ListItemText from '@material-ui/core/ListItemText';
+import Select from '@material-ui/core/Select';
+import Checkbox from '@material-ui/core/Checkbox';
+import Chip from '@material-ui/core/Chip';
 
 
 class AddVisit extends React.Component {
   constructor(props){
     super(props);
-    this.state = {visitNo: ""};
+    this.state = {visitNo: "", doctorUid:"",patientUid:"", complaints:[], complaintName:[]};
   }
   static async getInitialProps(ctx) {
 
     return { stars: "" }
   }
 
+   getStyles = (name, personName, theme) =>{
+    return {
+      fontWeight:
+        personName.indexOf(name) === -1
+          ? theme.typography.fontWeightRegular
+          : theme.typography.fontWeightMedium,
+    };
+  }
+
   componentDidMount() {
-    this.setState({visitNo: this.getRandomNo()})
+    this.setState({visitNo: this.getRandomNo()}); 
+    var fb = new firebaseService("Complaints");  
+    fb.getAll().then((res)=>{
+      
+      let complaintList = res.map(a=>a.id);
+        this.setState({complaints: complaintList});
+        console.log(this.state.complaints);
+    });
    }
+
+    ITEM_HEIGHT = 48;
+     ITEM_PADDING_TOP = 8;
+
+   MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: this.ITEM_HEIGHT * 4.5 + this.ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
 
   getRandomNo = () =>{
     return Math.floor(Math.random()*((99999-1)+1)+1)
   }
+
+  handleChange = (event) => {
+    debugger;
+    this.setState({complaintName: event.target.value})
+  };
 
   initialValues = {
     visitNo: this.getRandomNo(),
@@ -48,15 +89,17 @@ class AddVisit extends React.Component {
   });
 
   submitForm = (values) => {
+    debugger;
+   // let dvalues = {firstName:"Prachi",lastName:"Patel",mobile:"7854126598", email:"prachip@gmail.com",degree:"M.B.B.S", password:"123456"}
     var fb = new firebaseService("Visits");
-    values.dob = values.dob.toString();
-    fb.create(values);
-    console.log(values);
+    values.visitTime = values.visitTime.toString();
+    fb.create(values);  
+    // console.log(values);
     };
   
 
   render() {
-     const{visitNo} = this.state;
+     const{visitNo, complaints, complaintName} = this.state;
     return (
       <Formik
       initialValues={this.initialValues}
@@ -76,6 +119,7 @@ class AddVisit extends React.Component {
           setFieldValue
         } = formik;
         return (
+          <div className="container"> 
       <div>
         <h1 style={{ color: '#2362AD' }}>Visit</h1>
 
@@ -132,12 +176,37 @@ class AddVisit extends React.Component {
             </div>
             <div class="col-md-6">
               <label for="inputPassword4" class="form-label">Complaint</label>
-              <Field
+              <Field as="select" name="complaint" class="form-select">
+                <option value="" selected>Choose...</option>
+                {complaints.map((name) => (
+                   <option key={name} value={name}>{name}</option>
+                ))}
+               
+              </Field>
+              {/* <Select
+          labelId="demo-mutiple-checkbox-label"
+          id="demo-mutiple-checkbox"
+          className="form-control"
+          multiple
+          value={complaintName}
+          onChange={dt => setFieldValue('complaint', dt)}
+          input={<Input />}
+          renderValue={(selected) => selected.join(', ')}
+          MenuProps={this.MenuProps}
+        >
+          {complaints.map((name) => (
+            <MenuItem key={name} value={name}>
+              <Checkbox checked={values.complaint.indexOf(name) > -1} />
+              <ListItemText primary={name} />
+            </MenuItem>
+          ))}
+        </Select> */}
+              {/* <Field
                   type="text"
                   name="complaint"
                   id="complaint"
                   className="form-control"
-                />
+                /> */}
                 <ErrorMessage name="complaint" component="span" className="error" />
             </div>
           </div>
@@ -209,8 +278,8 @@ class AddVisit extends React.Component {
           <div class="col-md-12 text-center">
             <button type="submit" style={{ width: '300px' }} class="btn btn-primary btn-block">Add</button>
           </div>
-          <p>{JSON.stringify(errors)}</p>
         </Form>
+      </div>
       </div>
         );
       }}

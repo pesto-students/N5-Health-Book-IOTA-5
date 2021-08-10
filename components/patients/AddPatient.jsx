@@ -4,13 +4,6 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import {firebaseService} from '../../services/firebase-db-service';
 import "react-datepicker/dist/react-datepicker.css";
-// Required to cover in patient csss
-// .customDatePickerWidth, 
-// .customDatePickerWidth > div.react-datepicker-wrapper, 
-// .customDatePickerWidth > div > div.react-datepicker__input-container
-// .customDatePickerWidth > div > div.react-datepicker__input-container input {
-//    width: 100%;
-// }
 
 class AddPatient extends React.Component {
   constructor(props){
@@ -75,6 +68,7 @@ PatientSchema = Yup.object().shape({
           setFieldValue
         } = formik;
         return (
+          <div className="container"> 
       <div>
         <h1 style={{ color: '#2362AD' }}>Patient Infromation</h1>
 
@@ -213,8 +207,9 @@ PatientSchema = Yup.object().shape({
           {/* disabled={!(dirty && isValid)} */}
             <button type="submit" style={{ width: '300px' }} className="btn btn-primary btn-block">Update</button>
           </div>
-          <p>{JSON.stringify(errors)}</p>
+         
         </Form>
+      </div>
       </div>
        );
       }}
