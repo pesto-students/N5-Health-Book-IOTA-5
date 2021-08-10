@@ -14,33 +14,97 @@ import Router from 'next/router';
 import moment from "moment";
 import Link from '@material-ui/core/Link';
 import {firebaseService} from '../../services/firebase-db-service';
+import Chip from '@material-ui/core/Chip';
+import DoneIcon from '@material-ui/icons/Done';
+import FaceIcon from '@material-ui/icons/Face';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { isAuth} from '../../actions/auth';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-  width: 200,
-  flexGrow: 1  
-  },   
- 
-});
+    width: 200,
+    flexGrow: 1
+    }, 
+  chip: {
+    display: 'flex',
+    // justifyContent: 'center',
+    flexWrap: 'wrap',
+    '& > *': {
+      margin: theme.spacing(0.5),
+    },
+  }
+}));
 
 const Patients = () =>{
 const classes = useStyles();
- 
 const [visits, setVisits] = useState([]);
+const [visitCount, setVisitCount] = useState();
+const [complaintState, setComplaintState] = useState({});
+const [color, setColor] = useState({});
+const [selectedComp, setSelectedComp] = useState("View All");
+const [patientComp, setPatientComp] = useState([]);
 
 useEffect(() => {
-
+let auth = isAuth();
 var fb = new firebaseService("Visits");
-fb.getAll().then((res)=>{
-  setVisits(res);
+fb.getPatientVisitsByUId(auth.uid).then((visits)=>{
+  let list = [];
+  if(selectedComp != "View All"){
+    list = visits.filter(a=>selectedComp == a.data.complaint).map(visit =>{
+     return visit;
+   });
+ }else{
+   list = visits;
+   setVisitCount(list.length);
+ }
+ setVisits(list);
 
 }).catch((err)=>{
   console.log("error");
 })
 
-  
-}, []);
+var fbComp = new firebaseService("Visits");
 
+fbComp.getPatientComplaints(auth.uid).then((res)=>{
+  setPatientComp(res);
+// let compState = {};
+// let compColor={};
+// for(let item in res){
+//   compState[res[item].id] = false;
+//   compColor[res[item].id] = "red";
+// }
+//  setComplaintState(compState);
+//  setColor(compColor);
+}).catch((err)=>{
+  console.log("error");
+})
+
+
+
+
+}, [selectedComp]);
+
+const handleBtnClick = async (e) => {
+
+  complaintState[e.target.textContent] = !complaintState[e.target.textContent];
+  setSelectedComp(e.target.textContent);
+  // if(complaintState[e.target.textContent])
+  // {
+  
+  //   // selectedComp.push(e.target.textContent);
+  // }
+  // else{
+    // const i = selectedComp.indexOf(e.target.textContent);
+    // if(i > -1){
+    //   selectedComp.splice(i,1);
+    // }
+  // }
+  // setSelectedComp(selectedComp);
+  // let colorClass = complaintState[e.target.textContent] ? "red" : "green";
+  // color[e.target.textContent] = colorClass;
+  // setColor(color);
+  setComplaintState(complaintState);
+};
 
 
 const handleClick = () =>{
@@ -50,22 +114,29 @@ const handleClick = () =>{
 
 
   return (
-    <div className="container">      
+    <div className="container">
     <h1 style={{ color: '#2362AD' }}>Patient History</h1>
     <Card className={classes.root}>
-      <CardActionArea onClick={handleClick}>        
+      <CardActionArea onClick={handleClick}>
         <CardContent>
           <Typography align="center" gutterBottom variant="h5" component="h2">
             Visits
           </Typography>
           <Typography align="center" variant="h5" component="h2">
-            20
-          </Typography>  
-         
+            {visitCount}
+          </Typography>
+
         </CardContent>
-      </CardActionArea>      
+      </CardActionArea>
     </Card>
 <hr></hr>
+<div className={classes.chip}>
+<Chip label="View All" onClick={handleBtnClick} />
+{patientComp && patientComp.map(value =>
+  <Chip key={value} label={value} onClick={handleBtnClick} />  
+  )}
+</div>
+
 <VerticalTimeline>
   {visits && visits.map(value=>{
  return (
@@ -85,11 +156,11 @@ Visited Dr. {value.data.doctor}
   <Typography className="vertical-timeline-element-subtitle" variant="h5" component="h2">
   Complaint: {value.data.complaint}
   </Typography>
-  
+
   <Typography variant="h5" component="p">
   Note: {value.data.note}
-  </Typography> 
-  
+  </Typography>
+
   <Typography gutterBottom>
   <Link href={`/visits/view/${value.id}`}><a>Go to visit</a></Link>
   </Typography>
@@ -101,11 +172,11 @@ Visited Dr. {value.data.doctor}
   {/* <Typography variant="h5" component="h3">
  {value.data.visitTime}
   </Typography>*/}
-  </> 
+  </>
  )}
-  
+
 )}
-  
+
   {/* <VerticalTimelineElement
     className="vertical-timeline-element--work"
     contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
@@ -190,13 +261,13 @@ Visited Dr. {value.data.doctor}
   />
 </VerticalTimeline>
     </div>
-   
+
    ); }
 
 Patients.layout = "auth";
 
 export default Patients;
 
-    
-  
+
+
 

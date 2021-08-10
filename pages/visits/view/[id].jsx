@@ -3,22 +3,22 @@ import moment from "moment";
 import {firebaseService} from '../../../services/firebase-db-service';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
-const ViewVisit = (visit) => { 
+const ViewVisit = ({visit}) => { 
    console.log(visit);
     
   
      const initialValues = {
-      visitNo: "",
-      doctor: "",
-      patient: "",
-      visitTime: new Date(),
-      complaint:"",
-      allergies:"",
-      medications:"",
-      temperature:"",
-      note:"",
-      reports:"",
-      weight: ""
+      visitNo:  visit.visitNo,
+      doctor: visit.doctor,
+      patient: visit.patient,
+      visitTime: moment(visit.visitTime).format("dd/MM/yyyy hh:mm a"),
+      complaint: visit.complaint,
+      allergies: visit.allergies,
+      medications: visit.medications,
+      temperature: visit.temperature,
+      note: visit.note,
+      reports: visit.reports,
+      weight: visit.weight
     };
   
     // VisitSchema = Yup.object().shape({
@@ -61,19 +61,18 @@ const ViewVisit = (visit) => {
           return (
             <div className="container"> 
         <div>
-          <h1 style={{ color: '#2362AD' }}>Visit {visit.doctor}</h1>
+          <h1 style={{ color: '#2362AD' }}>Visit Information</h1>
   
           <Form class="row g-3">
           <div class="row g-3">
-           <div class="col-md-1">
-              {/* Visit# {visitNo} */}
+           <div class="col-md-1">            
               <label for="visitNo" class="form-label">Visit#</label>
                 <Field
                     type="text"
-                    name="visitTime"
-                    id="visitTime"
-                    className="form-control"
-                    disabled={true}
+                    name="visitNo"
+                    id="visitNo"
+                    readOnly
+                    className="form-control"                    
                   />
               </div>
           </div>
@@ -85,6 +84,7 @@ const ViewVisit = (visit) => {
                     name="doctor"
                     id="doctor"
                     className="form-control"
+                    readOnly
                   />
               </div>
               <div class="col-md-6">
@@ -94,6 +94,7 @@ const ViewVisit = (visit) => {
                     name="patient"
                     id="patient"
                     className="form-control"
+                    readOnly
                   />
               </div>
             </div>
@@ -106,6 +107,7 @@ const ViewVisit = (visit) => {
                     name="patient"
                     id="patient"
                     className="form-control"
+                    readOnly
                   />
                 </div>
               </div>
@@ -116,6 +118,7 @@ const ViewVisit = (visit) => {
                     name="complaint"
                     id="complaint"
                     className="form-control"
+                    readOnly
                   />
               </div>
             </div>
@@ -127,6 +130,7 @@ const ViewVisit = (visit) => {
                     name="allergies"
                     id="allergies"
                     className="form-control"
+                    readOnly
                   />
               </div>
               <div class="col-md-6">
@@ -136,6 +140,7 @@ const ViewVisit = (visit) => {
                     name="temperature"
                     id="temperature"
                     className="form-control"
+                    readOnly
                   />
               </div>
             </div>
@@ -147,6 +152,7 @@ const ViewVisit = (visit) => {
                     name="weight"
                     id="weight"
                     className="form-control"
+                    readOnly
                   />
               </div>
               <div class="col-md-6">
@@ -156,6 +162,7 @@ const ViewVisit = (visit) => {
                     name="reports"
                     id="reports"
                     className="form-control"
+                    readOnly
                   />
               </div>
             </div>
@@ -167,6 +174,7 @@ const ViewVisit = (visit) => {
                     name="medications"
                     id="medications"
                     className="form-control"
+                    readOnly
                   />
               </div>
               <div class="col-md-6">
@@ -176,6 +184,7 @@ const ViewVisit = (visit) => {
                     name="note"
                     id="note"
                     className="form-control"
+                    readOnly
                   />
               </div>
             </div>
@@ -195,13 +204,11 @@ const ViewVisit = (visit) => {
   
   ViewVisit.layout = "auth";
   export async function getServerSideProps ({ params }) {
-    debugger;
     var fb = new firebaseService("Visits");
     let visit = {};
     if(params.id){
     await fb.getById(params.id).then((res)=>{
        visit = res;
-       console.log(visit);
     });
     }
     return { props: {visit}}
