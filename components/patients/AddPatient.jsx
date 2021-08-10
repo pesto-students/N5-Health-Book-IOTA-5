@@ -4,13 +4,6 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import {firebaseService} from '../../services/firebase-db-service';
 import "react-datepicker/dist/react-datepicker.css";
-// Required to cover in patient csss
-// .customDatePickerWidth, 
-// .customDatePickerWidth > div.react-datepicker-wrapper, 
-// .customDatePickerWidth > div > div.react-datepicker__input-container
-// .customDatePickerWidth > div > div.react-datepicker__input-container input {
-//    width: 100%;
-// }
 
 class AddPatient extends React.Component {
   constructor(props){
