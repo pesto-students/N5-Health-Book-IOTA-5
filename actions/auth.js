@@ -122,19 +122,20 @@ export const removeLocalStorage = key => {
 export const authenticate = (data,next) => {
 
     var fb = new firebaseService("Users");
-    console.log(data,"data.uid.......")
+    console.log(data," to Authenticate")
     let {user}=data
     if(data && data.loginVia=="Email"){
         fb.getUserByUId(data.response.user.uid).then(res=>{
             console.log(res[0],"user role ID")
             user.roleId=res[0].data.roleId
             setLocalStorage('token', "dadsdasdas");
-    setLocalStorage('user', user);
-    next();
+             setLocalStorage('user', user);
+            next();
         })
     }
 
     if(data &&data.loginVia && data.loginVia=="Google" ||data.loginVia=="Google"){
+        console.log(user.eMail,"user.eMail...")
        
         fb.getUserByEmail(user.eMail).then(res=>{
             console.log(res[0],"user role ID")

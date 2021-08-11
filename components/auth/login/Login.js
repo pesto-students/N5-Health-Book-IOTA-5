@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link'
 import Left from '../Left';
 import GoogleLogin from 'react-google-login';
@@ -6,6 +6,7 @@ import FacebookLogin from 'react-facebook-login';
 import { signin, authenticate, isAuth, loginWithGoogle, loginWithFacebook } from '../../../actions/auth';
 import Router from 'next/router';
 import { signInWithEmailAndPassword } from '../../../services/firebase-auth-service';
+import OtpInput from 'react-otp-input';
 
 
 
@@ -28,7 +29,10 @@ function Login() {
     })
 
     const [checkAuth, setCheckAuth] = useState(false)
-    
+
+    const [otpScreen, setOtpScreen] = useState(false)
+    const [otp, setOtp] = useState('')
+    const [authenticateUser,setAuthenticate]=useState({})
 
 
     useEffect(() => {
@@ -55,34 +59,10 @@ function Login() {
         const user = { eMail, password, signUpVia: "Email" };
         signInWithEmailAndPassword(user.eMail, user.password).then((response) => {
             // console.log(response,"signInWithEmailAndPassword")
-
-            let otp = 543745
-            console.log(otp, "Real otp")
-
-
-
-            var enteredOtp = prompt("Please enter otp", "");
-            user.uid = response.user.uid
-            if (enteredOtp == otp) {
-                authenticate({ user: user, loginVia: "Email" }, () => {
-                    // console.log(isAuth(),"iS Auth")
-                    if (isAuth()) {
-                        console.log("IS AUTH")
-                        Router.push(`/dashboard`);
-                    }
-                });
-            }
-            // authenticate({ user: user,response, loginVia: "Email" }, () => {
-            //     // console.log(isAuth(),"iS Auth")
-            //     if (isAuth()) {
-            //         console.log("IS AUTH")
-            //         Router.push(`/dashboard`);
-            //     }
-            // });
-
-
-
-
+            
+            setAuthenticate({ user: user,response, loginVia: "Email" })
+            setOtpScreen(true)
+            setValues({  loading: false });
 
         }).catch((error) => {
             console.log(error)
@@ -97,6 +77,22 @@ function Login() {
 
 
     }
+    const submitOtp = ()=>{
+        
+        if(otp=='123456'){
+            authenticate(authenticateUser, () => {
+                // console.clear()
+                console.log(authenticateUser,"authenticateUser")
+                if (isAuth()) {
+                    console.log("IS AUTH")
+                    Router.push(`/dashboard`);
+                }
+            });
+        }else{
+            setValues({ error: "Entered wrong otp"  });
+            setOtp('')
+        }
+    };
 
     const responseGoogle = (response) => {
         console.log(response);
@@ -108,13 +104,10 @@ function Login() {
             const oAuthId = response.googleId;
             let eMail = response.profileObj.email
             const user = { oAuthId, eMail, signUpVia: "Google" };
-            authenticate({ user: user, loginVia: "Google" }, () => {
-                console.log(isAuth(), "iS Auth")
-                if (isAuth()) {
-                    console.log("IS AUTH")
-                    Router.push(`/dashboard`);
-                }
-            });
+            setAuthenticate({ user: user, loginVia: "Google" })
+            setOtpScreen(true)
+            setValues({  loading: false });
+            
 
         } else {
             setValues({ error: "Error on Google Login." });
@@ -134,13 +127,10 @@ function Login() {
             const oAuthId = response.userID;
             let eMail = response.email
             const user = { oAuthId, eMail, signUpVia: "Facebook", expTime: response.data_access_expiration_time };
-            authenticate({ user: user, loginVia: "Facebook" }, () => {
-                console.log(isAuth(), "iS Auth")
-                if (isAuth()) {
-                    console.log("IS AUTH")
-                    Router.push(`/dashboard`);
-                }
-            });
+            
+            setAuthenticate({ user: user, loginVia: "Facebook" })
+            setOtpScreen(true)
+            setValues({  loading: false });
 
         } else {
             setValues({ error: "Error on Facebook Login." });
@@ -148,14 +138,18 @@ function Login() {
     }
 
 
-    const [success,setSuccess]=useState(false)
+    const [success, setSuccess] = useState(false)
     const Loader = () => {
         return (<span className="loader"></span>)
     }
     const clearError = () => {
         setValues({ error: '' });
     }
+    const handleOtp = (otp) => {
+        setOtp(otp)
+    }
 
+    
 
 
     if (checkAuth) {
@@ -170,9 +164,9 @@ function Login() {
                             <div className="container h-100">
                                 <p className="text-end p-4" style={{ 'position': 'absolute', 'top': '0', 'right': '0' }} >Don't have an account? <Link className="" href="/auth/signup">Sign up now</Link></p>
                                 <div className="justify-content-center">
-                                    <div className={`authRight ${success ? "hideAll": ""}`}>
+                                    {!otpScreen && <div className={`authRight ${success ? "hideAll" : ""}`}>
                                         <h1 className="auth_title" >Log in to Healthbook</h1>
-                                        <form onSubmit={handleSubmit}>
+                                        <form onSubmit={handleSubmit} >
                                             <div className="mb-3">
                                                 <label htmlFor="eMail" className="form-label searchLeft_label m-0">Email address</label>
                                                 <input type="email" className="bg-transparent form-control" name="eMail"
@@ -230,14 +224,40 @@ function Login() {
                                             {/* <button className="btn_theme_outline btn_medium " style={{ 'width': '48%', 'height': '44px', 'margin': '10px 0px' }}> Log in with Facebook</button> */}
                                         </div>
                                         {error && <div className="d-flex justify-content-between ">
-                                                <div className="alert-Box flex-container">
-                                                    <div><i className="icon-error fa fa-exclamation-circle"></i></div>
-                                                    <div className="error">{error}</div>
-                                                    <div className="close" title="Close" onClick={clearError} ><i className="icon-error fa fa-times "></i></div>
-                                                </div>
+                                            <div className="alert-Box flex-container">
+                                                <div><i className="icon-error fa fa-exclamation-circle"></i></div>
+                                                <div className="error">{error}</div>
+                                                <div className="close" title="Close" onClick={clearError} ><i className="icon-error fa fa-times "></i></div>
                                             </div>
+                                        </div>
                                         }
-                                    </div>
+                                        
+                                    </div> }
+                                    {otpScreen && <div className={`authRight`}>
+                                        <h1 className="auth_title" >Log in to Healthbook</h1>
+                                            <div className="bg-transparent form-control text-center">
+                                                <OtpInput
+                                                    className="text-center"
+                                                    value={otp}
+                                                    onChange={handleOtp}
+                                                    numInputs={6}
+                                                    separator={<span>-</span>}
+                                                    inputStyle={{"width":"2em","margin":"0.5em 1em","border":"1px solig grey","&:focus":"outline :none"}}
+                                                />
+                                                
+                                                <button type="button" onClick={submitOtp} className="btn_theme btn_medium" style={{ 'width': '100%', 'height': '44px', 'margin': '10px 0px' }}>Submit Otp {loading ? <Loader /> : null}</button>
+                                            </div>
+                                            {error && <div className="d-flex justify-content-between ">
+                                            <div className="alert-Box flex-container">
+                                                <div><i className="icon-error fa fa-exclamation-circle"></i></div>
+                                                <div className="error">{error}</div>
+                                                <div className="close" title="Close" onClick={clearError} ><i className="icon-error fa fa-times "></i></div>
+                                            </div>
+                                        </div>
+                                        }
+                                            </div>
+
+                                        }
                                 </div>
                             </div>
                         </div>
