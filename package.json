@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
-    "start": "next start",
-    "lint": "eslint ./ --ext js,jsx,ts,tsx"
+    "start": "next start"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
@@ -44,8 +43,6 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "dotenv": "^10.0.0",
-    "eslint": "^7.32.0",
-    "eslint-plugin-react": "^7.24.0"
+    "dotenv": "^10.0.0"
   }
 }
