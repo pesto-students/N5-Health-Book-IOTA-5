@@ -27,7 +27,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: 200,
     flexGrow: 1,
-  },
+    color: 'white',
+    backgroundColor: '#2196f3'
+    }, 
   chip: {
     display: "flex",
     // justifyContent: 'center',
@@ -48,10 +50,13 @@ const Patients = () => {
   const [patientComp, setPatientComp] = useState([]);
 
   useEffect(() => {
+    
     let auth = isAuth();
     var fb = new firebaseService("Visits");
+
     fb.getPatientVisitsByUId(auth.uid)
       .then((visits) => {
+        
         let list = [];
         if (selectedComp != "View All") {
           list = visits
@@ -132,10 +137,10 @@ const Patients = () => {
       </Card>
       <hr></hr>
       <div className={classes.chip}>
-        <Chip label="View All" onClick={handleBtnClick} />
+        <Chip label="View All" color="primary" size="medium" onClick={handleBtnClick} />
         {patientComp &&
           patientComp.map((value) => (
-            <Chip key={value} label={value} onClick={handleBtnClick} />
+            <Chip key={value} color="primary" size="medium" label={value} onClick={handleBtnClick} />
           ))}
       </div>
 
