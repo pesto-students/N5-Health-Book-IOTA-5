@@ -16,7 +16,8 @@ export default function Home() {
 
     const renderUserDashboard =(user)=>{
       // return <Patients/>
-      if(user && user.rollId && user.rollId==2){
+      console.log(user)
+      if(user && user.roleId && user.roleId==2){
         return <DoctorDash/>
       }else{
         return <Patients/>

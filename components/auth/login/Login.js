@@ -28,6 +28,8 @@ function Login() {
     })
 
     const [checkAuth, setCheckAuth] = useState(false)
+    
+
 
     useEffect(() => {
         if (isAuth()) {
@@ -54,7 +56,7 @@ function Login() {
         signInWithEmailAndPassword(user.eMail, user.password).then((response) => {
             // console.log(response,"signInWithEmailAndPassword")
 
-            let otp = Math.floor(100000 + Math.random() * 900000)
+            let otp = 543745
             console.log(otp, "Real otp")
 
 
@@ -70,6 +72,13 @@ function Login() {
                     }
                 });
             }
+            // authenticate({ user: user,response, loginVia: "Email" }, () => {
+            //     // console.log(isAuth(),"iS Auth")
+            //     if (isAuth()) {
+            //         console.log("IS AUTH")
+            //         Router.push(`/dashboard`);
+            //     }
+            // });
 
 
 
@@ -139,7 +148,7 @@ function Login() {
     }
 
 
-
+    const [success,setSuccess]=useState(false)
     const Loader = () => {
         return (<span className="loader"></span>)
     }
@@ -228,15 +237,6 @@ function Login() {
                                                 </div>
                                             </div>
                                         }
-                                    </div>
-                                    <div className={`authRight ${success ? "" : "hideAll"}`}>                                       
-
-                                        <h1 className="auth_title">Congrats... your account has been successfully created.</h1>
-
-                                        <img src={'/success.png'} width={400} />
-                                        <p> You will be redirected to login page in {timerdata} sec.</p>
-
-
                                     </div>
                                 </div>
                             </div>
