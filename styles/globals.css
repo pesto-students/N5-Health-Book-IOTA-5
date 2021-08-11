@@ -4,7 +4,7 @@
   font-weight: 600;
 } */
 .vertical-timeline::before{
-  background: #2196f3;
+  background: #2196f3 !important;
 }
 @font-face {
   font-family: Museo Sans;
