@@ -3,7 +3,9 @@
   src: url(../public/fonts/museo-sans/museosans-500-webfont.woff);
   font-weight: 600;
 } */
-
+.vertical-timeline::before{
+  background: #2196f3;
+}
 @font-face {
   font-family: Museo Sans;
   src: url(../public/fonts/museo-sans/museosans-700-webfont.woff);
