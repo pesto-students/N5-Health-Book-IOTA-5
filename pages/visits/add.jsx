@@ -186,7 +186,7 @@ class AddVisit extends React.Component {
                 onChange={dt => setFieldValue('visitTime', dt)}               
                 showTimeSelect
                 dateFormat="Pp"              
-                style={{width:'100%',padding:'10px'}}
+                style={{padding:'10px !important'}}
               />
               {/* <TextField
               variant="outlined"
