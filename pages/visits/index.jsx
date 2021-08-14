@@ -106,7 +106,7 @@ function Row(props) {
                       <TableCell component="th" scope="row">
                         {doc.report}
                       </TableCell>
-                      <TableCell>{doc.date}</TableCell>
+                      <TableCell>{moment(doc.date).format("DD-MM-yyyy")}</TableCell>
                       <TableCell align="right">{doc.file}</TableCell>
                       
                     </StyledTableRow>

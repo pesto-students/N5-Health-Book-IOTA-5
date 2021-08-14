@@ -31,4 +31,5 @@ if (typeof window !== "undefined" && !Firebase.apps.length) {
   window.firebase = Firebase;
 }
 
+
 export default Firebase;
