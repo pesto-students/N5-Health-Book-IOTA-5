@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import moment from "moment";
-import {firebaseService} from '../../../services/firebase-db-service';
+import {fbStorage,firebaseService} from '../../../services/firebase-db-service';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
 const ViewVisit = ({visit}) => { 
    console.log(visit);
+
+   const [file, setFile] = useState('');
+   
     
   
      const initialValues = {
@@ -20,25 +23,33 @@ const ViewVisit = ({visit}) => {
       reports: visit.reports,
       weight: visit.weight
     };
-  
-    // VisitSchema = Yup.object().shape({
-    //   doctor: Yup.string().required("Doctor is required."),
-    //   patient: Yup.string().required("Patient is required."),
-    //   visitTime: Yup.string().required("Date & Time is required."),
-    //   complaint: Yup.string().required("Please select the Blood Group."),
-    //   medications: Yup.string().required("Medications is required."),
-    //   note: Yup.string().required("Note is required.")
-    // });
-  
-    // submitForm = (values) => {
-    //   debugger;
-    //  // let dvalues = {firstName:"Prachi",lastName:"Patel",mobile:"7854126598", email:"prachip@gmail.com",degree:"M.B.B.S", password:"123456"}
-    //   var fb = new firebaseService("Visits");
-    //   values.visitTime = values.visitTime.toString();
-    //   fb.create(values);  
-    //   // console.log(values);
-    //   };
     
+    
+    const handleFile = (e) => {
+      const image = e.target.files[0]
+      setFile(File => (image));
+  } 
+
+  const uploadFile = (e) =>{
+    debugger;
+    const uploadTask = fbStorage.ref(`/Documents/${initialValues.patient}/${file.name}`).put(file)
+    //initiates the firebase side uploading 
+    uploadTask.on('state_changed', 
+    (snapShot) => {
+      //takes a snap shot of the process as it is happening
+      console.log(snapShot)
+    }, (err) => {
+      //catches the errors
+      console.log(err)
+    }, () => {
+      // gets the functions from storage refences the image storage in firebase by the children
+      // gets the download url then sets the image from firebase as the value for the imgUrl key:
+      fbStorage.ref(`/Documents/${initialValues.patient}`).child(file.name).getDownloadURL()
+       .then(fileUrl => {
+         setFile(prevObject => ({...prevObject, fileUrl: fileUrl}))
+       })
+    })
+  }
   
     
       return (
@@ -157,13 +168,18 @@ const ViewVisit = ({visit}) => {
               </div>
               <div class="col-md-6">
                 <label for="inputPassword4" class="form-label">Reports</label>
-                <Field
+                {/* <Field
                     type="number"
                     name="reports"
                     id="reports"
                     className="form-control"
                     readOnly
-                  />
+                  /> */}
+                   <Field as="select" name="reports" class="form-select" multiple readOnly>
+                     {visit.reports && visit.reports.map((data)=>(
+                     <option key={data} value={data} selected>{data}</option>
+                     ))}                
+                   </Field>
               </div>
             </div>
             <div class="row g-3">
@@ -188,9 +204,26 @@ const ViewVisit = ({visit}) => {
                   />
               </div>
             </div>
-            <div class="col-md-12 text-center">
-              <button type="submit" style={{ width: '300px' }} class="btn btn-primary btn-block">Add</button>
+            <div class="row g-3">
+         <div class="col-md-3">
+           {values.reports && values.reports.map((name)=>(
+                <div>
+          <label for="visitNo" class="form-label">{name}</label>
+            <input 
+          type="file"
+          onChange={handleFile}
+        />
+        <button onClick={uploadFile}>Upload</button>
+                  </div>
+             
+           ))}
+            
             </div>
+        </div>
+
+            {/* <div class="col-md-12 text-center">
+              <button type="submit" style={{ width: '300px' }} class="btn btn-primary btn-block">Add</button>
+            </div> */}
           </Form>
         </div>
         </div>
