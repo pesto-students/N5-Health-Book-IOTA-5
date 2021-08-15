@@ -27,6 +27,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: 200,
     flexGrow: 1,
+    color: 'white',
+    backgroundColor: '#2196f3'
   },
   chip: {
     display: "flex",
@@ -132,10 +134,10 @@ const Patients = () => {
       </Card>
       <hr></hr>
       <div className={classes.chip}>
-        <Chip label="View All" onClick={handleBtnClick} />
+        <Chip label="View All" color="primary" onClick={handleBtnClick} />
         {patientComp &&
           patientComp.map((value) => (
-            <Chip key={value} label={value} onClick={handleBtnClick} />
+            <Chip key={value} color="primary" label={value} onClick={handleBtnClick} />
           ))}
       </div>
 
