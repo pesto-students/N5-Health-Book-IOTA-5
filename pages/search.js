@@ -1,10 +1,10 @@
 import React from 'react'
-import SearchResults from '../components/searchResult/SearchResults'
+// import SearchResults from '../components/searchResult/SearchResults'
 
 function search() {
     return (
         <div>
-            <SearchResults/>
+            {/* <SearchResults/> */}
         </div>
     )
 }
