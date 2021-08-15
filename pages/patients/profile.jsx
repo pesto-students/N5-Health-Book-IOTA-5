@@ -5,6 +5,10 @@ import * as Yup from "yup";
 import {firebaseService} from '../../services/firebase-db-service';
 import "react-datepicker/dist/react-datepicker.css";
 import { isAuth } from "../../actions/auth";
+import moment from "moment";
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure()
 
 const AddPatient= () => { 
  
@@ -38,7 +42,7 @@ const AddPatient= () => {
  const initialValues = {
   fullName:patient.fullName,
   gender: patient.gender,
-  dob: new Date(),
+  dob: patient.dob == "" ? "" : new Date(patient.dob),
   bloodGroup:patient.bloodGroup,
   maritalStatus:patient.maritalStatus,
   city:patient.city,
@@ -53,8 +57,9 @@ const AddPatient= () => {
 const submitForm = (values) => {
 debugger;
 var fb = new firebaseService("Patient");
-values.dob = values.dob.toString();
+values.dob = new Date(values.dob).toString();
 fb.update(values,patientId);
+toast.success('Profile has been updated!',{autoClose:2000});
 };
 
 const PatientSchema = Yup.object().shape({

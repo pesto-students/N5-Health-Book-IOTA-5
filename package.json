@@ -40,6 +40,7 @@
     "react-otp-input": "^2.4.0",
     "react-search-autocomplete": "^5.4.2",
     "react-toast-notifications": "^2.4.4",
+    "react-toastify": "^7.0.4",
     "react-vertical-timeline-component": "^3.3.3",
     "reactstrap": "^8.9.0",
     "socket.io-client": "^4.1.2",
