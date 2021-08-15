@@ -26,7 +26,9 @@ import { isAuth } from "../../actions/auth";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: 200,
-    flexGrow: 1,
+    flexGrow: 1,   
+    backgroundColor: '#2196f3',
+    color: 'white',
   },
   chip: {
     display: "flex",
@@ -132,10 +134,10 @@ const Patients = () => {
       </Card>
       <hr></hr>
       <div className={classes.chip}>
-        <Chip label="View All" onClick={handleBtnClick} />
+        <Chip label="View All" onClick={handleBtnClick} color="primary" />
         {patientComp &&
           patientComp.map((value) => (
-            <Chip key={value} label={value} onClick={handleBtnClick} />
+            <Chip key={value}  label={value} color="primary" onClick={handleBtnClick} />
           ))}
       </div>
 
