@@ -6,10 +6,8 @@ import {firebaseService} from '../../services/firebase-db-service';
 import "react-datepicker/dist/react-datepicker.css";
 import { isAuth } from "../../actions/auth";
 
-const AddPatient= () => {
-  
- const [name, setName] = useState();
- const [mobile, setMobile] = useState(); 
+const AddPatient= () => { 
+ 
  const [patientId, setPatientId] = useState(); 
  const [patient, setPatient] = useState({fullName:"",
   gender: "",
@@ -26,17 +24,12 @@ const AddPatient= () => {
 
   useEffect(()=>{
     let user = isAuth();
-    setPatientUid(user.uid);
+  
     var fb = new firebaseService("Patient");
     fb.getUserByUId(user.uid).then((values)=>{
-     debugger;
      setPatientId(values[0].id);
-    setPatient(values[0].data);
-     console.log(patient);
-        // setName(values[0].data.name);
-        // setMobile(values[0].data.mobileNum);
-        // initialValues.fullName = values[0].data.name;
-        // initialValues.mobile = values[0].data.mobileNum;
+     setPatient(values[0].data);   
+       
     });
   },[]);
     
@@ -58,7 +51,7 @@ const AddPatient= () => {
 
 
 const submitForm = (values) => {
-    debugger;
+debugger;
 var fb = new firebaseService("Patient");
 values.dob = values.dob.toString();
 fb.update(values,patientId);
@@ -77,10 +70,6 @@ const PatientSchema = Yup.object().shape({
   state: Yup.string().required("State is required."),
 });
 
-const handleNameChange = (e)=>{
-    e.preventDefault();
-    setName(e.target.value);
-}
 
     return (
       <Formik
@@ -105,7 +94,7 @@ const handleNameChange = (e)=>{
         return (
           <div className="container"> 
       <div>
-        <h1 style={{ color: '#2362AD' }}>Patient Infromation {JSON.stringify(errors)}</h1>
+        <h1 style={{ color: '#2362AD' }}>Patient Profile</h1>
 
         <Form class="row g-3">
           <div class="row g-3">
