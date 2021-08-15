@@ -125,8 +125,8 @@ export const authenticate = (data,next) => {
     console.log(data," to Authenticate")
     let {user}=data
     if(data && data.loginVia=="Email"){
-        fb.getUserByUId(data.response.user.uid).then(res=>{
-            console.log(res[0],"user role ID")
+        fb.getUserByUId(data.response.user.uid).then(res=>{           
+
             user.roleId=res[0].data.roleId;
             user.uid=res[0].data.uid;
             setLocalStorage('token', "dadsdasdas");
