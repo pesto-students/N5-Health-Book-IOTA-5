@@ -22,10 +22,15 @@ if(!firebase.apps.length){
 
 var dbRef = firebase.database().ref(); 
 
-export class firebaseService {
+
+const fbStorage = firebase.storage();
+
+class firebaseService {
     constructor(dbName){
     this.name = dbName;
     }
+
+   
 
     getAll = () => new Promise((resolve,reject)=>{
       dbRef.child(this.name).once('value', snapshot => {  
@@ -197,3 +202,5 @@ getUserByEmail = (eMail) => new Promise((resolve,reject)=>{
   
   
 }
+
+export {fbStorage, firebaseService};

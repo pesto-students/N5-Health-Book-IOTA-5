@@ -4,7 +4,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import {firebaseService} from '../../services/firebase-db-service';
 import "react-datepicker/dist/react-datepicker.css";
-
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 class AddVisit extends React.Component {
   constructor(props){
@@ -48,7 +49,30 @@ class AddVisit extends React.Component {
     // fb.create(values);
     console.log(values);
     };
-  
+   top100Films = [
+      { title: 'The Shawshank Redemption', year: 1994 },
+      { title: 'The Godfather', year: 1972 },
+      { title: 'The Godfather: Part II', year: 1974 },
+      { title: 'The Dark Knight', year: 2008 },
+      { title: '12 Angry Men', year: 1957 },
+      { title: "Schindler's List", year: 1993 },
+      { title: 'Pulp Fiction', year: 1994 },
+      { title: 'The Lord of the Rings: The Return of the King', year: 2003 },
+      { title: 'The Good, the Bad and the Ugly', year: 1966 },
+      { title: 'Fight Club', year: 1999 },
+      { title: 'The Lord of the Rings: The Fellowship of the Ring', year: 2001 },
+      { title: 'Star Wars: Episode V - The Empire Strikes Back', year: 1980 },
+      { title: 'Forrest Gump', year: 1994 },
+      { title: 'Inception', year: 2010 },
+      { title: 'The Lord of the Rings: The Two Towers', year: 2002 },
+      { title: "One Flew Over the Cuckoo's Nest", year: 1975 },
+      { title: 'Goodfellas', year: 1990 },
+      { title: 'The Matrix', year: 1999 },
+      { title: 'Seven Samurai', year: 1954 },
+      { title: 'Star Wars: Episode IV - A New Hope', year: 1977 },
+      { title: 'City of God', year: 2002 },
+    
+     ]  ;
 
   render() {
     // const{date} = this.state;
@@ -93,12 +117,13 @@ class AddVisit extends React.Component {
             </div>
             <div class="col-md-6">
               <label for="inputPassword4" class="form-label">Patient</label>
-              <Field
+              
+              {/* <Field
                   type="text"
                   name="patient"
                   id="patient"
                   className="form-control"
-                />
+                /> */}
                 <ErrorMessage name="patient" component="span" className="error" />
             </div>
           </div>
@@ -193,8 +218,7 @@ class AddVisit extends React.Component {
           </div>
           <div class="col-md-12 text-center">
             <button type="submit" style={{ width: '300px' }} class="btn btn-primary btn-block">Add</button>
-          </div>
-          <p>{JSON.stringify(errors)}</p>
+          </div>         
         </Form>
       </div>
         );

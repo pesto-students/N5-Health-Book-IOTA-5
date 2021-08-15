@@ -19,19 +19,22 @@ import {firebaseService} from '../../services/firebase-db-service';
 import moment from 'moment';
 import Router from 'next/router';
 import Link from 'next/link';
+import Button from '@material-ui/core/Button';
 
 const useRowStyles = makeStyles({
   root: {
     '& > *': {
       borderBottom: 'unset',
     },
+    
   },
 });
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.info.main,
     color: theme.palette.common.white,
+    fontWeight: 700
   },
   body: {
     fontSize: 14,
@@ -53,34 +56,6 @@ const useStyles = makeStyles({
 });
 
 
-function createData(name, calories, fat, carbs, protein, price) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
-    history: [
-      { date: '2020-01-05', customerId: '11091700', amount: 3 },
-      { date: '2020-01-02', customerId: 'Anonymous', amount: 1 },
-      { date: '2020-01-02', customerId: 'Anonymous', amount: 1 },
-    ],
-  };
-}
-
-function createDataN(name, calories, fat, carbs, protein, price) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price
-  };
-}
-
-
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
@@ -94,45 +69,45 @@ function Row(props) {
       <StyledTableRow>
        
         <StyledTableCell>
-        {row.reports &&
+        {row.data.documents &&
           <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>  }
         </StyledTableCell>
        
         <StyledTableCell component="th" scope="row">
-          {row.visitNo}
+          {row.data.visitNo}
         </StyledTableCell>
         <StyledTableCell align="right">{row.data.doctor}</StyledTableCell>
         <StyledTableCell align="right">{row.data.complaint}</StyledTableCell>
         <StyledTableCell align="right">{moment(row.data.visitTime).format("DD/MM/yyyy hh:mm a")}</StyledTableCell>
-        <StyledTableCell align="right"><Link href={`/visits/view/${row.id}`} className="btn btn-primary"><a>View</a></Link></StyledTableCell>
+        <StyledTableCell align="right"><Button variant="contained" color="primary" href={`/visits/view/${row.id}`}>View</Button></StyledTableCell>
       </StyledTableRow>
-      {/* <TableRow>
-      {row.history &&
+      <TableRow>
+      {row.data.documents &&
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
               <Typography variant="h6" gutterBottom component="div">
-                History
+                Documents
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
+                    <TableCell>Report</TableCell>
                     <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
+                    <TableCell align="right">File</TableCell>
                    
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.history && row.history.map((historyRow) => (
-                    <StyledTableRow key={historyRow.date}>
+                  {row.data.documents && row.data.documents.map((doc) => (
+                    <StyledTableRow key={doc.report}>
                       <TableCell component="th" scope="row">
-                        {historyRow.date}
+                        {doc.report}
                       </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
+                      <TableCell>{moment(doc.date).format("DD-MM-yyyy")}</TableCell>
+                      <TableCell align="right">{doc.file}</TableCell>
                       
                     </StyledTableRow>
                   ))}
@@ -142,37 +117,12 @@ function Row(props) {
           </Collapse>
         </TableCell>
 }
-      </TableRow> */}
+      </TableRow>
       </>
   
   );
 }
 
-// Row.propTypes = {
-//   row: PropTypes.shape({
-//     calories: PropTypes.number.isRequired,
-//     carbs: PropTypes.number.isRequired,
-//     fat: PropTypes.number.isRequired,
-//     history: PropTypes.arrayOf(
-//       PropTypes.shape({
-//         amount: PropTypes.number.isRequired,
-//         customerId: PropTypes.string.isRequired,
-//         date: PropTypes.string.isRequired,
-//       }),
-//     ).isRequired,
-//     name: PropTypes.string.isRequired,
-//     price: PropTypes.number.isRequired,
-//     protein: PropTypes.number.isRequired,
-//   }).isRequired,
-// };
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-  createDataN('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-  createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-  createDataN('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
-];
 
 export default function CollapsibleTable() {
   // const { row } = props;
