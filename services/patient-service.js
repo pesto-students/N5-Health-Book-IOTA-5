@@ -17,3 +17,23 @@ export const GetAllPatients = async () => {
     });
     return patients;
 }
+
+export const GetPatientsByMobile = async (mobile) => {
+    var uids = [];
+  
+    var fb = new firebaseService("Users");
+    await fb.getAll().then((values)=>{
+       debugger;
+        uids = values.filter(a=>a.data.mobileNum == mobile ).map(item => {
+            const container = {};
+        
+            container.uid = item.data.uid;            
+        
+            return container;
+        })        
+    });
+
+    
+    
+    return uids;
+}
