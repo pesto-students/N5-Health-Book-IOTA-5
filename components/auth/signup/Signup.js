@@ -82,7 +82,7 @@ function Signup() {
     };
     let { fullName,eMail, password,mobileNum,checkBox, error, loading, message, showForm } = values;
     const handleSubmit = (event) => {
-  
+        
         event.preventDefault()
         if(fullName ==''){
             
@@ -91,31 +91,13 @@ function Signup() {
             setValues({ ...values, error: "Error", loading: false });
         }
         setValues({...values,loading: true, error: false });
-        const user = { uid: null,mobileNum, name:fullName,eMail,hashedPassword:password,signUpVia: "Email",pptcAccepted:checkBox,isActive:true,roleId:1 };
+        const user = { uid: null, name:fullName,eMail,hashedPassword:password,signUpVia: "Email",pptcAccepted:checkBox,isActive:true,roleId:1 };
         console.log(user,"user");
        
-            createUserWithEmailAndPassword(user.eMail,user.hashedPassword).then((response) => {  
-                debugger;              
+            createUserWithEmailAndPassword(user.eMail,user.hashedPassword).then((response) => {                
                 var fbService = new firebaseService("Users");
                 user.uid = response.user.uid;
-                let signUp=fbService.create(user);
-
-                const profile = {
-                    fullname: user.name,
-                    mobile:user.mobile,
-                    uid: user.uid,
-                    gender: "",
-                    dob: "",
-                    bloodGroup:"",
-                    allergies:"",
-                    maritalStatus:"",
-                    address:"",
-                    city:"",
-                    state:"",
-                    weight: ""                    
-                  };
-                var fbProf = new firebaseService("Patient");
-                fbProf.create(profile);
+                let signUp=fbService.create(user)
                 // console.log(signUp,"signUp....fb")
                 callSuccess()
                })

@@ -1,18 +1,9 @@
-import {React,useState,useEffect} from 'react'
+import {React,useState} from 'react'
 import styles from './FirstPage.module.css'
 import Router from 'next/router';
-import {isAuth} from '../../../actions/auth'
 
 function FirstPage() {
     const [searchtext, setSearchtext] = useState('')
-    
-    useEffect(() => {
-        if (isAuth()) {
-            Router.push(`/dashboard`);
-        }
-    }, [isAuth]);
-
-
     const handleChange =  (event) => {
         console.log(event.keyCode)
         if (event.keyCode === 13) {
@@ -25,7 +16,8 @@ function FirstPage() {
         event.preventDefault()
         if(searchtext){
             Router.push('ProviderSearch?searchQuery='+searchtext)  
-        }   
+        }
+           
 
     }
     

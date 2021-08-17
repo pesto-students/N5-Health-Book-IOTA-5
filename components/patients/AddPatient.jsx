@@ -1,34 +1,21 @@
-import React,{useState,useEffect} from 'react'
+import React from 'react'
 import DatePicker from "react-datepicker";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import {firebaseService} from '../../services/firebase-db-service';
 import "react-datepicker/dist/react-datepicker.css";
-import { isAuth } from "../../actions/auth";
 
-const AddPatient= () => {
+class AddPatient extends React.Component {
+  constructor(props){
+    super(props);
+    // this.state = {date: new Date()};
+  }
+  static async getInitialProps(ctx) {
 
+    return { stars: "" }
+  }
 
-  
-  useEffect(()=>{
-    let user = isAuth();
-    
-
-    var fb = new firebaseService("Patient");
-    fb.getUserByUId(user.uid).then((values)=>{
-      debugger;
-        
-        // this.setState({name: values[0].data.name, mobile: values[0].data.mobileNum});
-        initialValues.fullname = values[0].data.name;
-        initialValues.mobile = values[0].data.mobileNum;
-    });
-  });
-    
-    
-   
-  
-
- const initialValues = {
+ initialValues = {
   fullname: "",
   gender: "",
   dob: new Date(),
@@ -38,23 +25,22 @@ const AddPatient= () => {
   address:"",
   city:"",
   state:"",
-  weight: "",
-  mobile:""
+  weight: ""
 };
 
 
-const submitForm = (values) => {
+submitForm = (values) => {
 var fb = new firebaseService("Patient");
 values.dob = values.dob.toString();
 fb.create(values);
 console.log(values);
 };
 
-const PatientSchema = Yup.object().shape({
+PatientSchema = Yup.object().shape({
   fullname: Yup.string().required("Full Name is required."),
   gender: Yup.string().required("Gender is required."),
   dob: Yup.string().required("DOB is required."),
-  // bloodGroup: Yup.string().required("Please select the Blood Group."),
+  bloodGroup: Yup.string().required("Please select the Blood Group."),
   maritalStatus: Yup.string().required("Please select the Matital Status."),
   address: Yup.string().required("Address is required."),
   city: Yup.string().required("City is required."),
@@ -62,14 +48,12 @@ const PatientSchema = Yup.object().shape({
   state: Yup.string().required("State is required."),
 });
 
-
+  render() {
     return (
       <Formik
-      enableReinitialize
-      initialValues={initialValues}
-      validationSchema={PatientSchema}
-      onSubmit={submitForm}
-      
+      initialValues={this.initialValues}
+      validationSchema={this.PatientSchema}
+      onSubmit={this.submitForm}
     >
 {(formik) => {
         const {
@@ -96,7 +80,6 @@ const PatientSchema = Yup.object().shape({
                   type="text"
                   name="fullname"
                   id="fullname"
-                  // value={this.state.name}
                   className="form-control"                  
                 />
               <ErrorMessage name="fullname" component="span" className="error" />
@@ -106,14 +89,17 @@ const PatientSchema = Yup.object().shape({
               <div>
                 <div class="form-check form-check-inline">
                   <Field type="radio" name="gender" id="inlineRadio1" value="Male" className="form-check-input" />
+                  {/* <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" /> */}
                   <label class="form-check-label" for="inlineRadio1">Male</label>
                 </div>
                 <div class="form-check form-check-inline">
                   <Field type="radio" name="gender" id="inlineRadio2" value="Female" className="form-check-input" />
+                  {/* <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" /> */}
                   <label class="form-check-label" for="inlineRadio2">Female</label>
                 </div>
                 <div class="form-check form-check-inline">
                   <Field type="radio" name="gender" id="inlineRadio3" value="Other" className="form-check-input" />
+                  {/* <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" /> */}
                   <label class="form-check-label" for="inlineRadio3">Other</label>
                 </div>
               </div>
@@ -136,14 +122,19 @@ const PatientSchema = Yup.object().shape({
               
             </div>
             <div class="col-md-6">
-            <label for="address" class="form-label">Mobile No</label>
-              <Field
-                  type="text"
-                  name="mobile"
-                  id="mobile"
-                  className="form-control"
-                />
-                <ErrorMessage name="address" component="span" className="error" />
+              <label for="inputPassword4" class="form-label">Blood Group</label>
+              <Field as="select" name="bloodGroup" class="form-select">
+                <option value="" selected>Choose...</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+              </Field>
+              <ErrorMessage name="bloodGroup" component="span" className="error" />
             </div>
           </div>
           <div class="row g-3">
@@ -158,7 +149,7 @@ const PatientSchema = Yup.object().shape({
                 <ErrorMessage name="weight" component="span" className="error" />
             </div>
             <div class="col-md-6">
-              <label for="inputPassword4" class="form-label">Marital Status</label>
+              <label for="inputPassword4" class="form-label">Merital Status</label>
               <Field as="select" name="maritalStatus" class="form-select">
                 <option value="" selected>Choose...</option>
                 <option value="S">Single</option>
@@ -170,18 +161,14 @@ const PatientSchema = Yup.object().shape({
           </div>
           <div class="row g-3">
             <div class="col-md-6">
-            <label for="inputPassword4" class="form-label">Blood Group</label>
-              <Field as="select" name="bloodGroup" class="form-select">
-                <option value="" selected>Choose...</option>
-                <option value="A+">A+</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B-">B-</option>
-                <option value="O+">O+</option>
-                <option value="O-">O-</option>
-                <option value="AB+">AB+</option>
-                <option value="AB-">AB-</option>
-              </Field>
+              <label for="inputEmail4" class="form-label">Allergies</label>
+              <Field
+                  type="text"
+                  name="allergies"
+                  id="allergies"
+                  className="form-control"
+                />
+                <ErrorMessage name="allergies" component="span" className="error" />
             </div>
             <div class="col-md-6">
               <label for="inputPassword4" class="form-label">Address</label>
@@ -228,23 +215,13 @@ const PatientSchema = Yup.object().shape({
       }}
       </Formik>
     );
-    }
+  }
+}
 
 
 
 AddPatient.layout = "auth";
 
-export async function getServerSideProps ({ params }) {
-  var fb = new firebaseService("Users");
-  let user = {};
-  const auth = isAuth();
-  await fb.getUserByUId(auth.uid).then((res)=>{
-    user = res[0].data;
-    console.log(res[0], "Res");
-  });
- 
-  return { props: {user}}
-}
 export default AddPatient;
 
 

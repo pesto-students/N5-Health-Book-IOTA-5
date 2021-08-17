@@ -361,17 +361,19 @@ if(initialValues.documents){
         {res.report}:
       </Typography>
     </div>
-    <div class="col-md-5">        
-  
-        { res.file?.length == 0 &&
-        <>
-        <input
+    <div class="col-md-5">
+     { res.file?.length > 0
+      ? <TextField size="small" id="outlined-basic" variant="outlined" value={res.file} readOnly />
+      : <input
         type="file"
         name={res.report}
         style={{width:"223px"}}
         onChange={handleFile}
       />
-
+     }
+        
+  
+      
        <Button
         variant="contained"
         color="default"
@@ -383,20 +385,6 @@ if(initialValues.documents){
       >
         Upload
       </Button>
-      </>
-  }
-{ res.file?.length > 0 &&
-      <Button
-        variant="contained"
-        color="primary"
-        target='_blank' 
-        href={`${res.file}`}
-        size="small"        
-        className={classes.button}        
-      >
-        View
-      </Button>
-  }
       <IconButton onClick={handleDeleteIcon} id={res.report} aria-label="Upload">
         <DeleteIcon />
       </IconButton>

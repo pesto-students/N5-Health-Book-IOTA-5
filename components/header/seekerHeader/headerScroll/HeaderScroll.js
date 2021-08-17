@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { isAuth,signout } from '../../../actions/auth';
+import { isAuth,signout } from '../../../../actions/auth';
 import Router from 'next/router';
 
 
