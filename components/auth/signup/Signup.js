@@ -102,7 +102,7 @@ function Signup() {
 
                 const profile = {
                     fullname: user.name,
-                    mobile:user.mobile,
+                    mobile:user.mobileNum,
                     uid: user.uid,
                     gender: "",
                     dob: "",
