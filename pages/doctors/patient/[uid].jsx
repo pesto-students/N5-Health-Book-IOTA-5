@@ -49,6 +49,7 @@ const PateintHistory = ({}) => {
   const [color, setColor] = useState({});
   const [selectedComp, setSelectedComp] = useState("View All");
   const [patientComp, setPatientComp] = useState([]);
+  const [patientName, setPatientName] = useState();
   const router = useRouter();
   const { uid } = router.query;
 
@@ -73,6 +74,8 @@ const PateintHistory = ({}) => {
           setVisitCount(list.length);
         }
         setVisits(list);
+        setPatientName(list[0].data.patient);
+       
       })
       .catch((err) => {
         console.log("error");
@@ -127,7 +130,12 @@ const PateintHistory = ({}) => {
   return (
     <div className="container">
       <h1 style={{ color: "#2362AD" }}>Patient History</h1>
-      <Card className={classes.root}>
+      <div>
+      <Typography style={{color:"#2196f3",marginTop:"30px"}} variant="h3" gutterBottom>
+       {patientName}
+      </Typography>
+      </div>
+      {/* <Card className={classes.root}>
         <CardActionArea onClick={handleClick}>
           <CardContent>
             <Typography align="center" gutterBottom variant="h5" component="h2">
@@ -138,7 +146,7 @@ const PateintHistory = ({}) => {
             </Typography>
           </CardContent>
         </CardActionArea>
-      </Card>
+      </Card> */}
       <hr></hr>
       <div className={classes.chip}>
         <Chip label="View All" onClick={handleBtnClick} color="primary" />
@@ -156,7 +164,7 @@ const PateintHistory = ({}) => {
                 <VerticalTimelineElement
                   key={value.id}
                   className="vertical-timeline-element--work"
-                  // contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                  contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
                   contentArrowStyle={{
                     borderRight: "7px solid  rgb(33, 150, 243)",
                   }}

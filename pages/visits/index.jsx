@@ -108,7 +108,7 @@ function Row(props) {
                       </TableCell>
                       <TableCell>{moment(doc.date).format("DD-MM-yyyy")}</TableCell>
                       {/* <TableCell align="right"><a href={'/api/v1/print/example.pdf'} target='_blank' rel='noopener noreferrer' /></TableCell> */}
-                      <TableCell align="right"><Button variant="contained" color="primary" target='_blank' href={`${doc.file}`}>View</Button></TableCell>
+                      <TableCell align="right"><Button variant="contained" color="primary" target='_blank' href={`${doc.file}`}>Download</Button></TableCell>
                       
                     </StyledTableRow>
                   ))}

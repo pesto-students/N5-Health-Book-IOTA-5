@@ -77,14 +77,6 @@ const Doctor = () => {
       .getPatientComplaints(auth.uid)
       .then((res) => {
         setPatientComp(res);
-        // let compState = {};
-        // let compColor={};
-        // for(let item in res){
-        //   compState[res[item].id] = false;
-        //   compColor[res[item].id] = "red";
-        // }
-        //  setComplaintState(compState);
-        //  setColor(compColor);
       })
       .catch((err) => {
         console.log("error");
@@ -95,21 +87,6 @@ const Doctor = () => {
     complaintState[e.target.textContent] =
       !complaintState[e.target.textContent];
     setSelectedComp(e.target.textContent);
-    // if(complaintState[e.target.textContent])
-    // {
-
-    //   // selectedComp.push(e.target.textContent);
-    // }
-    // else{
-    // const i = selectedComp.indexOf(e.target.textContent);
-    // if(i > -1){
-    //   selectedComp.splice(i,1);
-    // }
-    // }
-    // setSelectedComp(selectedComp);
-    // let colorClass = complaintState[e.target.textContent] ? "red" : "green";
-    // color[e.target.textContent] = colorClass;
-    // setColor(color);
     setComplaintState(complaintState);
   };
 
