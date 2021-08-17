@@ -34,6 +34,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import {GetPatientsByMobile} from '../../services/patient-service';
+import { GetVisitsByDoctorUId } from "../../services/visit-service";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -87,10 +88,21 @@ const Doctor = () =>{
     const [visits, setVisits] = useState([]);
     const [visitCount, setVisitCount] = useState(0);
     const [search, setSearch] = useState();
-  
+    const [servedPatient, setServedPatient] = useState();
+    const [selectedComp, setSelectedComp] = useState("View All");
     useEffect(() => {
+      
       let auth = isAuth();
-
+      GetVisitsByDoctorUId(auth.uid).then((visits)=>{
+        
+        setVisitCount(visits.length);
+        var patient = visits.map((value)=>{
+         return value.data.patientUid;          
+        })
+        
+        let uniqueUid = [...new Set(patient)];
+        setServedPatient(uniqueUid.length);
+      });
 
 
 
@@ -209,7 +221,7 @@ return(
               </StyledTableCell>
               <StyledTableCell align="right">{row.data.complaint}</StyledTableCell>
               <StyledTableCell align="right">{moment(row.data.visitTime).format("DD-MM-yyyy hh:mm a")}</StyledTableCell>
-              <StyledTableCell align="right"><Button variant="contained" color="primary">View</Button></StyledTableCell>
+              <StyledTableCell align="right"><Button variant="contained" href={`doctors/patient/${row.data.patientUid}`} color="primary">View</Button></StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

@@ -13,15 +13,16 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import Router from "next/router";
+import Router, {useRouter} from "next/router";
 import moment from "moment";
 import Link from "@material-ui/core/Link";
-import { firebaseService } from "../../services/firebase-db-service";
+import { firebaseService } from "../../../services/firebase-db-service";
+
 import Chip from "@material-ui/core/Chip";
 import DoneIcon from "@material-ui/icons/Done";
 import FaceIcon from "@material-ui/icons/Face";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { isAuth } from "../../actions/auth";
+import { isAuth } from "../../../actions/auth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PateintHistory = () => {
+const PateintHistory = ({}) => {
   const classes = useStyles();
   const [visits, setVisits] = useState([]);
   const [visitCount, setVisitCount] = useState();
@@ -48,13 +49,17 @@ const PateintHistory = () => {
   const [color, setColor] = useState({});
   const [selectedComp, setSelectedComp] = useState("View All");
   const [patientComp, setPatientComp] = useState([]);
+  const router = useRouter();
+  const { uid } = router.query;
 
   useEffect(() => {
+    debugger;
     let auth = isAuth();
-    const { id } = Router.query;
+  
+    
     debugger;
     var fb = new firebaseService("Visits");
-    fb.getPatientVisitsByUId(id)
+    fb.getPatientVisitsByUId(uid)
       .then((visits) => {
         let list = [];
         if (selectedComp != "View All") {
@@ -76,7 +81,7 @@ const PateintHistory = () => {
     var fbComp = new firebaseService("Visits");
 
     fbComp
-      .getPatientComplaints(auth.uid)
+      .getPatientComplaints(uid)
       .then((res) => {
         setPatientComp(res);
         // let compState = {};
@@ -283,5 +288,10 @@ const PateintHistory = () => {
 };
 
 PateintHistory.layout = "auth";
+
+export async function getServerSideProps ({ params }) {
+ 
+  return { props: {}}
+}
 
 export default PateintHistory;
