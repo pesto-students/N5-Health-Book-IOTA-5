@@ -1,6 +1,6 @@
 import LandingPage from "../components/landingPage/LandingPage";
 import { isAuth } from '../actions/auth';
-import DoctorDash from './doctors/index'
+import DoctorDash from './../components/doctor/index'
 import Patients from './patients/index'
 import React, { useState ,useEffect} from 'react'
 

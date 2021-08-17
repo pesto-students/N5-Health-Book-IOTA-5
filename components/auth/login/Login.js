@@ -37,7 +37,7 @@ function Login() {
 
     useEffect(() => {
         if (isAuth()) {
-            Router.push(`/`);
+            Router.push(`/dashboard`);
         } else {
             setCheckAuth(true)
         }
