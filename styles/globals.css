@@ -4,8 +4,13 @@
   font-weight: 600;
 } */
 .vertical-timeline::before{
-  background: #2196f3;
+  background: #2196f3 !important;
 }
+
+.tm-link{
+  cursor: pointer;
+}
+
 @font-face {
   font-family: Museo Sans;
   src: url(../public/fonts/museo-sans/museosans-700-webfont.woff);
@@ -89,6 +94,8 @@ a:hover {
   color: #544cbb;
   border: 1px solid #4a8afe;
 }
+
+
 
 /* .btn_theme_outline:hover {
   background: #058286;

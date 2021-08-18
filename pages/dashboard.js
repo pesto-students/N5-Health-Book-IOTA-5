@@ -4,7 +4,9 @@ import DoctorDash from './../components/doctor/index'
 import Patients from './patients/index'
 import React, { useState ,useEffect} from 'react'
 
-export default function Home() {
+
+
+const Home = () => {
   const [logged, setLogged] = useState();
 
     useEffect(() => {
@@ -13,7 +15,7 @@ export default function Home() {
             setLogged(user)
         }
     }, []);
-
+    
     const renderUserDashboard =(user)=>{
       // return <Patients/>
       console.log(user)
@@ -24,7 +26,7 @@ export default function Home() {
       }
     }
 
-
+  
   return (
     <div className="test">
       
@@ -32,3 +34,20 @@ export default function Home() {
     </div>
   )
 }
+
+// const getLayout = () => {
+// debugger;
+//   let user = isAuth()
+//   let layout ="";
+//   if (user) {
+            
+//   layout = user.roleId == "1" ? "patient" : user.roleId == "2" ? "doctor" : "";
+        
+        
+//   }
+//   return layout;
+
+// }
+
+Home.layout = "dsfdas";
+export default Home;

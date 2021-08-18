@@ -280,6 +280,6 @@ const Patients = () => {
   );
 };
 
-Patients.layout = "auth";
+Patients.layout = "patient";
 
 export default Patients;

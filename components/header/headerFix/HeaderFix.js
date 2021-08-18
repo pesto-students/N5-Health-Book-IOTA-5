@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { isAuth,signout } from '../../../actions/auth';
 import Router from 'next/router';
+import {firebaseService} from '../../../services/firebase-db-service';
 
 function HeaderFix() {
     const [clicked, setClicked] = useState(false);
@@ -16,12 +17,22 @@ function HeaderFix() {
         });
     }
     const [logged, setLogged] = useState();
+    const [currUser, setCurrUser] = useState();
+
 
     useEffect(() => {
         let user = isAuth()
         if (user) {
-            setLogged(user)
+            setLogged(user);
+            var fb = new firebaseService("Users");
+            fb.getUserByEmail(user.eMail).then((res)=>{
+               let name = res[0].data.name.split(" ")[0];
+               let title = `Hello, ${name}`;
+               setCurrUser(title);
+            })
+            
         }
+
     }, []);
 
 
@@ -38,7 +49,7 @@ function HeaderFix() {
                 </div>
                 {logged && (
                     <ul className={clicked ? 'header_right header_active' : 'header_right'}>
-                        <li className="header_links2"><p className="m-0">{logged.eMail}</p></li>
+                        <li className="header_links2"><p className="m-0">{currUser}</p></li>
                         <li><Link href="/auth/signup" ><button className="btn__signup" onClick={handleLogout}>Logout</button></Link></li>
                         {/* <li className="header_links2"><i className="bi bi-chevron-down"></i></li> */}
                         
