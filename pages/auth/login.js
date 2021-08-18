@@ -4,7 +4,7 @@ import Router from 'next/router'
 import { isAuth } from '../../actions/auth';
 
 
-function login() {
+const login = () => {
 
 
     return (
@@ -13,5 +13,6 @@ function login() {
         </div>
     )
 }
+login.layout="auth";
 
 export default login

@@ -16,7 +16,7 @@ export async function getStaticProps() {
 }
 
 
-function Login() {
+const Login = () => {
 
     const [values, setValues] = useState({
         eMail: '',
@@ -26,13 +26,13 @@ function Login() {
         loading: false,
         message: '',
         showForm: true
-    })
+    });
 
-    const [checkAuth, setCheckAuth] = useState(false)
+    const [checkAuth, setCheckAuth] = useState(false);
 
-    const [otpScreen, setOtpScreen] = useState(false)
-    const [otp, setOtp] = useState('')
-    const [authenticateUser,setAuthenticate]=useState({})
+    const [otpScreen, setOtpScreen] = useState(false);
+    const [otp, setOtp] = useState('');
+    const [authenticateUser,setAuthenticate]=useState({});
 
 
     useEffect(() => {
