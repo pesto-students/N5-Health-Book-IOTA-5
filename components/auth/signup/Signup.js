@@ -95,7 +95,7 @@ function Signup() {
         console.log(user,"user");
        
             createUserWithEmailAndPassword(user.eMail,user.hashedPassword).then((response) => {  
-                debugger;              
+                            
                 var fbService = new firebaseService("Users");
                 user.uid = response.user.uid;
                 let signUp=fbService.create(user);

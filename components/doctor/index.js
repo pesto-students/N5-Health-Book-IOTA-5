@@ -130,46 +130,34 @@ const handleClick = () => {
     Router.push("/visits");
   };
 
+  function createData(visit, doc, complaint, med, note) {
+    return { visit, doc, complaint, med, note };
+  }
+  
+  const rows = [
+    createData('05-07-2021 9:00 am', 'Dr Prachi Shah', 'Cough', 'TasQ DX, CTZ', 'Avoid junk food'),
+    createData('12-07-2021 2:00 pm', 'Dr Jigish Desai', 'Fever', 'Nimovin plus, Levoctin', 'Take rest and complete medications on time'),
+    createData('25-07-2021 10:00 am', 'Dr Nitin Apa', 'Maleria', 'Malorone, Primaquine', 'Eat more fruits and take rest.'),
+    createData('02-08-2021 6:00 pm', 'Dr Arpita Patel', 'Maleria', 'Malorone, Krintafel', 'Eat more fruits and take rest.'),
+    createData('11-08-2021 5:00 pm', 'Dr Prachi Shah', 'Cough', 'Kough cyrup, Cetrezin', 'Avoid oily food'),
+  ];
+
 return(
 <Layout title={`Dashboard`}>
     <div style={{marginTop:'50px',padding:'50px'}}>
-    <div class="row g-3">
-    <div class="col-md-2">
-    <Card className={classes.card}>
     
-    <CardActionArea onClick={handleClick}>
-      <CardContent>
-        <Typography align="center" gutterBottom variant="h5" component="h2">
-          Patient Served
-        </Typography>
-        <Typography align="center" variant="h5" component="h2">
-          {servedPatient}
-        </Typography>
-      </CardContent>
-    </CardActionArea>
-  </Card>
-    </div>
-    <div class="col-md-2">
-    <Card className={classes.card}>
-        <CardActionArea onClick={handleClick}>
-          <CardContent>
-            <Typography align="center" gutterBottom variant="h5" component="h2">
-              Visits
-            </Typography>
-            <Typography align="center" variant="h5" component="h2">
-              {visitCount}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-    </div>
-    </div>
-    
-
-      
-      <hr></hr>
-    <div class="row g-3">
-         <div class="col-md-6">
+      <div class="row g-3">
+            <div class="col-md-2">
+            <h1>
+                 Welcome Dr.
+            </h1>
+            </div>
+            <div class="col-md-2">
+            
+            </div>
+      </div>
+      <div class="row g-3">
+         <div class="col-md-6" style={{marginLeft:"35%"}}>
          <Paper component="form" onSubmit={e => { e.preventDefault();searchPatient();  }} className={classes.root}>
       
       <InputBase
@@ -207,13 +195,77 @@ return(
               </StyledTableCell>
               <StyledTableCell align="right">{row.data.complaint}</StyledTableCell>
               <StyledTableCell align="right">{moment(row.data.visitTime).format("DD-MM-yyyy hh:mm a")}</StyledTableCell>
-              <StyledTableCell align="right"><Button variant="contained" href={`doctors/patient/${row.data.patientUid}`} color="primary">View</Button></StyledTableCell>
+              <StyledTableCell align="right"><Button variant="contained" target='_blank' href={`doctors/patient/${row.data.patientUid}`} color="primary">View</Button></StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>}
         </div>
+    <div class="row g-3 mt-4">
+    <div class="col-md-2">
+    <Card className={classes.card}>
+    
+    <CardActionArea onClick={handleClick}>
+      <CardContent>
+        <Typography align="center" gutterBottom variant="h5" component="h2">
+          Patient Served
+        </Typography>
+        <Typography align="center" variant="h5" component="h2">
+          {servedPatient}
+        </Typography>
+      </CardContent>
+    </CardActionArea>
+  </Card>
+    </div>
+    <div class="col-md-2">
+    <Card className={classes.card}>
+        <CardActionArea onClick={handleClick}>
+          <CardContent>
+            <Typography align="center" gutterBottom variant="h5" component="h2">
+              Visits
+            </Typography>
+            <Typography align="center" variant="h5" component="h2">
+              {visitCount}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </div>
+    </div>
+    
+
+      
+      <hr></hr>
+      <div>
+      <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>Visit Date</StyledTableCell>
+            <StyledTableCell align="right">Doctor</StyledTableCell>
+            <StyledTableCell align="right">Complaint</StyledTableCell>
+            <StyledTableCell align="right">Medications</StyledTableCell>
+            <StyledTableCell align="right">Note</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <StyledTableRow key={row.name}>
+              <StyledTableCell component="th" scope="row">
+                {row.visit}
+              </StyledTableCell>
+              <StyledTableCell align="right">{row.doc}</StyledTableCell>
+              <StyledTableCell align="right">{row.complaint}</StyledTableCell>
+              <StyledTableCell align="right">{row.med}</StyledTableCell>
+              <StyledTableCell align="right">{row.note}</StyledTableCell>
+            </StyledTableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+      </div>
+    
     </div>
 </Layout>
 );

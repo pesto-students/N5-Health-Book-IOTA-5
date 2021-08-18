@@ -23,7 +23,6 @@ import DoneIcon from "@material-ui/icons/Done";
 import FaceIcon from "@material-ui/icons/Face";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { isAuth } from "../../../actions/auth";
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: 200,
@@ -54,11 +53,10 @@ const PateintHistory = ({}) => {
   const { uid } = router.query;
 
   useEffect(() => {
-    debugger;
-    let auth = isAuth();
-  
+   
+    let auth = isAuth(); 
     
-    debugger;
+   
     var fb = new firebaseService("Visits");
     fb.getPatientVisitsByUId(uid)
       .then((visits) => {
@@ -127,27 +125,38 @@ const PateintHistory = ({}) => {
     Router.push("/visits");
   };
 
+  const handleTimeLineClick = (id) => {
+debugger;
+    const win = window.open( 
+      `/visits/view/${id}`, "_blank");
+    
+  }
+
   return (
     <div className="container">
       <h1 style={{ color: "#2362AD" }}>Patient History</h1>
       <div>
-      <Typography style={{color:"#2196f3",marginTop:"30px"}} variant="h3" gutterBottom>
-       {patientName}
-      </Typography>
-      </div>
-      {/* <Card className={classes.root}>
-        <CardActionArea onClick={handleClick}>
-          <CardContent>
-            <Typography align="center" gutterBottom variant="h5" component="h2">
-              Visits
+      <div class="row g-3">
+            <div class="col-md-3">
+            <Typography style={{color:"#2196f3",marginTop:"30px"}} variant="h3" gutterBottom>
+                {patientName}
             </Typography>
-            <Typography align="center" variant="h5" component="h2">
-              {visitCount}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card> */}
-      <hr></hr>
+      
+            </div>
+            <div class="col-md-9">            
+            <Button variant="contained" style={{float:'right',marginTop:'50px'}} href={`/visits/add`} size="large" color="primary">
+               Add New Visit
+            </Button>
+       
+            </div>
+            {/* <div class="col-md-6"> */}
+           {/* <Button variant="contained" href={`visits/add`} size="large" color="primary">
+          Add Visit
+        </Button> */}
+            {/* </div> */}
+       </div>
+       </div>
+       <hr></hr>
       <div className={classes.chip}>
         <Chip label="View All" onClick={handleBtnClick} color="primary" />
         {patientComp &&
@@ -162,7 +171,7 @@ const PateintHistory = ({}) => {
             return (
               <>
                 <VerticalTimelineElement
-                  key={value.id}
+                  key={value.id}                  
                   className="vertical-timeline-element--work"
                   contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
                   contentArrowStyle={{
@@ -172,6 +181,10 @@ const PateintHistory = ({}) => {
                   iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
                   icon={<AssignmentIcon />}
                 >
+                  
+                  {/* <div style={{cursor:'pointer'}} onClick={handleTimeLineClick(value.id)}> */}
+                  <Link style={{color:"white",textDecorationLine:"none",cursor:"pointer"}} target='_blank' href={`/visits/view/${value.id}`}>
+                    <a class="tm-link" style={{cursor:"pointer"}}>
                   <Typography
                     gutterBottom
                     className="vertical-timeline-element-title"
@@ -182,24 +195,28 @@ const PateintHistory = ({}) => {
                   </Typography>
                   <Typography
                     className="vertical-timeline-element-subtitle"
+                    style={{color:'white'}}
                     variant="h5"
                     component="h2"
                   >
                     Complaint: {value.data.complaint}
                   </Typography>
 
-                  <Typography variant="h5" component="p">
+                  <Typography variant="h5" style={{color:'white'}} component="p">
                     Note: {value.data.note}
                   </Typography>
 
                   <Typography gutterBottom>
-                    <Link href={`/visits/view/${value.id}`}>
-                      <a>Go to visit</a>
+                    <Link target='_blank' href={`/visits/view/${value.id}`}>
+                      <a style={{color:'white'}}>Go to visit</a>
                     </Link>
                   </Typography>
-                  <Typography gutterBottom variant="subtitle2" component="h2">
+                  <Typography style={{color:'white'}} gutterBottom variant="subtitle2" component="h3">
                     {moment(value.data.visitTime).format("DD.MMM.yyyy hh:mm a")}
                   </Typography>
+                  </a></Link>
+                  {/* </div> */}
+                  
                 </VerticalTimelineElement>
                 {/* <Typography variant="h5" component="h3">
  {value.data.visitTime}

@@ -14,7 +14,7 @@ import Select from '@material-ui/core/Select';
 import { useRouter } from 'next/router';
 import TextField from '@material-ui/core/TextField';
 import {RemoveReportById} from '../../../services/visit-service';
-
+import { isAuth} from '../../../actions/auth';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -24,14 +24,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ViewVisit = ({visit}) => { 
-   console.log(visit);
-
+ 
    const router = useRouter();
    const { id } = router.query;
 
    const classes = useStyles();
 
    const [file, setFile] = useState('');
+   const [isPatient, setIsPatient] = useState(); 
    const [fileUrl, setFileUrl] = useState('');
    const [currentReport, setCurrentReport] = useState('');
    
@@ -67,6 +67,11 @@ const ViewVisit = ({visit}) => {
   }
 
     useEffect(()=>{
+      let user = isAuth();
+      let isPatient = user.roleId == "1";
+      setIsPatient(isPatient);
+
+
 if(initialValues.documents){
       initialValues.documents.map(a => {
         
@@ -84,7 +89,7 @@ if(initialValues.documents){
       if(currentReport){
       var fb = new firebaseService("Visits");
       fb.getById(id).then((data)=>{
-        debugger;
+       
         var index = uploadDoc.findIndex(a=>a.report ==`${currentReport}`);
         uploadDoc[index].file = fileUrl;
         uploadDoc[index].date = new Date().toString();
@@ -313,9 +318,10 @@ if(initialValues.documents){
                     className="form-control"
                     readOnly
                   /> */}
-                   <Field as="select" name="reports" class="form-select" multiple disabled>
+                   <Field as="select" class="form-select" multiple readOnly>
+                   <option value="" selected>Choose to Upload</option>
                      {reportNames && reportNames.map((data)=>(
-                     <option key={data} value={data} selected>{data}</option>
+                     <option key={data} value={data}>{data}</option>
                      ))}                
                    </Field>
               </div>
@@ -346,8 +352,8 @@ if(initialValues.documents){
          <div class="col-md-3">
 
          <label for="reports" class="form-label">Upload the Report(s)</label>
-         <Field as="select" name="reports" onChange={handleReportChange} class="form-select" readOnly>
-         <option value="" selected>Choose to Upload</option>
+         <Field as="select" name="reports" onChange={handleReportChange} class="form-select" disabled={!isPatient}>
+         
                      {doc && doc.map((data)=>(
                      <option key={data} value={data}>{data}</option>
                      ))}                
@@ -397,9 +403,10 @@ if(initialValues.documents){
         View
       </Button>
   }
-      <IconButton onClick={handleDeleteIcon} id={res.report} aria-label="Upload">
+      {isPatient && <IconButton onClick={handleDeleteIcon} id={res.report} aria-label="Upload">
         <DeleteIcon />
       </IconButton>
+  }
     </div>
   </div>
 
@@ -416,7 +423,7 @@ if(initialValues.documents){
   
   
   
-  ViewVisit.layout = "auth";
+  ViewVisit.layout = "doctor";
   export async function getServerSideProps ({ params }) {
     var fb = new firebaseService("Visits");
     let visit = {};

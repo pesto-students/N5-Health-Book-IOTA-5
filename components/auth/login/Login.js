@@ -166,6 +166,7 @@ function Login() {
                                 <div className="justify-content-center">
                                     {!otpScreen && <div className={`authRight ${success ? "hideAll" : ""}`}>
                                         <h1 className="auth_title" >Log in to Healthbook</h1>
+                                        <p>Test Accounts</p>
                                         <form onSubmit={handleSubmit} >
                                             <div className="mb-3">
                                                 <label htmlFor="eMail" className="form-label searchLeft_label m-0">Email address</label>
@@ -245,8 +246,10 @@ function Login() {
                                                     inputStyle={{"width":"2em","margin":"0.5em 1em","border":"1px solig grey","&:focus":"outline :none"}}
                                                 />
                                                 
-                                                <button type="button" onClick={submitOtp} className="btn_theme btn_medium" style={{ 'width': '100%', 'height': '44px', 'margin': '10px 0px' }}>Submit Otp {loading ? <Loader /> : null}</button>
+                                                <button type="button" onClick={submitOtp} className="btn_theme btn_medium" style={{ 'width': '100%', 'height': '44px', 'margin': '10px 0px' }}>Submit OTP {loading ? <Loader /> : null}</button>
+                                                <p>Due to government policies, we are not able to integrate OTP flow, use default OTP.</p>
                                             </div>
+                                            
                                             {error && <div className="d-flex justify-content-between ">
                                             <div className="alert-Box flex-container">
                                                 <div><i className="icon-error fa fa-exclamation-circle"></i></div>
