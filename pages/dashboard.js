@@ -35,19 +35,6 @@ const Home = () => {
   )
 }
 
-// const getLayout = () => {
-// debugger;
-//   let user = isAuth()
-//   let layout ="";
-//   if (user) {
-            
-//   layout = user.roleId == "1" ? "patient" : user.roleId == "2" ? "doctor" : "";
-        
-        
-//   }
-//   return layout;
-
-// }
 
 Home.layout = "dsfdas";
 export default Home;

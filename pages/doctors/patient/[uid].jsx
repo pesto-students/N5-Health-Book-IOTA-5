@@ -126,7 +126,7 @@ const PateintHistory = ({}) => {
   };
 
   const handleTimeLineClick = (id) => {
-debugger;
+
     const win = window.open( 
       `/visits/view/${id}`, "_blank");
     
@@ -144,7 +144,7 @@ debugger;
       
             </div>
             <div class="col-md-9">            
-            <Button variant="contained" style={{float:'right',marginTop:'50px'}} href={`/visits/add`} size="large" color="primary">
+            <Button variant="contained" style={{float:'right',marginTop:'50px'}} href={`/visits/add/${uid}`} size="large" color="primary">
                Add New Visit
             </Button>
        
@@ -312,7 +312,6 @@ debugger;
   );
 };
 
-PateintHistory.layout = "auth";
 
 export async function getServerSideProps ({ params }) {
  

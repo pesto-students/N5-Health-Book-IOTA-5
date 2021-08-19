@@ -15,6 +15,9 @@ import { useRouter } from 'next/router';
 import TextField from '@material-ui/core/TextField';
 import {RemoveReportById} from '../../../services/visit-service';
 import { isAuth} from '../../../actions/auth';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure()
 
 
 const useStyles = makeStyles((theme) => ({
@@ -61,7 +64,8 @@ const ViewVisit = ({visit}) => {
       
       fbStorage.ref(`/Documents/${initialValues.patientUid}`).child(fileName).getDownloadURL()
        .then(fileUrl => {      
-        setFileUrl(fileUrl);        
+        setFileUrl(fileUrl);
+        toast.success('File uploaded successfully!',{autoClose:1500});        
        })
     })
   }
@@ -168,7 +172,7 @@ if(initialValues.documents){
   }
 
   const handleDeleteIcon = (e) =>{
-    debugger;
+
     const name = e.currentTarget.id;
     if(name){
     doc.push(name);
@@ -176,7 +180,7 @@ if(initialValues.documents){
      console.log(doc);
 
  RemoveReportById(id, name).then((docs)=>{    
-   debugger;  
+  
   initialValues.documents= docs;
   setUploadDoc(docs);
 });
@@ -319,7 +323,6 @@ if(initialValues.documents){
                     readOnly
                   /> */}
                    <Field as="select" class="form-select" multiple readOnly>
-                   <option value="" selected>Choose to Upload</option>
                      {reportNames && reportNames.map((data)=>(
                      <option key={data} value={data}>{data}</option>
                      ))}                

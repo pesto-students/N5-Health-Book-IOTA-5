@@ -23,7 +23,7 @@ export const GetPatientsByMobile = async (mobile) => {
   
     var fb = new firebaseService("Users");
     await fb.getAll().then((values)=>{
-       debugger;
+ 
         uids = values.filter(a=>a.data.mobileNum == mobile ).map(item => {
             const container = {};
         

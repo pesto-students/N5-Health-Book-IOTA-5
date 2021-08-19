@@ -18,11 +18,15 @@ function HeaderFix() {
     }
     const [logged, setLogged] = useState();
     const [currUser, setCurrUser] = useState();
+    const [isPatient, setIsPatient] = useState();
+    
+
 
 
     useEffect(() => {
-        let user = isAuth()
+        let user = isAuth();
         if (user) {
+            setIsPatient(user.roleId =="1");
             setLogged(user);
             var fb = new firebaseService("Users");
             fb.getUserByEmail(user.eMail).then((res)=>{
@@ -42,14 +46,19 @@ function HeaderFix() {
         <div className="fixed-top">
             <header className="header_main header_fix">
                 <div className="header_left" >
-                    <Link href="/"><img src="/images/Logo.png" height="35px" alt="logo" /></Link> 
+                    <Link href={ currUser ? "/dashboard": "/"}><img src="/images/Logo.png" height="35px" alt="logo" /></Link> 
                 </div>
                 <div className="header_menu_icon" onClick={handleClick}>
                     <i className={clicked ? 'bi bi-x-lg' : 'bi bi-list'}></i>
                 </div>
                 {logged && (
                     <ul className={clicked ? 'header_right header_active' : 'header_right'}>
+                        {isPatient ?
+                        <li className="header_links2"><a href="/patients/profile"><p className="m-0">{currUser}</p></a></li>
+                        :
                         <li className="header_links2"><p className="m-0">{currUser}</p></li>
+                        }
+                        
                         <li><Link href="/auth/signup" ><button className="btn__signup" onClick={handleLogout}>Logout</button></Link></li>
                         {/* <li className="header_links2"><i className="bi bi-chevron-down"></i></li> */}
                         
