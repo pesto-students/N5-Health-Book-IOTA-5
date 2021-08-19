@@ -155,7 +155,7 @@ return(
     
       <div class="row g-3">
             <div class="col-md-3">
-            <h2>
+            <h2 style={{fontWeight:"600"}}>
                  Welcome Dr. {docName}
             </h2>
             </div>          

@@ -99,7 +99,7 @@ const PatientSchema = Yup.object().shape({
           setFieldValue
         } = formik;
         return (
-          <div className="container"> 
+          <div className="container" style={{marginTop:"6rem"}}> 
       <div>
         <h1 style={{ color: '#2362AD' }}>Patient Profile</h1>
 

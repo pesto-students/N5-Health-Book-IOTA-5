@@ -174,7 +174,7 @@ class AddVisit extends React.Component {
           setFieldValue
         } = formik;
         return (
-          <div className="container"> 
+          <div className="container" style={{marginTop:"7rem"}}>
       <div>
         <h1 style={{ color: '#2362AD' }}>Visit</h1>
 

@@ -148,8 +148,9 @@ export default function CollapsibleTable() {
     }, []);
 
   return (
-    <div className="container">
-    <TableContainer component={Paper}>
+    <div className="container" style={{marginTop:"7rem"}}>
+    <h1 style={{ color: '#2362AD' }}>Visits</h1>
+    <TableContainer component={Paper} style={{marginTop:"2rem"}}>
       <Table className={classes.table} aria-label="collapsible table">
         <TableHead>
           <TableRow>

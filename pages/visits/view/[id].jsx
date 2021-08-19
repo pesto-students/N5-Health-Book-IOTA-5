@@ -217,7 +217,7 @@ if(initialValues.documents){
             setFieldValue
           } = formik;
           return (
-            <div className="container"> 
+            <div className="container" style={{marginTop:"5rem"}}> 
         <div>
           <h1 style={{ color: '#2362AD' }}>Visit Information</h1>
   
@@ -333,11 +333,12 @@ if(initialValues.documents){
               <div class="col-md-6">
                 <label for="inputEmail4" class="form-label">Medications</label>
                 <Field
-                    type="text"
+                    type="textarea"
                     name="medications"
                     id="medications"
                     className="form-control"
-                    readOnly
+                    readOnly                   
+                    row={3}
                   />
               </div>
               <div class="col-md-6">
