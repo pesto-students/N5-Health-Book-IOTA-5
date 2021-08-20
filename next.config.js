@@ -36,7 +36,7 @@ module.exports = (phase, { defaultConfig }) => {
     webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
       // Important: return the modified config
       // config.mode="development";
-      config.optimization={};
+     
       console.log("config",config);
       return config
     },  
