@@ -31,8 +31,10 @@ const AddPatient= () => {
   
     var fb = new firebaseService("Patient");
     fb.getUserByUId(user.uid).then((values)=>{
+      if(values && values.length){
      setPatientId(values[0].id);
-     setPatient(values[0].data);   
+     setPatient(values[0].data);
+      }   
        
     });
   },[]);
@@ -55,7 +57,7 @@ const AddPatient= () => {
 
 
 const submitForm = (values) => {
-debugger;
+
 var fb = new firebaseService("Patient");
 values.dob = new Date(values.dob).toString();
 fb.update(values,patientId);
@@ -97,7 +99,7 @@ const PatientSchema = Yup.object().shape({
           setFieldValue
         } = formik;
         return (
-          <div className="container"> 
+          <div className="container" style={{marginTop:"6rem"}}> 
       <div>
         <h1 style={{ color: '#2362AD' }}>Patient Profile</h1>
 
@@ -245,8 +247,6 @@ const PatientSchema = Yup.object().shape({
     }
 
 
-
-AddPatient.layout = "auth";
 
 // AddPatient.getInitialProps = async (ctx) => {
 //     console.log("Res");

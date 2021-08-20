@@ -16,7 +16,7 @@ const AddPatient= () => {
 
     var fb = new firebaseService("Patient");
     fb.getUserByUId(user.uid).then((values)=>{
-      debugger;
+     
         
         // this.setState({name: values[0].data.name, mobile: values[0].data.mobileNum});
         initialValues.fullname = values[0].data.name;
@@ -230,9 +230,6 @@ const PatientSchema = Yup.object().shape({
     );
     }
 
-
-
-AddPatient.layout = "auth";
 
 export async function getServerSideProps ({ params }) {
   var fb = new firebaseService("Users");
