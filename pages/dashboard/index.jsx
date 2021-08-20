@@ -29,8 +29,8 @@ const Home = () => {
   
   return (
     <div className="test">
-      
-      {renderUserDashboard(logged)}
+     <DoctorDash/> 
+      {/* {renderUserDashboard(logged)} */}
     </div>
   )
 }
