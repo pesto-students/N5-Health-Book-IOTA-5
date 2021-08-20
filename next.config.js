@@ -4,8 +4,15 @@ const { PHASE_DEVELOPMENT_SERVER } = require('next/constants')
 
 module.exports = (phase, { defaultConfig }) => {
   console.log("phase",phase);
-  if (phase === PHASE_DEVELOPMENT_SERVER) {   
+  // console.log(defaultConfig);
+  if (phase === PHASE_DEVELOPMENT_SERVER) {  
+
     return {
+      webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+        // Important: return the modified config
+        console.log("dev phase",dev);
+        return config;
+      },    
       env: {
         API: 'http://localhost:3000',
         GCID: '250519635268-751g3ofj1t9hc142aavrm4b2tl1686bj.apps.googleusercontent.com',
@@ -26,6 +33,13 @@ module.exports = (phase, { defaultConfig }) => {
 
   return {
     /* config options for all phases except development here */
+    webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+      // Important: return the modified config
+      config.mode="development";
+      config.optimization={};
+      console.log("config",config);
+      return config
+    },  
     env: {
       API: 'https://healthbookapp.netlify.app/',
       GCID: '250519635268-751g3ofj1t9hc142aavrm4b2tl1686bj.apps.googleusercontent.com',
