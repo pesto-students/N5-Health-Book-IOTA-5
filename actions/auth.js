@@ -21,7 +21,7 @@ export const signup = user => {
 
 export const signin = user => {
     console.log(process.env.API)
-    return fetch(`${API}/api/auth/getUserByUid`, {
+    return fetch(`/api/auth/getUserByUid`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -37,7 +37,7 @@ export const signin = user => {
 
 export const forgetPassWord = user => {
     console.log(process.env.API)
-    return fetch(`${API}/api/auth/reset-link`, {
+    return fetch(`/api/auth/reset-link`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -52,7 +52,7 @@ export const forgetPassWord = user => {
 };
 export const resetPassWord = user => {
     console.log(process.env.API)
-    return fetch(`${API}/api/auth/reset-password`, {
+    return fetch(`/api/auth/reset-password`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
