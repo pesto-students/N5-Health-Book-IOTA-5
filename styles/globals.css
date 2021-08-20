@@ -3,12 +3,31 @@
   src: url(../public/fonts/museo-sans/museosans-500-webfont.woff);
   font-weight: 600;
 } */
+
+.MuiButton-containedPrimary {
+  background-color: #2196f3 !important;
+}
+
+.btn-curved{
+  border-radius: 100px !important;
+}
+
+.MuiButton-containedPrimary:hover, .MuiButton-containedPrimary:focus{
+color:white;
+background-color: #4176d5 !important;
+}
+.fixed-top{
+  background: white;
+  box-shadow: 0 3px 7px rgb(0 0 0 / 15%);
+}
+
 .vertical-timeline::before{
   background: #2196f3 !important;
 }
 
 .tm-link{
   cursor: pointer;
+  text-decoration: none;
 }
 
 @font-face {

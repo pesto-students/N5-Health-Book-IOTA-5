@@ -126,7 +126,7 @@ const PateintHistory = ({}) => {
   };
 
   const handleTimeLineClick = (id) => {
-debugger;
+
     const win = window.open( 
       `/visits/view/${id}`, "_blank");
     
@@ -144,7 +144,7 @@ debugger;
       
             </div>
             <div class="col-md-9">            
-            <Button variant="contained" style={{float:'right',marginTop:'50px'}} href={`/visits/add`} size="large" color="primary">
+            <Button variant="contained" style={{float:'right',marginTop:'50px'}} href={`/visits/add/${uid}`} size="large" color="primary">
                Add New Visit
             </Button>
        
@@ -158,13 +158,14 @@ debugger;
        </div>
        <hr></hr>
       <div className={classes.chip}>
-        <Chip label="View All" onClick={handleBtnClick} color="primary" />
+      {patientComp.length > 0 &&
+        <Chip label="View All" onClick={handleBtnClick} color="primary" />}
         {patientComp &&
           patientComp.map((value) => (
             <Chip key={value}  label={value} color="primary" onClick={handleBtnClick} />
           ))}
       </div>
-
+{visits && visits.length > 0 &&
       <VerticalTimeline>
         {visits &&
           visits.map((value) => {
@@ -189,6 +190,7 @@ debugger;
                     gutterBottom
                     className="vertical-timeline-element-title"
                     variant="h5"
+                    style={{color:'white'}}
                     component="h3"
                   >
                     Visited Dr. {value.data.doctor}
@@ -218,101 +220,19 @@ debugger;
                   {/* </div> */}
                   
                 </VerticalTimelineElement>
-                {/* <Typography variant="h5" component="h3">
- {value.data.visitTime}
-  </Typography>*/}
               </>
             );
           })}
-
-        {/* <VerticalTimelineElement
-    className="vertical-timeline-element--work"
-    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="2010 - 2011"
-    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    icon={<AssignmentIcon />}
-  >
-    <h3 className="vertical-timeline-element-title">Art Director</h3>
-    <h4 className="vertical-timeline-element-subtitle">San Francisco, CA</h4>
-    <p>
-      Creative Direction, User Experience, Visual Design, SEO, Online Marketing
-    </p>
-  </VerticalTimelineElement>
-  <VerticalTimelineElement
-    className="vertical-timeline-element--work"
-    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="2008 - 2010"
-    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    icon={<AssignmentIcon />}
-  >
-    <h3 className="vertical-timeline-element-title">Web Designer</h3>
-    <h4 className="vertical-timeline-element-subtitle">Los Angeles, CA</h4>
-    <p>
-      User Experience, Visual Design
-    </p>
-  </VerticalTimelineElement>
-  <VerticalTimelineElement
-    className="vertical-timeline-element--work"
-    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="2006 - 2008"
-    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    icon={<AssignmentIcon />}
-  >
-    <h3 className="vertical-timeline-element-title">Web Designer</h3>
-    <h4 className="vertical-timeline-element-subtitle">San Francisco, CA</h4>
-    <p>
-      User Experience, Visual Design
-    </p>
-  </VerticalTimelineElement>
-  <VerticalTimelineElement
-    className="vertical-timeline-element--education"
-    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="April 2013"
-    iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
-    icon={<AssignmentIcon />}
-  >
-    <h3 className="vertical-timeline-element-title">Content Marketing for Web, Mobile and Social Media</h3>
-    <h4 className="vertical-timeline-element-subtitle">Online Course</h4>
-    <p>
-      Strategy, Social Media
-    </p>
-  </VerticalTimelineElement>
-  <VerticalTimelineElement
-    className="vertical-timeline-element--education"
-    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="November 2012"
-    iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
-    icon={<AssignmentIcon />}
-  >
-    <h3 className="vertical-timeline-element-title">Agile Development Scrum Master</h3>
-    <h4 className="vertical-timeline-element-subtitle">Certification</h4>
-    <p>
-      Creative Direction, User Experience, Visual Design
-    </p>
-  </VerticalTimelineElement>
-  <VerticalTimelineElement
-    className="vertical-timeline-element--education"
-    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="2002 - 2006"
-    iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
-    icon={<AssignmentIcon />}
-  >
-    <h3 className="vertical-timeline-element-title">Bachelor of Science in Interactive Digital Media Visual Imaging</h3>
-    <h4 className="vertical-timeline-element-subtitle">Bachelor Degree</h4>
-    <p>
-      Creative Direction, Visual Design
-    </p>
-  </VerticalTimelineElement> */}
         <VerticalTimelineElement
           iconStyle={{ background: "rgb(16, 204, 82)", color: "#fff" }}
           icon={<StarIcon />}
         />
       </VerticalTimeline>
+}
     </div>
   );
 };
 
-PateintHistory.layout = "auth";
 
 export async function getServerSideProps ({ params }) {
  

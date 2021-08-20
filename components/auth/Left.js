@@ -15,7 +15,7 @@ function Left() {
                             <Link  href="/"><img src="/images/Logo.png" alt="logo" style={{"height":"80px"}} /></Link>
                         </div>
                         <div className={styles.rectangle}>
-                            <img src="/images/black.png"/>
+                            <img src="/images/docpatient.jpg"/>
                         </div>
                     </div>
                 </div>

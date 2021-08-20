@@ -13,7 +13,7 @@ function Footer() {
                         </div>
                         <div className="row">
                             <div className="col-auto">
-                                <p>No Copyright © 2020 </p>
+                                <p>No Copyright © 2021 </p>
                             </div>
                         </div>
                         <div className="row">
