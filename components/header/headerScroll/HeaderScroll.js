@@ -83,7 +83,7 @@ function HeaderScroll() {
             {logged && 
 
             <div>
-            <Button aria-controls="simple-menu" aria-haspopup="true" variant="contained" color="primary" 
+            <Button className="btn-curved" aria-controls="simple-menu" aria-haspopup="true" variant="contained" color="primary" 
               onMouseEnter={handleClickMenu}
               onMouseLeave={handleClickMenu}
             >

@@ -357,7 +357,7 @@ if(initialValues.documents){
 
          <label for="reports" class="form-label">Upload the Report(s)</label>
          <Field as="select" name="reports" onChange={handleReportChange} class="form-select" disabled={!isPatient}>
-         
+         <option value="">Choose to upload</option>
                      {doc && doc.map((data)=>(
                      <option key={data} value={data}>{data}</option>
                      ))}                
