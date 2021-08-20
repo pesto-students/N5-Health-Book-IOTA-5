@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch';
 // import { API } from '../config';
 import cookie from 'js-cookie';
 const API= process.env.API
-import { firebaseService } from '../services/firebase-db-service'
+import { firebaseService } from '../services/firebase-db-service';
 
 export const signup = user => {
     return fetch(`${API}/api/user/signup`, {

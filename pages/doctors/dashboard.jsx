@@ -94,8 +94,9 @@ const Doctor = () =>{
     useEffect(() => {
       
       let auth = isAuth();
+      console.log("before GetVisitsByDoctorUId");
       GetVisitsByDoctorUId(auth.uid).then((visits)=>{
-       
+        console.log("after GetVisitsByDoctorUId");
         let dName = visits[0].data.doctor;
         dName = dName.split(" ")[0];
         setDocName(dName);
