@@ -48,6 +48,7 @@ const Patients = () => {
   const [color, setColor] = useState({});
   const [selectedComp, setSelectedComp] = useState("View All");
   const [patientComp, setPatientComp] = useState([]);
+  const [patientName, setPatientName] = useState();
 
   useEffect(() => {
     let auth = isAuth();
@@ -89,6 +90,15 @@ const Patients = () => {
       .catch((err) => {
         console.log("error");
       });
+
+    var fbUser = new firebaseService("Users");
+    fbUser.getUserByUId(auth.uid).then((value)=>{
+      debugger; 
+      let name = value[0].data.name;
+      name = name.split(" ")[0];
+       setPatientName(name);
+    }); 
+
   }, [selectedComp]);
 
   const handleBtnClick = async (e) => {
@@ -118,8 +128,15 @@ const Patients = () => {
   };
 
   return (
-    <div className="container">
-      <h1 style={{ color: "#2362AD" }}>Patient History</h1>
+    <div className="container" style={{marginTop:"7rem"}}>
+     {patientName && <h1 style={{ color: "black",fontWeight:"600",marginBottom:"2rem" }}>Welcome {patientName}</h1> }
+      {/* <div class="row g-3">
+            <div class="col-md-3">
+            <h2>
+                 Welcome {patientName}
+            </h2>
+            </div>          
+      </div> */}
       <Card className={classes.root}>
         <CardActionArea onClick={handleClick}>
           <CardContent>
@@ -134,13 +151,15 @@ const Patients = () => {
       </Card>
       <hr></hr>
       <div className={classes.chip}>
+      {patientComp.length > 0 && 
         <Chip label="View All" onClick={handleBtnClick} color="primary" />
+      }
         {patientComp &&
           patientComp.map((value) => (
-            <Chip key={value}  label={value} color="primary" onClick={handleBtnClick} />
+            <Chip key={value} size="medium" label={value} color="primary" onClick={handleBtnClick} />
           ))}
       </div>
-
+      {visits && visits.length > 0 &&
       <VerticalTimeline>
         {visits &&
           visits.map((value) => {
@@ -149,7 +168,7 @@ const Patients = () => {
                 <VerticalTimelineElement
                   key={value.id}
                   className="vertical-timeline-element--work"
-                  // contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                  contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
                   contentArrowStyle={{
                     borderRight: "7px solid  rgb(33, 150, 243)",
                   }}
@@ -157,11 +176,14 @@ const Patients = () => {
                   iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
                   icon={<AssignmentIcon />}
                 >
+                  <Link style={{color:"white",textDecorationLine:"none",cursor:"pointer"}} target='_blank' href={`/visits/view/${value.id}`}>
+                    <a class="tm-link" style={{cursor:"pointer"}}>
                   <Typography
                     gutterBottom
                     className="vertical-timeline-element-title"
                     variant="h5"
                     component="h3"
+                    style={{color:'white'}}
                   >
                     Visited Dr. {value.data.doctor}
                   </Typography>
@@ -169,117 +191,38 @@ const Patients = () => {
                     className="vertical-timeline-element-subtitle"
                     variant="h5"
                     component="h2"
+                    style={{color:'white'}}
                   >
                     Complaint: {value.data.complaint}
                   </Typography>
 
-                  <Typography variant="h5" component="p">
+                  <Typography variant="h5" style={{color:'white'}} component="p">
                     Note: {value.data.note}
                   </Typography>
 
                   <Typography gutterBottom>
                     <Link href={`/visits/view/${value.id}`}>
-                      <a>Go to visit</a>
+                      <a style={{color:'white'}}>Go to visit</a>
                     </Link>
                   </Typography>
-                  <Typography gutterBottom variant="subtitle2" component="h2">
+                  <Typography style={{color:'white'}} gutterBottom variant="subtitle2" component="h3">
                     {moment(value.data.visitTime).format("DD.MMM.yyyy hh:mm a")}
                   </Typography>
+                   </a></Link>
                 </VerticalTimelineElement>
-                {/* <Typography variant="h5" component="h3">
- {value.data.visitTime}
-  </Typography>*/}
               </>
             );
           })}
 
-        {/* <VerticalTimelineElement
-    className="vertical-timeline-element--work"
-    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="2010 - 2011"
-    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    icon={<AssignmentIcon />}
-  >
-    <h3 className="vertical-timeline-element-title">Art Director</h3>
-    <h4 className="vertical-timeline-element-subtitle">San Francisco, CA</h4>
-    <p>
-      Creative Direction, User Experience, Visual Design, SEO, Online Marketing
-    </p>
-  </VerticalTimelineElement>
-  <VerticalTimelineElement
-    className="vertical-timeline-element--work"
-    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="2008 - 2010"
-    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    icon={<AssignmentIcon />}
-  >
-    <h3 className="vertical-timeline-element-title">Web Designer</h3>
-    <h4 className="vertical-timeline-element-subtitle">Los Angeles, CA</h4>
-    <p>
-      User Experience, Visual Design
-    </p>
-  </VerticalTimelineElement>
-  <VerticalTimelineElement
-    className="vertical-timeline-element--work"
-    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="2006 - 2008"
-    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    icon={<AssignmentIcon />}
-  >
-    <h3 className="vertical-timeline-element-title">Web Designer</h3>
-    <h4 className="vertical-timeline-element-subtitle">San Francisco, CA</h4>
-    <p>
-      User Experience, Visual Design
-    </p>
-  </VerticalTimelineElement>
-  <VerticalTimelineElement
-    className="vertical-timeline-element--education"
-    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="April 2013"
-    iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
-    icon={<AssignmentIcon />}
-  >
-    <h3 className="vertical-timeline-element-title">Content Marketing for Web, Mobile and Social Media</h3>
-    <h4 className="vertical-timeline-element-subtitle">Online Course</h4>
-    <p>
-      Strategy, Social Media
-    </p>
-  </VerticalTimelineElement>
-  <VerticalTimelineElement
-    className="vertical-timeline-element--education"
-    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="November 2012"
-    iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
-    icon={<AssignmentIcon />}
-  >
-    <h3 className="vertical-timeline-element-title">Agile Development Scrum Master</h3>
-    <h4 className="vertical-timeline-element-subtitle">Certification</h4>
-    <p>
-      Creative Direction, User Experience, Visual Design
-    </p>
-  </VerticalTimelineElement>
-  <VerticalTimelineElement
-    className="vertical-timeline-element--education"
-    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="2002 - 2006"
-    iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
-    icon={<AssignmentIcon />}
-  >
-    <h3 className="vertical-timeline-element-title">Bachelor of Science in Interactive Digital Media Visual Imaging</h3>
-    <h4 className="vertical-timeline-element-subtitle">Bachelor Degree</h4>
-    <p>
-      Creative Direction, Visual Design
-    </p>
-  </VerticalTimelineElement> */}
+       
         <VerticalTimelineElement
           iconStyle={{ background: "rgb(16, 204, 82)", color: "#fff" }}
           icon={<StarIcon />}
         />
       </VerticalTimeline>
+}
     </div>
   );
 };
-
-Patients.layout = "patient";
 
 export default Patients;

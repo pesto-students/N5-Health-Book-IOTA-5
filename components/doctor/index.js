@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
     },
     iconButton: {
       padding: 10,
+      color: '#2196f3'
     },
     divider: {
       height: 28,
@@ -90,11 +91,15 @@ const Doctor = () =>{
     const [search, setSearch] = useState();
     const [servedPatient, setServedPatient] = useState();
     const [selectedComp, setSelectedComp] = useState("View All");
+    const [docName, setDocName]= useState();
     useEffect(() => {
       
       let auth = isAuth();
       GetVisitsByDoctorUId(auth.uid).then((visits)=>{
-        
+       
+        let dName = visits[0].data.doctor;
+        dName = dName.split(" ")[0];
+        setDocName(dName);
         setVisitCount(visits.length);
         var patient = visits.map((value)=>{
          return value.data.patientUid;          
@@ -127,7 +132,9 @@ const searchPatient = () => {
 
 }
 const handleClick = () => {
-    Router.push("/visits");
+  const win = window.open( 
+    `/doctors/visits`, "_blank");
+    // Router.push("/doctors/visits");
   };
 
   function createData(visit, doc, complaint, med, note) {
@@ -143,18 +150,15 @@ const handleClick = () => {
   ];
 
 return(
-<Layout title={`Dashboard`}>
+  <div>
     <div style={{marginTop:'50px',padding:'50px'}}>
     
       <div class="row g-3">
-            <div class="col-md-2">
-            <h1>
-                 Welcome Dr.
-            </h1>
-            </div>
-            <div class="col-md-2">
-            
-            </div>
+            <div class="col-md-3">
+            <h2 style={{fontWeight:"600"}}>
+                 Welcome Dr. {docName}
+            </h2>
+            </div>          
       </div>
       <div class="row g-3">
          <div class="col-md-6" style={{marginLeft:"35%"}}>
@@ -206,7 +210,7 @@ return(
     <div class="col-md-2">
     <Card className={classes.card}>
     
-    <CardActionArea onClick={handleClick}>
+    <CardActionArea>
       <CardContent>
         <Typography align="center" gutterBottom variant="h5" component="h2">
           Patient Served
@@ -267,7 +271,8 @@ return(
       </div>
     
     </div>
-</Layout>
+    </div>
+
 );
 }
 

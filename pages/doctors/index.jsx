@@ -180,6 +180,4 @@ const Doctor = () => {
   );
 };
 
-Doctor.layout = "auth";
-
 export default Doctor;

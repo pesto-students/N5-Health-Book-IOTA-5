@@ -10,7 +10,6 @@ import Layout from '.././components/container/doctor';
 // };
 
 function MyApp({ Component, pageProps }) {
- debugger;
   const noLayout = Component.layout == "auth";
   // const Layout = layouts[Component.layout] || ((children) => <>{children}</>);
  

@@ -95,9 +95,8 @@ const Login = () => {
     };
 
     const responseGoogle = (response) => {
-        console.log(response);
-        // ;
-
+       
+      
         const tokenId = response.tokenId;
 
         if (tokenId) {
@@ -139,6 +138,8 @@ const Login = () => {
 
 
     const [success, setSuccess] = useState(false)
+    const [email, setEmail] = useState();
+    const [pwd, setPwd] = useState();
     const Loader = () => {
         return (<span className="loader"></span>)
     }
@@ -147,6 +148,16 @@ const Login = () => {
     }
     const handleOtp = (otp) => {
         setOtp(otp)
+    }
+
+    const fillLoginDetails = (userType) =>{
+        if(userType == "patient"){
+            setValues({ ...values, "eMail": "amit2@gmail.com","password": "Welcome@123" })
+           
+        }else{
+            setValues({ ...values, "eMail": "ratanv@gmail.com","password": "123456" })
+            
+        }
     }
 
     
@@ -165,12 +176,15 @@ const Login = () => {
                                 <p className="text-end p-4" style={{ 'position': 'absolute', 'top': '0', 'right': '0' }} >Don't have an account? <Link className="" href="/auth/signup">Sign up now</Link></p>
                                 <div className="justify-content-center">
                                     {!otpScreen && <div className={`authRight ${success ? "hideAll" : ""}`}>
+                                        <p className="mb-2" style={{fontWeight:"bold"}}>For Final Demo Purpose Only</p>
+                                    <p style={{color:'grey',fontSize:'12px',fontWeight:'bold'}}>For Doctor Login, U: ratanv@gmail.com, P: 123456</p><p><button name="doctor" className="btn btn-primary" style={{fontSize:"12px"}} onClick={()=> fillLoginDetails('doctor')}>Click Here To Fill Doctor Login Details</button></p>
+                                        <p className="mt-2" style={{color:'grey',fontSize:'12px',fontWeight:'bold'}}>For Patient Login, U: amit2@gmail.com, P: Welcome@123</p><p><button name="patient" style={{fontSize:"12px"}} className="btn btn-primary" onClick={()=> fillLoginDetails('patient')}>Click Here To Fill Patient Login Details</button></p>
                                         <h1 className="auth_title" >Log in to Healthbook</h1>
-                                        <p>Test Accounts</p>
+                                        
                                         <form onSubmit={handleSubmit} >
                                             <div className="mb-3">
-                                                <label htmlFor="eMail" className="form-label searchLeft_label m-0">Email address</label>
-                                                <input type="email" className="bg-transparent form-control" name="eMail"
+                                                <label htmlFor="eMail" className="form-label searchLeft_label m-0">Email Address</label>
+                                                <input type="email" className="bg-transparent form-control" name="eMail" value={values.eMail}
                                                     onChange={handleChange} aria-describedby="emailHelp" />
                                             </div>
                                             <div className="mb-3">
@@ -178,7 +192,7 @@ const Login = () => {
                                                 <label htmlFor='password' className="searchLeft_label m-0 form-label">Password</label>
 
                                                 <input type={values.showPassword ? 'text' : 'password'} className="bg-transparent form-control" name="password"
-                                                    onChange={handleChange} />
+                                                    onChange={handleChange} value={values.password} />
                                                 <div className=" d-flex justify-content-between searchLeft_label auth_terms">
                                                     <p />
                                                     <Link href="/auth/forget" >Forgot password? </Link>
@@ -235,7 +249,7 @@ const Login = () => {
                                         
                                     </div> }
                                     {otpScreen && <div className={`authRight`}>
-                                        <h1 className="auth_title" >Log in to Healthbook</h1>
+                                        <h1 className="auth_title" >Enter OTP</h1>
                                             <div className="bg-transparent form-control text-center">
                                                 <OtpInput
                                                     className="text-center"
@@ -247,7 +261,7 @@ const Login = () => {
                                                 />
                                                 
                                                 <button type="button" onClick={submitOtp} className="btn_theme btn_medium" style={{ 'width': '100%', 'height': '44px', 'margin': '10px 0px' }}>Submit OTP {loading ? <Loader /> : null}</button>
-                                                <p>Due to government policies, we are not able to integrate OTP flow, use default OTP.</p>
+                                                <p>Due to government policies, we are not able to send OTP to your mobile, please use default OTP: <b>123456</b>.</p>
                                             </div>
                                             
                                             {error && <div className="d-flex justify-content-between ">
