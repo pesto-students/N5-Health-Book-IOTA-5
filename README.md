@@ -1,34 +1,65 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Healthbook
 
-First, run the development server:
+[Healthbook](https://healthbookapp.netlify.app) is a healthcare web platform where Patients can manage their medical documents and Doctors can manage diagnosis for patients.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Table of Contents
+- [Stakeholders](#stakeholders)
+- [How To Run The Project](#how-to-run-the-project)
+- [Artefacts](#artefacts)
+- [Performance Screenshot](#performance-screenshot)
+- [Features](#features)
+- [Upcoming Features](#upcoming-features)
+- [Tech Stack](#tech-stack)
+- [Third Party Tools](#third-party-tools)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Stakeholders
+- Rushik Lakhatariya - [LinkedIn](https://www.linkedin.com/in/rushik-prajapati-1254a79b) - [GitHub](https://github.com/Rikiricks)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### How To Run The Project
+- Run ```https://github.com/pesto-students/N5-Health-Book-IOTA-5.git```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+**Requirment**: NPM v6.14.13, Node v14.17.0 and [Firebase CLI](https://firebase.google.com/docs/cli#install_the_firebase_cli)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+**For Running the code**
+- Go to main project folder ```cd N5-Health-Book-IOTA-5```
+- Run ```npm install``` to install all required project dependencies
+- Run ```npm run dev``` to the project in dev mode
+- Open the ```https://localhost:3000``` to run the project
 
-## Learn More
+### Artefacts
+- [PRD](https://docs.google.com/document/d/14yKWNPIgyWNJnCJuGe_LyOd-Jj895hYaJKHhoa5Amtc)
+- [One Pager](https://docs.google.com/document/d/15C3FQ8-M6HP9SFUllCPodK84335qSq2iQYyYWMPu-nk/edit?usp=sharing)
+- [HLD](https://www.figma.com/file/HzIb5eCWwPtHyYcnrThcq5/HLD_HealthBook?node-id=0%3A1)
+- [User Flow and Design](https://www.figma.com/file/abZumLTe9R4kNqnkzVOmu3/User-Flow-and-Design?node-id=0%3A1)
+- [Wireframes Figma](https://www.figma.com/file/q15H5e5kLy779QEORCti4K/Wireframes_HealthBook?node-id=0%3A1) - [Play Prototype](https://www.figma.com/proto/q15H5e5kLy779QEORCti4K/Wireframes_HealthBook?node-id=32%3A173&scaling=scale-down&page-id=0%3A1&starting-point-node-id=32%3A173&show-proto-sidebar=1)
 
-To learn more about Next.js, take a look at the following resources:
+### Performance Screenshot
+![image](https://drive.google.com/uc?export=view&id=10ZFuhmGHIq1t2hty0naAxCZU67FEN6If)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Features
+- **Authentication** - Authentication using Firebase, Google and Facebook.
+- **Timeline** - Timeline history of patient diagnostic history of visits.
+- **Search** - Help users to search patient by mobile number for doctor user-type.
+- **Filters** - User can review dignostic history by filter of complaint.
+- **Services** - Diagnostic History, Visit History, Manage profile, Documents Uplaod etc.
+- **Security** - Next/React provides protection from XSS out of the box.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Upcoming Features
+- Appointment Availability
+- Practices Management
+- Multilingual Support
 
-## Deploy on Vercel
+### Tech Stack
+- Next JS
+- React JS
+- Javascript
+- Firebase (Firestore DB, Authentication, Storage)
+- Netlify
+- Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Third Party Tools
+- Firebase
+- Netlify (To deploy the build)
+- Vercel (To deploy the build)
+- Material UI
