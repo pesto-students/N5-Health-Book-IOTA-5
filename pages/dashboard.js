@@ -1,4 +1,4 @@
-import LandingPage from "../components/landingPage/LandingPage";
+// import LandingPage from "../components/landingPage/LandingPage";
 import { isAuth } from '../actions/auth';
 import DoctorDash from './../components/doctor/index'
 import Patients from './patients/index'

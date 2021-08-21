@@ -5,7 +5,7 @@ import cookie from 'js-cookie';
 const API= process.env.API
 
 export const chatList = (id) => {
-    return fetch(`${API}/api/chat/seeker-chat-list/${id}`, {
+    return fetch(`/api/chat/seeker-chat-list/${id}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -18,7 +18,7 @@ export const chatList = (id) => {
         .catch(err => console.log(err));
 };
 export const prochatList = (id) => {
-    return fetch(`${API}/api/chat/provider-chat-list/${id}`, {
+    return fetch(`/api/chat/provider-chat-list/${id}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -32,7 +32,7 @@ export const prochatList = (id) => {
 };
 export const getMessages =async (data) => {
     console.log(data,"Data...data")
-    return fetch(`${API}/api/chat/messages?seekerId=${data.seekerId}&providerId=${data.providerId}`, {
+    return fetch(`/api/chat/messages?seekerId=${data.seekerId}&providerId=${data.providerId}`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -48,7 +48,7 @@ export const sendMessages = async (data) => {
     // console.log(data,"data send message..")
     var config = {
         method: 'post',
-        url: `${API}/api/chat/create-chat`,
+        url: `/api/chat/create-chat`,
         headers: {
           'Content-Type': 'application/json'
         },
@@ -67,7 +67,7 @@ export const bookSession = async (data) => {
     console.log(data,"data send message..")
     var config = {
         method: 'post',
-        url: `${API}/api/order/book-session`,
+        url: `/api/order/book-session`,
         headers: {
           'Content-Type': 'application/json'
         },
