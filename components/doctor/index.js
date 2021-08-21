@@ -35,6 +35,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import {GetPatientsByMobile} from '../../services/patient-service';
 import { GetVisitsByDoctorUId } from "../../services/visit-service";
+import Tile from '../../components/core/tile';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -212,38 +213,12 @@ return(
         </div>
     <div class="row g-3 mt-4">
     <div class="col-md-2">
-    <Card className={classes.card}>
-    
-    <CardActionArea>
-      <CardContent>
-        <Typography align="center" gutterBottom variant="h5" component="h2">
-          Patient Served
-        </Typography>
-        <Typography align="center" variant="h5" component="h2">
-          {servedPatient}
-        </Typography>
-      </CardContent>
-    </CardActionArea>
-  </Card>
+    <Tile class={classes.card} handleClick={handleClick} title="Patient Served" count={servedPatient} />    
     </div>
     <div class="col-md-2">
-    <Card className={classes.card}>
-        <CardActionArea onClick={handleClick}>
-          <CardContent>
-            <Typography align="center" gutterBottom variant="h5" component="h2">
-              Visits
-            </Typography>
-            <Typography align="center" variant="h5" component="h2">
-              {visitCount}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
+    <Tile class={classes.card} handleClick={handleClick} title="Visits" count={visitCount} />    
     </div>
-    </div>
-    
-
-      
+    </div>  
       <hr></hr>
       <div>
       <TableContainer component={Paper}>

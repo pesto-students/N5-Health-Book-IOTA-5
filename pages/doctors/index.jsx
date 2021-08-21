@@ -23,6 +23,7 @@ import FaceIcon from "@material-ui/icons/Face";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { isAuth } from "../../actions/auth";
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: 200,

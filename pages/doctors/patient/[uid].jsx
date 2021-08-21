@@ -1,28 +1,15 @@
 import React, { useState, useEffect } from "react";
-import {
-  VerticalTimeline,
-  VerticalTimelineElement,
-} from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
-import StarIcon from "@material-ui/icons/Star";
-import AssignmentIcon from "@material-ui/icons/Assignment";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Router, {useRouter} from "next/router";
-import moment from "moment";
-import Link from "@material-ui/core/Link";
 import { firebaseService } from "../../../services/firebase-db-service";
-
 import Chip from "@material-ui/core/Chip";
-import DoneIcon from "@material-ui/icons/Done";
-import FaceIcon from "@material-ui/icons/Face";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { isAuth } from "../../../actions/auth";
+import Timeline from "../../../components/core/timeline";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: 200,
@@ -85,14 +72,7 @@ const PateintHistory = ({}) => {
       .getPatientComplaints(uid)
       .then((res) => {
         setPatientComp(res);
-        // let compState = {};
-        // let compColor={};
-        // for(let item in res){
-        //   compState[res[item].id] = false;
-        //   compColor[res[item].id] = "red";
-        // }
-        //  setComplaintState(compState);
-        //  setColor(compColor);
+        
       })
       .catch((err) => {
         console.log("error");
@@ -103,21 +83,7 @@ const PateintHistory = ({}) => {
     complaintState[e.target.textContent] =
       !complaintState[e.target.textContent];
     setSelectedComp(e.target.textContent);
-    // if(complaintState[e.target.textContent])
-    // {
-
-    //   // selectedComp.push(e.target.textContent);
-    // }
-    // else{
-    // const i = selectedComp.indexOf(e.target.textContent);
-    // if(i > -1){
-    //   selectedComp.splice(i,1);
-    // }
-    // }
-    // setSelectedComp(selectedComp);
-    // let colorClass = complaintState[e.target.textContent] ? "red" : "green";
-    // color[e.target.textContent] = colorClass;
-    // setColor(color);
+    
     setComplaintState(complaintState);
   };
 
@@ -149,11 +115,7 @@ const PateintHistory = ({}) => {
             </Button>
        
             </div>
-            {/* <div class="col-md-6"> */}
-           {/* <Button variant="contained" href={`visits/add`} size="large" color="primary">
-          Add Visit
-        </Button> */}
-            {/* </div> */}
+          
        </div>
        </div>
        <hr></hr>
@@ -165,70 +127,9 @@ const PateintHistory = ({}) => {
             <Chip key={value}  label={value} color="primary" onClick={handleBtnClick} />
           ))}
       </div>
-{visits && visits.length > 0 &&
-      <VerticalTimeline>
-        {visits &&
-          visits.map((value) => {
-            return (
-              <>
-                <VerticalTimelineElement
-                  key={value.id}                  
-                  className="vertical-timeline-element--work"
-                  contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-                  contentArrowStyle={{
-                    borderRight: "7px solid  rgb(33, 150, 243)",
-                  }}
-                  // date={value.data.visitTime}
-                  iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
-                  icon={<AssignmentIcon />}
-                >
-                  
-                  {/* <div style={{cursor:'pointer'}} onClick={handleTimeLineClick(value.id)}> */}
-                  <Link style={{color:"white",textDecorationLine:"none",cursor:"pointer"}} target='_blank' href={`/visits/view/${value.id}`}>
-                    <a class="tm-link" style={{cursor:"pointer"}}>
-                  <Typography
-                    gutterBottom
-                    className="vertical-timeline-element-title"
-                    variant="h5"
-                    style={{color:'white'}}
-                    component="h3"
-                  >
-                    Visited Dr. {value.data.doctor}
-                  </Typography>
-                  <Typography
-                    className="vertical-timeline-element-subtitle"
-                    style={{color:'white'}}
-                    variant="h5"
-                    component="h2"
-                  >
-                    Complaint: {value.data.complaint}
-                  </Typography>
-
-                  <Typography variant="h5" style={{color:'white'}} component="p">
-                    Note: {value.data.note}
-                  </Typography>
-
-                  <Typography gutterBottom>
-                    <Link target='_blank' href={`/visits/view/${value.id}`}>
-                      <a style={{color:'white'}}>Go to visit</a>
-                    </Link>
-                  </Typography>
-                  <Typography style={{color:'white'}} gutterBottom variant="subtitle2" component="h3">
-                    {moment(value.data.visitTime).format("DD.MMM.yyyy hh:mm a")}
-                  </Typography>
-                  </a></Link>
-                  {/* </div> */}
-                  
-                </VerticalTimelineElement>
-              </>
-            );
-          })}
-        <VerticalTimelineElement
-          iconStyle={{ background: "rgb(16, 204, 82)", color: "#fff" }}
-          icon={<StarIcon />}
-        />
-      </VerticalTimeline>
-}
+        {visits && visits.length > 0 &&
+          <Timeline visits={visits} />      
+        }
     </div>
   );
 };
