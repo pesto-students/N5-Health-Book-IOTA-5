@@ -203,7 +203,7 @@ const Login = () => {
                                         <p className="text-center" >OR </p>
                                         <div className="d-flex justify-content-between ">
                                             <GoogleLogin
-                                                clientId={process.env.GID}  //"250519635268-751g3ofj1t9hc142aavrm4b2tl1686bj.apps.googleusercontent.com"     
+                                                clientId="26122348563-5sb0k4cg489bs2t7bo47uf253e1muokb.apps.googleusercontent.com" //{process.env.GID}  //"250519635268-751g3ofj1t9hc142aavrm4b2tl1686bj.apps.googleusercontent.com"     
                                                 render={renderProps => (
                                                     <button
                                                         onClick={renderProps.onClick}
