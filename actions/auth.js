@@ -141,6 +141,7 @@ export const authenticate = (data,next) => {
         fb.getUserByEmail(user.eMail).then(res=>{
             console.log(res[0],"user role ID")
             console.log(res[0].data.roleId,"RESFROM FB|| GG")
+            user.uid = res[0].data.uid;
             user.roleId=res[0].data.roleId
 
             setLocalStorage('token', "dadsdasdas");

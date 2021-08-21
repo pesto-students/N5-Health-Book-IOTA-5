@@ -165,6 +165,8 @@ export default function CollapsibleTable() {
           {visits.map((row) => (
             <Row key={row.id} row={row} />
           ))}
+          {visits.length == 0 && 
+          <h5>No records found.</h5>}
         </TableBody>
       </Table>
     </TableContainer>

@@ -150,6 +150,7 @@ export default function CollapsibleTable() {
   return (
     <div className="container" style={{marginTop:"7rem"}}>
     <h1 style={{ color: '#2362AD' }}>Visits</h1>
+    
     <TableContainer component={Paper} style={{marginTop:"2rem"}}>
       <Table className={classes.table} aria-label="collapsible table">
         <TableHead>
@@ -166,6 +167,8 @@ export default function CollapsibleTable() {
           {visits.map((row) => (
             <Row key={row.id} row={row} />
           ))}
+          {visits.length == 0 && 
+          <h5>No records found.</h5>}
         </TableBody>
       </Table>
     </TableContainer>

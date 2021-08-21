@@ -24,22 +24,23 @@ const AddPatient= () => {
   address:"",
   mobile:"",
   });
+  // const [patient, setPatient] = useState();
 
 
   useEffect(()=>{
     let user = isAuth();
-  
+ 
     var fb = new firebaseService("Patient");
     fb.getUserByUId(user.uid).then((values)=>{
+      
       if(values && values.length){
      setPatientId(values[0].id);
      setPatient(values[0].data);
+     console.log("Patient: ",patient );
       }   
        
     });
   },[]);
-    
-  
 
  const initialValues = {
   fullName:patient.fullName,
@@ -77,8 +78,8 @@ const PatientSchema = Yup.object().shape({
   state: Yup.string().required("State is required."),
 });
 
-
-    return (
+ return (
+      
       <Formik
       enableReinitialize
       initialValues={initialValues}
@@ -98,6 +99,8 @@ const PatientSchema = Yup.object().shape({
           dirty,
           setFieldValue
         } = formik;
+
+        console.log("formik",values);
         return (
           <div className="container" style={{marginTop:"6rem"}}> 
       <div>

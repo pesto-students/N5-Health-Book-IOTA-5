@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 const Patients = () => {
   const classes = useStyles();
   const [visits, setVisits] = useState([]);
-  const [visitCount, setVisitCount] = useState();
+  const [visitCount, setVisitCount] = useState(0);
   const [complaintState, setComplaintState] = useState({});
   const [color, setColor] = useState({});
   const [selectedComp, setSelectedComp] = useState("View All");
@@ -93,10 +93,12 @@ const Patients = () => {
 
     var fbUser = new firebaseService("Users");
     fbUser.getUserByUId(auth.uid).then((value)=>{
-      debugger; 
+     
+      if(value.length > 0){
       let name = value[0].data.name;
       name = name.split(" ")[0];
        setPatientName(name);
+      }
     }); 
 
   }, [selectedComp]);
@@ -150,6 +152,9 @@ const Patients = () => {
         </CardActionArea>
       </Card>
       <hr></hr>
+      {visits.length == 0 && 
+      <h3>History isn't vailbale.</h3>
+      }
       <div className={classes.chip}>
       {patientComp.length > 0 && 
         <Chip label="View All" onClick={handleBtnClick} color="primary" />

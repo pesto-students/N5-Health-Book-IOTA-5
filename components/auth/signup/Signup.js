@@ -34,7 +34,7 @@ function Signup() {
 
     const [success,setSuccess]=useState(false)
     
-    const [timerdata,setTimer]=useState(10)
+    const [timerdata,setTimer]=useState(5)
     const calculateTimeLeft = () => { 
         if(!success) return 0        
         return timerdata
@@ -101,7 +101,7 @@ function Signup() {
                 let signUp=fbService.create(user);
 
                 const profile = {
-                    fullname: user.name,
+                    fullName: user.name,
                     mobile:user.mobileNum,
                     uid: user.uid,
                     gender: "",
@@ -128,6 +128,7 @@ function Signup() {
     
     const responseGoogle = (response) => {
         console.log(response);
+       
         
         const oAuthId = response.googleId;
         let eMail =response.profileObj.email
@@ -135,14 +136,31 @@ function Signup() {
         
         const user = { name,oAuthId,eMail ,signUpVia:"Google",pptcAccepted:checkBox,isActive:true,roleId:1};
         console.log(user,"user")
-        // debugger
+        
     
 
-        createUserWithEmailAndPassword(user.eMail,makePasswd()).then((response) => {                
+        createUserWithEmailAndPassword(user.eMail,makePasswd()).then((response) => {   
+                  
             var fbService = new firebaseService("Users");
             user.uid = response.user.uid;
-            let signUp=fbService.create(user)
-            console.log(signUp,"signUpsignUpsignUpsignUpsignUp")
+            let signUp=fbService.create(user);
+
+                const profile = {
+                    fullName: user.name,
+                    mobile:"",
+                    uid: user.uid,
+                    gender: "",
+                    dob: "",
+                    bloodGroup:"",
+                    allergies:"",
+                    maritalStatus:"",
+                    address:"",
+                    city:"",
+                    state:"",
+                    weight: ""                    
+                  };
+                var fbProf = new firebaseService("Patient");
+                fbProf.create(profile);
             // Router.push(`/auth/login`);
             callSuccess()
            })
@@ -239,7 +257,7 @@ function Signup() {
                                 <p className="text-center" >OR</p>
                                 <div className="d-flex justify-content-between ">
                                         <GoogleLogin
-                                            clientId="26122348563-5sb0k4cg489bs2t7bo47uf253e1muokb.apps.googleusercontent.com"
+                                            clientId={process.env.GID}//"26122348563-5sb0k4cg489bs2t7bo47uf253e1muokb.apps.googleusercontent.com"
                                             render={renderProps => (
                                                 <button
                                                     onClick={renderProps.onClick}
