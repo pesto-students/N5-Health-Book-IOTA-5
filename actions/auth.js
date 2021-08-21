@@ -129,13 +129,13 @@ export const authenticate = (data,next) => {
 
             user.roleId=res[0].data.roleId;
             user.uid=res[0].data.uid;
-            setLocalStorage('token', "dadsdasdas");
+            setLocalStorage('token', user.uid);
              setLocalStorage('user', user);
             next();
         })
     }
 
-    if(data &&data.loginVia && data.loginVia=="Google" ||data.loginVia=="Google"){
+    if(data &&data.loginVia && data.loginVia=="Google" ||data.loginVia=="Facebook"){
         console.log(user.eMail,"user.eMail...")
        
         fb.getUserByEmail(user.eMail).then(res=>{
@@ -144,7 +144,7 @@ export const authenticate = (data,next) => {
             user.uid = res[0].data.uid;
             user.roleId=res[0].data.roleId
 
-            setLocalStorage('token', "dadsdasdas");
+            setLocalStorage('token', user.uid);
             setLocalStorage('user', user);
             next();
         })

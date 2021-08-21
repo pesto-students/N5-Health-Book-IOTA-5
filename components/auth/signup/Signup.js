@@ -190,17 +190,36 @@ function Signup() {
 
     const responseFacebook = (response) => {
         console.log(response,"FACEBOOK");
+       
         const oAuthId = response.userID;
         let eMail =response.email
         let name=response.name
-        
+        if(!oAuthId){
+            return null;
+        }
         const user = { name,oAuthId,eMail ,signUpVia:"Google",pptcAccepted:checkBox,isActive:true,roleId:1};
-
+ 
         createUserWithEmailAndPassword(user.eMail,makePasswd()).then((response) => {                
             var fbService = new firebaseService("Users");
             user.uid = response.user.uid;
-            let signUp=fbService.create(user)
-            console.log(signUp,"signUpsignUpsignUpsignUpsignUp")
+            let signUp=fbService.create(user);
+            const profile = {
+                fullName: user.name,
+                mobile:"",
+                uid: user.uid,
+                gender: "",
+                dob: "",
+                bloodGroup:"",
+                allergies:"",
+                maritalStatus:"",
+                address:"",
+                city:"",
+                state:"",
+                weight: ""                    
+              };
+            var fbProf = new firebaseService("Patient");
+            fbProf.create(profile);
+           
             // Router.push(`/auth/login`);
             callSuccess()
            })
