@@ -7,8 +7,11 @@
 - [Stakeholders](#stakeholders)
 - [How To Run The Project](#how-to-run-the-project)
 - [Artefacts](#artefacts)
-- [Performance Screenshot](#performance_screenshot)
-- 
+- [Performance Screenshot](#performance-screenshot)
+- [Features](#features)
+- [Upcoming Features](#upcoming-features)
+- [Tech Stack](#tech-stack)
+- [Third Party Tools](#third-party-tools)
 
 ### Stakeholders
 - Rushik Lakhatariya - [LinkedIn](https://www.linkedin.com/in/rushik-prajapati-1254a79b) - [GitHub](https://github.com/Rikiricks)
@@ -34,29 +37,29 @@
 ### Performance Screenshot
 ![image](https://drive.google.com/uc?export=view&id=10ZFuhmGHIq1t2hty0naAxCZU67FEN6If)
 
-## Features
+### Features
 - **Authentication** - Authentication using Firebase, Google and Facebook.
 - **Timeline** - Timeline history of patient diagnostic history of visits.
 - **Search** - Help users to search patient by mobile number for doctor user-type.
 - **Filters** - User can review dignostic history by filter of complaint.
 - **Services** - Diagnostic History, Visit History, Manage profile, Documents Uplaod etc.
-- **Security** - React provides protection from XSS out of the box.
+- **Security** - Next/React provides protection from XSS out of the box.
 
-## Upcoming Features
+### Upcoming Features
 - Appointment Availability
 - Practices Management
 - Multilingual Support
 
-## Third Party Tools
-- Firebase
-- Netlify (To deploy the build)
-- Vercel (To deploy the build)
-- Material UI
-
-## Tech Stack
+### Tech Stack
 - Next JS
 - React JS
 - Javascript
 - Firebase (Firestore DB, Authentication, Storage)
 - Netlify
 - Vercel
+
+### Third Party Tools
+- Firebase
+- Netlify (To deploy the build)
+- Vercel (To deploy the build)
+- Material UI
