@@ -35,7 +35,8 @@ import 'font-awesome/css/font-awesome.min.css';
 
     return (
         <div>
-            {scrollState === "top" ? <HeaderFix /> : <HeaderNav />}
+            {/* {scrollState === "top" ? <HeaderFix /> : <HeaderNav />} */}
+            <HeaderFix /> 
         </div>
     )
 }
