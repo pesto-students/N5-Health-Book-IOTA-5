@@ -96,7 +96,7 @@ const Login = () => {
 
     const responseGoogle = (response) => {
        
-      
+      debugger;
         const tokenId = response.tokenId;
 
         if (tokenId) {
@@ -108,8 +108,6 @@ const Login = () => {
             setValues({  loading: false });
             
 
-        } else {
-            setValues({ error: "Error on Google Login." });
         }
     }
 

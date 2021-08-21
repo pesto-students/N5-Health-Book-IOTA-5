@@ -162,11 +162,15 @@ return(
       </div>
       <div class="row g-3">
          <div class="col-md-6" style={{marginLeft:"35%"}}>
+         <p className="mb-2" style={{fontWeight:"bold"}}>For Final Demo Purpose Only</p>
+         <p style={{color:'grey',fontSize:'12px',fontWeight:'bold'}}>Add Mobile No: 6565656565</p><p>
+        <button name="doctor" className="btn btn-primary" style={{fontSize:"12px"}} onClick={()=> setSearch('6565656565')}>Click Here To Fill Mobile</button></p>
          <Paper component="form" onSubmit={e => { e.preventDefault();searchPatient();  }} className={classes.root}>
       
       <InputBase
         className={classes.input}
-        onChange={(e)=>setSearch(e.target.value)}
+        value={search}
+        onChange={(e)=>{setSearch(e.target.value)}}
         placeholder="Search Patient"
         inputProps={{ 'aria-label': 'search google maps' }}
       />

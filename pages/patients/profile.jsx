@@ -24,7 +24,7 @@ const AddPatient= () => {
   address:"",
   mobile:"",
   });
-  // const [patient, setPatient] = useState();
+  
 
 
   useEffect(()=>{
@@ -162,7 +162,7 @@ const PatientSchema = Yup.object().shape({
                   onChange={e => {setFieldValue('mobile', e.target.value);}}    
                   className="form-control"
                 />
-                <ErrorMessage name="address" component="span" className="error" />
+                <ErrorMessage name="mobile" component="span" className="error" />
             </div>
           </div>
           <div class="row g-3">
