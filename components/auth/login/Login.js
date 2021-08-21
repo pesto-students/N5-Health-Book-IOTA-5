@@ -96,7 +96,7 @@ const Login = () => {
 
     const responseGoogle = (response) => {
        
-      debugger;
+ 
         const tokenId = response.tokenId;
 
         if (tokenId) {

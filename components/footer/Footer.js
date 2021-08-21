@@ -28,16 +28,16 @@ function Footer() {
                         <h5>Company</h5>
                         <ul className="list-unstyled links__link">
                             <li className={styles.li}><Link href="/">Become a Doctor</Link></li>
-                            <li className={styles.li}><Link href="/aboutus">FAQs</Link></li>
-                            <li className={styles.li}><Link href="/blog">Blog</Link></li>
-                            <li className={styles.li}><Link href="/contactus">Contact Us</Link></li>
+                            <li className={styles.li}><Link href="">FAQs</Link></li>
+                            <li className={styles.li}><Link href="">Blog</Link></li>
+                            <li className={styles.li}><Link href="">Contact Us</Link></li>
                         </ul>
                     </div>
                     <div className="col-6 col-md-2">
                         <h5>Support</h5>
                         <ul className="list-unstyled">
-                            <li className={styles.li}><Link href="/aboutus">Terms of service</Link></li>
-                            <li className={styles.li}><Link  href="/blog">Privacy policy</Link></li>
+                            <li className={styles.li}><Link href="">Terms of service</Link></li>
+                            <li className={styles.li}><Link  href="">Privacy policy</Link></li>
                             <li className={styles.li}> </li>
                             <li className={styles.li}> </li>
                         </ul>
