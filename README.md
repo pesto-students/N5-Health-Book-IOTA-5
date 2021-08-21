@@ -32,7 +32,7 @@
 - [One Pager](https://docs.google.com/document/d/15C3FQ8-M6HP9SFUllCPodK84335qSq2iQYyYWMPu-nk/edit?usp=sharing)
 - [HLD](https://www.figma.com/file/HzIb5eCWwPtHyYcnrThcq5/HLD_HealthBook?node-id=0%3A1)
 - [User Flow and Design](https://www.figma.com/file/abZumLTe9R4kNqnkzVOmu3/User-Flow-and-Design?node-id=0%3A1)
-- [Wireframes Figma](https://www.figma.com/file/q15H5e5kLy779QEORCti4K/Wireframes_HealthBook?node-id=0%3A1)
+- [Wireframes Figma](https://www.figma.com/file/q15H5e5kLy779QEORCti4K/Wireframes_HealthBook?node-id=0%3A1) - [Play Prototype](https://www.figma.com/proto/q15H5e5kLy779QEORCti4K/Wireframes_HealthBook?node-id=32%3A173&scaling=scale-down&page-id=0%3A1&starting-point-node-id=32%3A173&show-proto-sidebar=1)
 
 ### Performance Screenshot
 ![image](https://drive.google.com/uc?export=view&id=10ZFuhmGHIq1t2hty0naAxCZU67FEN6If)
