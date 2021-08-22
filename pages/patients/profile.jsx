@@ -65,11 +65,13 @@ fb.update(values,patientId);
 toast.success('Profile has been updated!',{autoClose:2000});
 };
 
+const phoneRegExp = /^[0-9]{10}$/;
+                    
 const PatientSchema = Yup.object().shape({
   fullName: Yup.string().required("Full Name is required."),
   gender: Yup.string().required("Gender is required."),
   dob: Yup.string().required("DOB is required."),
-  mobile:Yup.string().required("Mobile No is required."),
+  mobile:Yup.string().required("Mobile No is required.").matches(phoneRegExp, 'Mobile No is not valid'),
   // bloodGroup: Yup.string().required("Please select the Blood Group."),
   maritalStatus: Yup.string().required("Please select the Matital Status."),
   address: Yup.string().required("Address is required."),
@@ -145,7 +147,8 @@ const PatientSchema = Yup.object().shape({
               <DatePicker  
               className="form-control"              
                 selected={values.dob}
-                onChange={dt => setFieldValue('dob', dt)}             
+                onChange={dt => setFieldValue('dob', dt)}
+                maxDate={moment().toDate()}
                 dateFormat="dd/MM/yyyy"
                 style={{width:'100%'}}
               />

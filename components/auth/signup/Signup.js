@@ -269,7 +269,7 @@ function Signup() {
                                     <div className="mb-3 form-check">
                                         <input 
                                             onClick={handleCheckBox} type="checkbox" required className="form-check-input" name="checkBox"  checked={values.checkBox ? "true":'' } />
-                                        <label className="form-check-label searchLeft_label m-0" htmlFor="checkBox">I agree to the <a className="auth_terms" href="/terms-of-service">Terms of Service</a> and <a className="auth_terms" href="privacy-policy">Privacy Policy</a></label>
+                                        <label className="form-check-label searchLeft_label m-0" htmlFor="checkBox">I agree to the <a className="auth_terms" href="">Terms of Service</a> and <a className="auth_terms" href="">Privacy Policy</a></label>
                                     </div>
                                     <button type="submit" className="btn_theme btn_medium" style={{ 'width': '100%', 'height':'44px' , 'margin': '10px 0px' }}>Submit {loading ? <Loader /> : null}</button>
                                 </form>

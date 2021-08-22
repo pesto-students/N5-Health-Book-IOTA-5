@@ -12,7 +12,7 @@ function Cta() {
             <div className="row justify-content-between align-items-center">
                 <div className="col-12 col-md-6">
                     <div className={styles.cta__colLeft}>
-                        <h1> Reacord you health data digitally</h1>
+                        <h1> Record your health data digitally.</h1>
                         <button className={styles.button} onClick={signUpRedirect}>Get Started</button>
                     </div>
                 </div>

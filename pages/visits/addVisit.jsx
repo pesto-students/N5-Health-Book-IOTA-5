@@ -18,6 +18,7 @@ import {GetAllPatients} from '../../services/patient-service';
 import { isAuth} from '../../actions/auth';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Router from "next/router";
+import moment from "moment";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 toast.configure()
@@ -147,8 +148,12 @@ class AddVisit extends React.Component {
     var fb = new firebaseService("Visits");
     values.visitTime = values.visitTime.toString();
     values.reports = this.state.reportNames;
+    if(this.state.patientUid != "new"){
+    values.patientUid = this.state.patientUid;
+    }
     fb.create(values); 
-    toast.success('Visit created successfully!',{autoClose:2000});
+    toast.success('Visit created successfully!',{autoClose:2000, keepAfterRouteChange:true});
+    Router.push("/doctors/visits");
       };
   
 
@@ -213,7 +218,8 @@ class AddVisit extends React.Component {
                 selected={values.visitTime}
                 onChange={dt => setFieldValue('visitTime', dt)}               
                 showTimeSelect
-                dateFormat="Pp"              
+                dateFormat="Pp" 
+                maxDate={moment().toDate()}             
                 style={{padding:'10px !important'}}
               />
               {/* <TextField

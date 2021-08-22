@@ -17,6 +17,7 @@ import {RemoveReportById} from '../../../services/visit-service';
 import { isAuth} from '../../../actions/auth';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { faDove } from '@fortawesome/free-solid-svg-icons';
 toast.configure()
 
 
@@ -30,7 +31,7 @@ const ViewVisit = ({visit}) => {
  
    const router = useRouter();
    const { id } = router.query;
-
+   
    const classes = useStyles();
 
    const [file, setFile] = useState('');
@@ -71,10 +72,13 @@ const ViewVisit = ({visit}) => {
   }
 
     useEffect(()=>{
+     
       let user = isAuth();
       let isPatient = user.roleId == "1";
       setIsPatient(isPatient);
-
+      doc.unshift("");
+      setDoc([...new Set(doc)]);
+      document.getElementById("doc").selectedIndex = 0;
 
 if(initialValues.documents){
       initialValues.documents.map(a => {
@@ -82,6 +86,7 @@ if(initialValues.documents){
         const i = doc.indexOf(a.report);
         doc.splice(i,1);
       });
+      setDoc(doc);
       setUploadDoc(initialValues.documents);
     }
     {
@@ -131,7 +136,7 @@ if(initialValues.documents){
       visitNo:  visit.visitNo,
       doctor: visit.doctor,
       patient: visit.patient,
-      visitTime: moment(visit.visitTime).format("dd/MM/yyyy hh:mm a"),
+      visitTime: moment(visit.visitTime).format("DD/MM/yyyy hh:mm a"),
       complaint: visit.complaint,
       allergies: visit.allergies,
       medications: visit.medications,
@@ -156,7 +161,6 @@ if(initialValues.documents){
   
 
   const handleReportChange = (e) =>{
-    
   
     const name = e.target.value;
     if(name){
@@ -169,6 +173,7 @@ if(initialValues.documents){
     let docs = doc.filter(a=>a != name);
     setDoc(docs);
     }
+    document.getElementById("doc").selectedIndex = 0;
   }
 
   const handleDeleteIcon = (e) =>{
@@ -179,11 +184,21 @@ if(initialValues.documents){
     setDoc(doc);
      console.log(doc);
 
- RemoveReportById(id, name).then((docs)=>{    
-  
-  initialValues.documents= docs;
-  setUploadDoc(docs);
-});
+    let uploadedDoc = uploadDoc.filter(a=>a.report == name);
+      if (uploadedDoc[0].file) {
+
+        RemoveReportById(id, name).then((docs) => {
+
+          initialValues.documents = docs;
+          setUploadDoc(docs);
+        });
+      }
+      else{
+        let data = uploadDoc.filter(a=>a.report != name);
+        // uploadDoc.splice(i,1);
+        // let data =  uploadDoc;
+        setUploadDoc(data);
+      }
 
    
     // let uploadDocs = initialValues.documents.filter(a=>a != e.currentTarget.id);
@@ -262,8 +277,8 @@ if(initialValues.documents){
                 <div className="customDatePickerWidth">
                 <Field
                     type="text"
-                    name="patient"
-                    id="patient"
+                    name="visitTime"
+                    id="visitTime"
                     className="form-control"
                     readOnly
                   />
@@ -323,7 +338,7 @@ if(initialValues.documents){
                     readOnly
                   /> */}
                    <Field as="select" class="form-select" multiple readOnly>
-                     {reportNames && reportNames.map((data)=>(
+                     {reportNames && reportNames.map((data)=>(                      
                      <option key={data} value={data}>{data}</option>
                      ))}                
                    </Field>
@@ -337,8 +352,9 @@ if(initialValues.documents){
                     name="medications"
                     id="medications"
                     className="form-control"
-                    readOnly                   
-                    row={3}
+                    readOnly
+                    multiline
+                    rows={2}
                   />
               </div>
               <div class="col-md-6">
@@ -349,6 +365,8 @@ if(initialValues.documents){
                     id="note"
                     className="form-control"
                     readOnly
+                    multiline
+                    rows={2}
                   />
               </div>
             </div>
@@ -356,10 +374,10 @@ if(initialValues.documents){
          <div class="col-md-3">
 
          <label for="reports" class="form-label">Upload the Report(s)</label>
-         <Field as="select" name="reports" onChange={handleReportChange} class="form-select" disabled={!isPatient}>
-         <option value="">Choose to upload</option>
+         <Field as="select" name="reports" onChange={handleReportChange} id="doc" class="form-select" disabled={!isPatient}>
+         {/* <option value="" selected>Choose to upload</option> */}
                      {doc && doc.map((data)=>(
-                     <option key={data} value={data}>{data}</option>
+                     <option key={data} value={data}>{data == "" ? "Choose to upload" :  data }</option>
                      ))}                
                    </Field>
            </div>

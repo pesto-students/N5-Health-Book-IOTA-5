@@ -96,8 +96,9 @@ const Doctor = () =>{
     useEffect(() => {
       
       let auth = isAuth();
+     
       GetVisitsByDoctorUId(auth.uid).then((visits)=>{
-       
+    
         let dName = visits[0].data.doctor;
         dName = dName.split(" ")[0];
         setDocName(dName);
@@ -218,6 +219,11 @@ return(
     <div class="col-md-2">
     <Tile class={classes.card} handleClick={handleClick} title="Visits" count={visitCount} />    
     </div>
+    <div class="col-md-8">            
+            <Button variant="contained" style={{float:'right',marginTop:'50px'}} href={`/visits/add/new`} size="large" color="primary">
+               Add New Visit
+            </Button>       
+            </div>
     </div>  
       <hr></hr>
       <div>

@@ -6,6 +6,8 @@ import {firebaseService} from '../../../services/firebase-db-service';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 
 function HeaderFix() {
     const [clicked, setClicked] = useState(false);
@@ -88,6 +90,7 @@ function HeaderFix() {
       <Button className="btn-curved" aria-controls="simple-menu" style={{width:"100px"}} aria-haspopup="true" variant="contained" color="primary"
       onMouseEnter={handleClickMenu}
       onMouseLeave={handleClickMenu}
+      startIcon={isPatient ? <PersonAddIcon/> : <LocalHospitalIcon/> }
     //   onClick={handleClickMenu}
     >
       {currUser}

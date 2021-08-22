@@ -4,6 +4,14 @@
   font-weight: 600;
 } */
 
+.vertical-timeline-element--work .vertical-timeline-element-content {
+  border-top: 5px solid #f47d7d;
+}
+
+.vertical-timeline-element-icon {
+  box-shadow: 0 0 0 4px #f47d7d, inset 0 2px 0 rgb(0 0 0 / 8%), 0 3px 0 4px rgb(0 0 0 / 5%) !important;
+}
+
 .MuiButton-containedPrimary {
   background-color: #2196f3 !important;
 }
