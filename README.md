@@ -35,7 +35,7 @@
 - [Wireframes Figma](https://www.figma.com/file/q15H5e5kLy779QEORCti4K/Wireframes_HealthBook?node-id=0%3A1) - [Play Prototype](https://www.figma.com/proto/q15H5e5kLy779QEORCti4K/Wireframes_HealthBook?node-id=32%3A173&scaling=scale-down&page-id=0%3A1&starting-point-node-id=32%3A173&show-proto-sidebar=1)
 
 ### Performance Screenshot
-![image](https://drive.google.com/uc?export=view&id=10ZFuhmGHIq1t2hty0naAxCZU67FEN6If)
+![image](https://drive.google.com/uc?export=view&id=14ZW-y49ET_KXRvOP8NuYudRHoDqF-oA_)
 
 ### Features
 - **Authentication** - Authentication using Firebase, Google and Facebook.
