@@ -1,7 +1,7 @@
 
 ## Healthbook
 
-[Healthbook](https://healthbookapp.netlify.app) is a healthcare web platform where Patients can manage their medical documents and Doctors can manage diagnosis for patients.
+[Healthbook](https://healthbookapp.vercel.app/dashboard) is a healthcare web platform where Patients can manage their medical documents and Doctors can manage diagnosis for patients.
 
 ## Table of Contents
 - [Stakeholders](#stakeholders)
@@ -60,6 +60,6 @@
 
 ### Third Party Tools
 - Firebase
-- Netlify (To deploy the build)
 - Vercel (To deploy the build)
+- Netlify (To deploy the build)
 - Material UI
