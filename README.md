@@ -54,7 +54,7 @@
 - Next JS
 - React JS
 - Javascript
-- Firebase (Firestore DB, Authentication, Storage)
+- Firebase (Databse, Authentication, Storage)
 - Netlify
 - Vercel
 
