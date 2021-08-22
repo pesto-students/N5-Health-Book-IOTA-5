@@ -64,7 +64,13 @@ body {
   margin: 0;
   font-family: Museo Sans !important;
   max-width: 100%;
+  background-color: #fafafadb !important;
+
   
+}
+
+.header_fix {
+  background: #f5fafa70 !important;
 }
 .hideAll{
   display: none !important;
