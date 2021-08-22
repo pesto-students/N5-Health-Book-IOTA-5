@@ -44,6 +44,7 @@ const Patients = () => {
   const [selectedComp, setSelectedComp] = useState("View All");
   const [patientComp, setPatientComp] = useState([]);
   const [patientName, setPatientName] = useState();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let auth = isAuth();
@@ -62,6 +63,7 @@ const Patients = () => {
           setVisitCount(list.length);
         }
         setVisits(list);
+        setLoading(false);
       })
       .catch((err) => {
         console.log("error");
@@ -110,7 +112,8 @@ const Patients = () => {
       <Tile class={classes.root} handleClick={handleClick} title="Visits" count={visitCount} />    
       
       <hr></hr>
-      {visits.length == 0 && 
+      {loading && <h3>Loading...</h3>}
+      {visits.length == 0 && !loading &&
       <h3>History isn't vailbale.</h3>
       }
       <div className={classes.chip}>
@@ -125,66 +128,6 @@ const Patients = () => {
       {visits && visits.length > 0 &&
 
       <Timeline visits={visits} />
-      // <VerticalTimeline>
-      //   {visits &&
-      //     visits.map((value) => {
-      //       return (
-      //         <>
-      //           <VerticalTimelineElement
-      //             key={value.id}
-      //             className="vertical-timeline-element--work"
-      //             contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-      //             contentArrowStyle={{
-      //               borderRight: "7px solid  rgb(33, 150, 243)",
-      //             }}
-      //             // date={value.data.visitTime}
-      //             iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
-      //             icon={<AssignmentIcon />}
-      //           >
-      //             <Link style={{color:"white",textDecorationLine:"none",cursor:"pointer"}} target='_blank' href={`/visits/view/${value.id}`}>
-      //               <a class="tm-link" style={{cursor:"pointer"}}>
-      //             <Typography
-      //               gutterBottom
-      //               className="vertical-timeline-element-title"
-      //               variant="h5"
-      //               component="h3"
-      //               style={{color:'white'}}
-      //             >
-      //               Visited Dr. {value.data.doctor}
-      //             </Typography>
-      //             <Typography
-      //               className="vertical-timeline-element-subtitle"
-      //               variant="h5"
-      //               component="h2"
-      //               style={{color:'white'}}
-      //             >
-      //               Complaint: {value.data.complaint}
-      //             </Typography>
-
-      //             <Typography variant="h5" style={{color:'white'}} component="p">
-      //               Note: {value.data.note}
-      //             </Typography>
-
-      //             <Typography gutterBottom>
-      //               <Link href={`/visits/view/${value.id}`}>
-      //                 <a style={{color:'white'}}>Go to visit</a>
-      //               </Link>
-      //             </Typography>
-      //             <Typography style={{color:'white'}} gutterBottom variant="subtitle2" component="h3">
-      //               {moment(value.data.visitTime).format("DD.MMM.yyyy hh:mm a")}
-      //             </Typography>
-      //              </a></Link>
-      //           </VerticalTimelineElement>
-      //         </>
-      //       );
-      //     })}
-
-       
-      //   <VerticalTimelineElement
-      //     iconStyle={{ background: "rgb(16, 204, 82)", color: "#fff" }}
-      //     icon={<StarIcon />}
-      //   />
-      // </VerticalTimeline>
 }
     </div>
   );

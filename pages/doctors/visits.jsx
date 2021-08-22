@@ -61,6 +61,7 @@ function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
+ 
   // const handleClick = (id) =>{
   //   Router.push(`visits/${id}`);
   // }
@@ -131,7 +132,7 @@ export default function CollapsibleTable() {
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
   const [visits, setVisits] = useState([]);
-
+  const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
@@ -140,7 +141,7 @@ export default function CollapsibleTable() {
     GetVisitsByDoctorUId(auth.uid).then((visits)=>{ 
        
      setVisits(visits);
-    
+    setLoading(false);
     }).catch((err)=>{
       console.log("error");
     });
@@ -167,7 +168,8 @@ export default function CollapsibleTable() {
           {visits.map((row) => (
             <Row key={row.id} row={row} />
           ))}
-          {visits.length == 0 && 
+          {loading && <h5>Loading...</h5>}
+          {visits.length == 0 && !loading &&
           <h5>No records found.</h5>}
         </TableBody>
       </Table>

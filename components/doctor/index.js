@@ -116,6 +116,7 @@ const Doctor = () =>{
     },[]);
 const searchPatient = () => {
     setVisits([]);
+    if(search){
     GetPatientsByMobile(search).then((data)=>{
       
         var fbVisit = new firebaseService("Visits");
@@ -130,7 +131,8 @@ const searchPatient = () => {
                 });
         
        });
-    })
+    });
+  }
 
 }
 const handleClick = () => {
