@@ -21,7 +21,7 @@ export const GetVisitsByDoctorUId = async (uid, report) => {
     var visits = [];
     var fb = new firebaseService("Visits");
     await fb.getAll().then((values)=>{
-       
+
      values.filter(a=>a.data.doctorUid == uid).map(item => {
             visits.push({
             id:item.id,

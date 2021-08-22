@@ -79,7 +79,7 @@ function Row(props) {
         <StyledTableCell component="th" scope="row">
           {row.data.visitNo}
         </StyledTableCell>
-        <StyledTableCell align="right">{row.data.doctor}</StyledTableCell>
+        <StyledTableCell align="right">{row.data.patient}</StyledTableCell>
         <StyledTableCell align="right">{row.data.complaint}</StyledTableCell>
         <StyledTableCell align="right">{moment(row.data.visitTime).format("DD/MM/yyyy hh:mm a")}</StyledTableCell>
         <StyledTableCell align="right"><Button variant="contained" color="primary" href={`/visits/view/${row.id}`}>View</Button></StyledTableCell>
