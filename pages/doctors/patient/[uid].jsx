@@ -9,6 +9,7 @@ import Chip from "@material-ui/core/Chip";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { isAuth } from "../../../actions/auth";
 import Timeline from "../../../components/core/timeline";
+import { ErrorBoundary } from "@sentry/react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -127,9 +128,11 @@ const PateintHistory = ({}) => {
             <Chip key={value}  label={value} color="primary" onClick={handleBtnClick} />
           ))}
       </div>
-        {visits && visits.length > 0 &&
-          <Timeline visits={visits} />      
-        }
+      {visits && visits.length > 0 &&
+        <ErrorBoundary>
+          <Timeline visits={visits} />
+        </ErrorBoundary>
+      }
     </div>
   );
 };

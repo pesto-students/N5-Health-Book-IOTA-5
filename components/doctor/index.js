@@ -35,7 +35,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import {GetPatientsByMobile} from '../../services/patient-service';
 import { GetVisitsByDoctorUId } from "../../services/visit-service";
-import Tile from '../../components/core/tile';
+import Tile from '../core/tile';
+
 
 
 const useStyles = makeStyles((theme) => ({
