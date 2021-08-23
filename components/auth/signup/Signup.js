@@ -8,6 +8,7 @@ import Router from 'next/router';
 import axios from "axios"
 import {firebaseService} from '../../../services/firebase-db-service';
 import {createUserWithEmailAndPassword} from '../../../services/firebase-auth-service';
+import DOMPurify from 'dompurify';
 
 function Signup() {
 
@@ -58,10 +59,10 @@ function Signup() {
     
 
     const handleChange =  (event) => {     
-        console.log(event.target.value,event.target.name)   
-        setValues({...values,[event.target.name]:event.target.value}) 
+        let value = DOMPurify.sanitize(event.target.value);
+        setValues({...values,[event.target.name]:value}) 
         if (typeof onChange === "function") {
-            onChange(event.target.value);
+            onChange(value);
         }     
     };
 

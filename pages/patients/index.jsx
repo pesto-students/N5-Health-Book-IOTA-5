@@ -16,8 +16,9 @@ import { firebaseService } from "../../services/firebase-db-service";
 import Chip from "@material-ui/core/Chip";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { isAuth } from "../../actions/auth";
-import Tile from '../../components/core/tile';
-import Timeline from '../../components/core/timeline';
+import Tile from '../../components/core/Tile';
+import Timeline from '../../components/core/Timeline';
+import {ErrorBoundary} from '../../components/core/ErrorBoundary';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -126,9 +127,10 @@ const Patients = () => {
           ))}
       </div>
       {visits && visits.length > 0 &&
-
-      <Timeline visits={visits} />
-}
+        <ErrorBoundary>
+          <Timeline visits={visits} />
+        </ErrorBoundary>
+      }
     </div>
   );
 };
