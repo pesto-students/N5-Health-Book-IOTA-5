@@ -8,7 +8,7 @@ import { firebaseService } from "../../../services/firebase-db-service";
 import Chip from "@material-ui/core/Chip";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { isAuth } from "../../../actions/auth";
-import Timeline from "../../../components/core/Timeline";
+import Timeline from "../../../components/core/timeline";
 import { ErrorBoundary } from "@sentry/react";
 
 const useStyles = makeStyles((theme) => ({
