@@ -18,6 +18,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { isAuth } from "../../actions/auth";
 import Tile from '../../components/core/tile';
 import Timeline from '../../components/core/timeline';
+import {ErrorBoundary} from '../../components/core/ErrorBoundary';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -126,9 +127,10 @@ const Patients = () => {
           ))}
       </div>
       {visits && visits.length > 0 &&
-
-      <Timeline visits={visits} />
-}
+        <ErrorBoundary>
+          <Timeline visits={visits} />
+        </ErrorBoundary>
+      }
     </div>
   );
 };

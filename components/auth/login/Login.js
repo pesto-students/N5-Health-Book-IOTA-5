@@ -7,6 +7,7 @@ import { signin, authenticate, isAuth, loginWithGoogle, loginWithFacebook } from
 import Router from 'next/router';
 import { signInWithEmailAndPassword } from '../../../services/firebase-auth-service';
 import OtpInput from 'react-otp-input';
+import DOMPurify from 'dompurify';
 
 
 
@@ -44,9 +45,15 @@ const Login = () => {
     }, []);
 
     const { eMail, password, error, loading, message, showForm } = values;
+
+
     const handleChange = (event) => {
-        setValues({ ...values, [event.target.name]: event.target.value })
+
+        let value = DOMPurify.sanitize(event.target.value);
+
+        setValues({ ...values, [event.target.name]: value })
     };
+
 
     const handleClickShowPassword = (event) => {
 
@@ -164,6 +171,11 @@ const Login = () => {
     if (checkAuth) {
         return (
             <div>
+                {/* <button type="button" onClick={() => {
+    throw new Error("Sentry Frontend Error");
+}}>
+    Throw error
+</button> */}
                 <div className="vw-100 h-100 backcolor">
                     <div className="row h-100 m-0 p-0">
                         <div className="col-sm-4 m-0 p-0 authLeft">
