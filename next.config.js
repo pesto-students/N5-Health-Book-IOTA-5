@@ -1,8 +1,18 @@
 const { PHASE_DEVELOPMENT_SERVER } = require('next/constants')
+// const { withSentryConfig } = require("@sentry/nextjs");
 
+// const SentryWebpackPluginOptions = {
+//   // Additional config options for the Sentry Webpack plugin. Keep in mind that
+//   // the following options are set automatically, and overriding them is not
+//   // recommended:
+//   //   release, url, org, project, authToken, configFile, stripPrefix,
+//   //   urlPrefix, include, ignore
 
-
-module.exports = (phase, { defaultConfig }) => {
+//   silent: true, // Suppresses all logs
+//   // For all available options, see:
+//   // https://github.com/getsentry/sentry-webpack-plugin#options.
+// };
+module.exports= (phase, { defaultConfig }) => {
   console.log("phase",phase);
   // console.log(defaultConfig);
   if (phase === PHASE_DEVELOPMENT_SERVER) {  
@@ -57,3 +67,4 @@ module.exports = (phase, { defaultConfig }) => {
       }
   }
 }
+// module.exports = withSentryConfig(moduleExports, SentryWebpackPluginOptions);
