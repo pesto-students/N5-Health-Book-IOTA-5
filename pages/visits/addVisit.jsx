@@ -152,7 +152,7 @@ class AddVisit extends React.Component {
     values.patientUid = this.state.patientUid;
     }
     fb.create(values); 
-    toast.success('Visit created successfully!',{autoClose:2000, keepAfterRouteChange:true});
+    // toast.success('Visit created successfully!',{autoClose:2000, keepAfterRouteChange:true});
     Router.push("/doctors/visits");
       };
   
