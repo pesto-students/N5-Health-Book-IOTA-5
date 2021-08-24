@@ -43,10 +43,12 @@
 - **Search** - Help users to search patient by mobile number for doctor user-type.
 - **Filters** - User can review dignostic history by filter of complaint.
 - **Services** - Diagnostic History, Visit History, Manage profile, Documents Uplaod etc.
-- **Security** - Next/React provides protection from XSS out of the box.
+- **Security** - Next/React provides protection from XSS and sanitized the user's input.
 
 ### Upcoming Features
 - Appointment Availability
+- Email Notification
+- Subscription Plan
 - Practices Management
 - Multilingual Support
 
